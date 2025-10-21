@@ -1,13 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: amori-ingress # <--- 'hello-world-ingress'에서 수정
+  name: amori-ingress
   annotations:
-    # (참고) Warning이 뜨는 부분입니다.
     kubernetes.io/ingress.class: "gce"
 spec:
-  # (권장) IngressClassName을 사용하세요.
-  # ingressClassName: gce
   rules:
   - http:
       paths:
@@ -15,6 +12,6 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: amori-backend-service # <--- 'service.yaml'의 이름과 일치
+            name: amori-backend-service
             port:
               number: 80

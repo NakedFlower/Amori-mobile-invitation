@@ -46,5 +46,7 @@ jobs:
           kubectl rollout restart deployment/amori-backend
           kubectl rollout status deployment/amori-backend
 
+          kubectl rollout status deployment/amori-backend --timeout=5m
+
       - name: Verify deployment
         run: echo "✅ Deployment completed successfully!"
