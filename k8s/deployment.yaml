@@ -18,18 +18,17 @@ spec:
         ports:
         - containerPort: 8080
         readinessProbe:
-          # Pod가 트래픽을 받을 준비가 되었는지 확인
           httpGet:
-            path: /  # main.py에 만든 헬스 체크 경로
-            port: 8080 # 컨테이너 포트
-          initialDelaySeconds: 10 # 컨테이너 시작 후 10초 기다렸다가 검사 시작
-          periodSeconds: 5      # 5초마다 검사
-          timeoutSeconds: 2       # 2초 안에 응답이 와야 함
+            path: /  
+            port: 8080 
+          initialDelaySeconds: 30 
+          periodSeconds: 10     
+          timeoutSeconds: 5       
         
         livenessProbe:
-          # Pod가 살아있는지 (죽지 않았는지) 확인
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 15 # readiness보다 늦게 시작
-          periodSeconds: 10     # 10초마다 검사
+          initialDelaySeconds: 15 
+          periodSeconds: 10    
+          timeoutSeconds: 5
