@@ -1,19 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hello-world-ingress
+  name: amori-ingress # <--- 'hello-world-ingress'에서 수정
   annotations:
-    # GKE Ingress Controller를 사용하도록 지정
+    # (참고) Warning이 뜨는 부분입니다.
     kubernetes.io/ingress.class: "gce"
 spec:
+  # (권장) IngressClassName을 사용하세요.
+  # ingressClassName: gce
   rules:
   - http:
       paths:
-      # 모든 경로(/*)의 트래픽을 hello-world-service의 80번 포트로 전달
       - path: /*
         pathType: ImplementationSpecific
         backend:
           service:
-            name: hello-world-service
+            name: amori-backend-service # <--- 'service.yaml'의 이름과 일치
             port:
               number: 80

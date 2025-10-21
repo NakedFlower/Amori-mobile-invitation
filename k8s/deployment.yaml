@@ -1,20 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world-deployment
+  name: amori-backend  # <--- 'hello-world-deployment'에서 수정
 spec:
-  replicas: 2 # 2개의 Pod를 실행
+  replicas: 2
   selector:
     matchLabels:
-      app: hello-world
+      app: amori-backend # <--- 'hello-world'에서 수정
   template:
     metadata:
       labels:
-        app: hello-world
+        app: amori-backend # <--- 'hello-world'에서 수정
     spec:
       containers:
-      - name: hello-world-api
-        # 2.2 단계에서 푸시한 이미지 주소
-        image: asia-northeast3-docker.pkg.dev/your-gcp-project-id/a-connect-backend-repo/hello-world-api:v1
+      - name: amori-backend-container # (이름은 자유)
+        image: asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/amori-docker-images/amori-backend:latest
         ports:
-        - containerPort: 8080 # Dockerfile에서 노출한 포트
+        - containerPort: 8080
