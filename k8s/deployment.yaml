@@ -17,6 +17,10 @@ spec:
         image: asia-northeast1-docker.pkg.dev/amori-475204/amori-docker-images/amori-backend:latest
         ports:
         - containerPort: 8080
+        resources:
+          requests:
+            cpu: "100m"     # 100 millicpu (0.1 CPU)
+            memory: "128Mi" # 128 Mebibytes
         readinessProbe:
           httpGet:
             path: /  
