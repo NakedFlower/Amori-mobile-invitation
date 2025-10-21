@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('홍길동'); // 데모용 사용자명
+  const [username] = useState('홍길동');
 
   const handleLogin = () => {
     setIsLoggedIn(true);
