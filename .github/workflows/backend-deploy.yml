@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          IMAGE_NAME=asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/amori-docker-images/amori-backend:latest
+          IMAGE_NAME=asia-northeast1-docker.pkg.dev/amori-475204/amori-docker-images/amori-backend:latest
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
       
