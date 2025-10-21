@@ -1,23 +1,74 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [showLoginForm, setShowLoginForm] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      {/* Header */}
+      <header className="header">
+        <div className="header-left">
+          <h1 className="brand">Amori</h1>
+        </div>
+        <nav className="header-nav">
+          <a href="#" className="nav-link">제작하기</a>
+          <a href="#" className="nav-link">제작내역</a>
+          <a href="#" className="nav-link">스마트스토어</a>
+        </nav>
+        <div className="header-right">
+          <div className="cart-section">
+            <div className="cart-icon">
+              <span className="cart-badge">0</span>
+            </div>
+            <span className="cart-text">Cart</span>
+          </div>
+          <button className="login-btn">로그인</button>
+        </div>
       </header>
+
+      {/* Main Content */}
+      <main className="main-content">
+        <div className="content-text">
+          <h2 className="main-title">지금 바로 만들어보세요</h2>
+          <p className="subtitle">
+            <span className="highlight">{1234}</span>명이 먼저 만들었어요
+          </p>
+          <p className="rating-text">
+            스마트스토어 평점 <span className="highlight">4.8</span>점, 리뷰 <span className="highlight">1,234</span>건
+          </p>
+        </div>
+        
+        <div className="button-section">
+          <button className="yellow-button">노란색 버튼</button>
+          <button className="green-button">초록색 버튼</button>
+        </div>
+
+        <div className="login-section">
+          <button 
+            className="email-login-btn"
+            onClick={() => setShowLoginForm(!showLoginForm)}
+          >
+            이메일로 로그인하기
+          </button>
+          
+          {showLoginForm && (
+            <div className="login-form">
+              <input 
+                type="email" 
+                placeholder="이메일을 입력해주세요" 
+                className="login-input"
+              />
+              <input 
+                type="password" 
+                placeholder="비밀번호를 입력해주세요" 
+                className="login-input"
+              />
+              <button className="purple-login-btn">로그인</button>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 }
