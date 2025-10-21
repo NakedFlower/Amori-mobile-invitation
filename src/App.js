@@ -12,9 +12,9 @@ function App() {
           <h1 className="brand">Amori</h1>
         </div>
         <nav className="header-nav">
-          <a href="#" className="nav-link">제작하기</a>
-          <a href="#" className="nav-link">제작내역</a>
-          <a href="#" className="nav-link">스마트스토어</a>
+          <button className="nav-link">제작하기</button>
+          <button className="nav-link">제작내역</button>
+          <button className="nav-link">스마트스토어</button>
         </nav>
         <div className="header-right">
           <div className="cart-section">
