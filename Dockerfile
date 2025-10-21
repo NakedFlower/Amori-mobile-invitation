@@ -1,15 +1,15 @@
-# Build stage
-FROM maven:3.9-eclipse-temurin-21 AS build
+# 1. 기본 이미지 설정 (Python 3.10)
+FROM python:3.10-slim
+
+# 2. 작업 디렉토리 설정
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
 
-# Run stage
-FROM eclipse-temurin:21-jre-alpine
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+# 3. 의존성 파일 복사 및 설치
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 8080
+# 4. 앱 소스코드 복사
+COPY . .
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# 5. 앱 실행 (GKE는 기본적으로 8080 포트를 선호합니다)
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]

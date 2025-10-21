@@ -1,28 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: amori-backend-ingress
+  name: hello-world-ingress
   annotations:
+    # GKE Ingress Controller를 사용하도록 지정
     kubernetes.io/ingress.class: "gce"
-    kubernetes.io/ingress.global-static-ip-name: "amori-backend-ip"
 spec:
   rules:
-  - host: api.amori.co.kr
-    http:
-      paths:
-      - path: /*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: amori-backend-service
-            port:
-              number: 80
   - http:
       paths:
+      # 모든 경로(/*)의 트래픽을 hello-world-service의 80번 포트로 전달
       - path: /*
         pathType: ImplementationSpecific
         backend:
           service:
-            name: amori-backend-service
+            name: hello-world-service
             port:
               number: 80
