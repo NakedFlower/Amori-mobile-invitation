@@ -3,7 +3,7 @@ name: Deploy Backend to GKE
 on:
   push:
     branches:
-      - dev/back
+      - dev/back 
 
 jobs:
   build-and-deploy:
