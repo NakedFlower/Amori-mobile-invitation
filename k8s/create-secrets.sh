@@ -1,8 +1,3 @@
-#!/bin/bash
-
-# Kubernetes Secret 생성 스크립트
-# 민감 정보를 Secret으로 저장
-
 kubectl create secret generic amori-secrets \
   --from-literal=db-host='34.84.144.252' \
   --from-literal=db-user='root' \
