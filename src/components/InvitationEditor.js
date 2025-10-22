@@ -3,32 +3,36 @@ import React, { useState } from 'react';
 // 5개의 화면(단계)을 각각의 컴포넌트로 분리합니다.
 // CSS 슬라이드를 위해 모든 스텝을 항상 렌더링합니다.
 
-// 단계 1: 환영
-const Step1 = ({ username, onNext }) => (
-  <div className="wizard-step">
-    <h2 className="wizard-title">{username}님, <br />결혼 축하드려요.</h2>
-    <p className="wizard-subtitle">청첩장 메인 사진으로 사용할 거예요. <br />나중에 변경할 수 있어요.</p>
-    <div className="wizard-image-placeholder large">
-      {/* 데모용 이미지 */}
-      <img 
-        src="https://i.imgur.com/gS4kXcp.png" 
-        alt="Wedding sample" 
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-      />
+// 단계 1: 결혼식 청첩장 선택 (예식종류)
+const Step1 = ({ username, onNext }) => {
+  return (
+    <div className="wizard-step">
+      <h2 className="wizard-title">{username}님, <br />결혼식 청첩장을 선택하셨어요.</h2>
+      <p className="wizard-subtitle">예식종류를 선택해주세요. <br />나중에 변경할 수 있어요.</p>
+      <div className="wizard-input-group">
+        <label>예식종류</label>
+        <input type="text" placeholder="(yyyy-MM-dd)" />
+        <label>시간</label>
+        <input type="text" placeholder="(dd HH:mm)" />
+      </div>
+      <button className="wizard-btn-primary" onClick={onNext}>
+        다음
+      </button>
     </div>
-    <button className="wizard-btn-primary" onClick={onNext}>
-      청첩장 생성하러 가기
-    </button>
-  </div>
-);
+  );
+};
 
-// 단계 2: 커버 사진
+// 단계 2: 예식 장소 입력
 const Step2 = ({ username, onNext }) => (
   <div className="wizard-step">
-    <h2 className="wizard-title">{username}님, <br />청첩장 메인 커버사진을 골라주세요.</h2>
-    <p className="wizard-subtitle">청첩장 커버사진으로 사용돼요. <br />나중에 변경할 수 있어요.</p>
-    <div className="wizard-image-placeholder medium upload-box">
-      <span>+</span>
+    <h2 className="wizard-title">{username}님, <br />예식 장소를 입력해주세요.</h2>
+    <p className="wizard-subtitle">예식 장소를 등록해 주세요. <br />교통 정보를 반영할 수 있어요.</p>
+    <div className="wizard-input-group">
+      <button className="wizard-btn-secondary">주소 검색</button>
+      <label>주소</label>
+      <input type="text" placeholder="경기도 성남시 분당구 판교로 228번길 16" />
+      <label>예식장 이름</label>
+      <input type="text" placeholder="W스퀘어컨벤션" />
     </div>
     <button className="wizard-btn-primary" onClick={onNext}>
       다음
@@ -42,12 +46,10 @@ const Step3 = ({ username, onNext }) => (
     <h2 className="wizard-title">{username}님, <br />신랑, 신부님 성함을 입력해주세요.</h2>
     <p className="wizard-subtitle">중복 입력 없이 쉽게 도와드릴게요. <br />나중에 변경할 수 있어요.</p>
     <div className="wizard-input-group">
-      <label>신랑님 성함 (신랑이름)</label>
-      <input type="text" />
-      <label>신부님 성함 (신부이름)</label>
-      <input type="text" />
-      <label>(신부이름)</label>
-      <input type="text" placeholder="예) 신부 아빠, 엄마 성함" />
+      <label>신랑님 성함</label>
+      <input type="text" placeholder="(신랑이름)" />
+      <label>신부님 성함</label>
+      <input type="text" placeholder="(신부이름)" />
     </div>
     <button className="wizard-btn-primary" onClick={onNext}>
       다음
@@ -55,41 +57,61 @@ const Step3 = ({ username, onNext }) => (
   </div>
 );
 
-// 단계 4: 예식일/시간
-const Step4 = ({ username, onNext }) => (
-  <div className="wizard-step">
-    {/* 이미지의 텍스트가 '결혼식 장점을 선택하셨어요'이지만, 입력은 날짜/시간이므로 이에 맞춥니다. */}
-    <h2 className="wizard-title">{username}님, <br />결혼식 날짜와 시간을 입력해주세요.</h2>
-    <p className="wizard-subtitle">예식일을 선택하세요. <br />나중에 변경할 수 있어요.</p>
-    <div className="wizard-input-group">
-      <label>예식일 (yyyy-mm-dd)</label>
-      <input type="text" />
-      <label>시간 (dd HH:mm)</label>
-      <input type="text" />
-    </div>
-    <button className="wizard-btn-primary" onClick={onNext}>
-      다음
-    </button>
-  </div>
-);
+// 단계 4: 청첩장 메인 커버사진
+const Step4 = ({ username, onNext }) => {
+  const [uploadedImage, setUploadedImage] = useState(null);
 
-// 단계 5: 예식 장소
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUploadedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  return (
+    <div className="wizard-step">
+      <h2 className="wizard-title">{username}님, <br />청첩장 메인 커버사진을 골라주세요.</h2>
+      <p className="wizard-subtitle">행복한 커버사진으로 사용돼요. <br />나중에 변경할 수 있어요.</p>
+      <label htmlFor="cover-image-upload" className="wizard-image-placeholder large upload-box" style={{ cursor: 'pointer' }}>
+        {uploadedImage ? (
+          <img src={uploadedImage} alt="커버 사진" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        ) : (
+          <span style={{ fontSize: '80px', color: '#ccc' }}>×</span>
+        )}
+      </label>
+      <input
+        id="cover-image-upload"
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        style={{ display: 'none' }}
+      />
+      <button className="wizard-btn-primary" onClick={onNext}>
+        다음
+      </button>
+    </div>
+  );
+};
+
+// 단계 5: 결혼 축하 (메인 사진)
 const Step5 = ({ username, onNext }) => (
   <div className="wizard-step">
-    <h2 className="wizard-title">{username}님, <br />예식 장소를 입력해주세요.</h2>
-    <p className="wizard-subtitle">예식 장소를 선택해 주세요. <br />교통 정보를 반영할 수 있어요.</p>
-    <div className="wizard-input-group">
-      <button className="wizard-btn-secondary">주소 검색</button>
-      <label>주소</label>
-      <input type="text" value="경기도 성남시 분당구 판교로 228번길 16" readOnly />
-      <label>예식장 이름</label>
-      <input type="text" />
-      <label>W스퀘어컨벤션</label>
-      <input type="text" />
+    <h2 className="wizard-title">{username}님, <br />결혼 축하드려요.</h2>
+    <p className="wizard-subtitle">행복한 모습 사진으로 사용할게요. <br />나중에 변경할 수 있어요.</p>
+    <div className="wizard-image-placeholder large">
+      {/* 데모용 이미지 */}
+      <img 
+        src="https://i.imgur.com/gS4kXcp.png" 
+        alt="Wedding sample" 
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+      />
     </div>
-    {/* 마지막 단계이므로 onNext 대신 다른 동작 (e.g., 저장)을 연결할 수 있습니다. */}
     <button className="wizard-btn-primary" onClick={onNext}>
-      다음
+      청첩장 생성하러 가기
     </button>
   </div>
 );
