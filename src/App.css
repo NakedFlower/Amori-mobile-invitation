@@ -558,8 +558,10 @@ body {
 
 .templates-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .template-card {
@@ -696,7 +698,7 @@ InvitationEditor (Wizard) Styles
 
 .wizard-progress-fill {
   height: 100%;
-  background-color: #8A2BE2; /* 보라색 (테마색) */
+  background-color: #b19cd9; /* 연한 보라색 */
   border-radius: 3px;
   transition: width 0.3s ease-in-out;
 }

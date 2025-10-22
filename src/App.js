@@ -12,6 +12,7 @@ function App() {
   // 'editor', 'signup' 뷰 상태를 추가합니다.
   const [currentView, setCurrentView] = useState('main'); // 'main', 'signup', 'dashboard', 'template', 'editor'
   const [username] = useState('홍길동');
+  const [selectedInvitationType, setSelectedInvitationType] = useState('결혼식 청첩장'); // 초대장 타입 저장
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -28,8 +29,10 @@ function App() {
   };
 
   // TemplateSelectionPage에서 템플릿이 선택되면 'editor' 뷰로 변경합니다.
-  const handleTemplateSelected = (template) => {
+  const handleTemplateSelected = (template, invitationType) => {
     console.log("선택된 템플릿을 받아옴:", template.title);
+    console.log("선택된 초대장 타입:", invitationType);
+    setSelectedInvitationType(invitationType);
     setCurrentView('editor');
   };
 
@@ -73,6 +76,7 @@ function App() {
       case 'editor':
         return <InvitationEditor 
                   username={username} 
+                  invitationType={selectedInvitationType} // 선택된 초대장 타입 전달
                   onBack={handleBackToTemplate} // 첫 단계에서 뒤로가기 시 템플릿 선택으로
                 />;
       default:

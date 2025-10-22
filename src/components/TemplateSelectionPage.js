@@ -20,9 +20,9 @@ function TemplateSelectionPage({ username, onTemplateSelected }) {
 
   const handleTemplateSelect = (template) => {
     console.log(`선택된 템플릿: ${template.title}`);
-    // 여기에 템플릿 선택 후 다음 단계로 이동하는 로직을 추가할 수 있습니다
+    // 템플릿과 함께 현재 선택된 카테고리(초대장 타입)도 전달
     if (onTemplateSelected) {
-      onTemplateSelected(template);
+      onTemplateSelected(template, selectedCategory);
     }
   };
 
