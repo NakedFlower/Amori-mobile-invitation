@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 
-function TemplateSelectionPage({ username, onBack }) {
+// 'onBack' prop이 더 이상 필요하지 않으므로 props 목록에서 제거합니다.
+function TemplateSelectionPage({ username }) {
   const [selectedCategory, setSelectedCategory] = useState('결혼식 청첩장');
 
   const categories = ['결혼식 청첩장', '돌잔치 초대장', '감사장'];
 
+  // 이미지에 맞게 title을 수정하고, 불필요한 hashtags 속성을 제거합니다.
   const templates = [
     { id: 1, title: '자체 제작', type: 'custom', icon: '+' },
-    { id: 2, title: '#우아 #로맨틱', type: 'template', hashtags: ['우아', '로맨틱'] },
-    { id: 3, title: '#심플', type: 'template', hashtags: ['심플'] },
-    { id: 4, title: '#여름', type: 'template', hashtags: ['여름'] },
-    { id: 5, title: '#야외웨딩', type: 'template', hashtags: ['야외웨딩'] },
-    { id: 6, title: '#가을', type: 'template', hashtags: ['가을'] },
-    { id: 7, title: '#겨울', type: 'template', hashtags: ['겨울'] },
-    { id: 8, title: '#깜찍 발랄', type: 'template', hashtags: ['깜찍', '발랄'] },
+    { id: 2, title: '결혼식 템플릿 #우아 #로맨틱', type: 'template' },
+    { id: 3, title: '결혼식 템플릿 #심플', type: 'template' },
+    { id: 4, title: '결혼식 템플릿 #여름', type: 'template' },
+    { id: 5, title: '결혼식 템플릿 #야외웨딩', type: 'template' },
+    { id: 6, title: '결혼식 템플릿 #가을', type: 'template' },
+    { id: 7, title: '결혼식 템플릿 #겨울', type: 'template' },
+    { id: 8, title: '결혼식 템플릿 #깜찍 발랄', type: 'template' },
   ];
 
   const handleTemplateSelect = (template) => {
@@ -56,15 +58,9 @@ function TemplateSelectionPage({ username, onBack }) {
                   <div className="template-title">{template.title}</div>
                 </div>
               ) : (
+                // hashtags 렌더링 로직을 제거하고 title만 표시하도록 단순화
                 <div className="template-content">
                   <div className="template-title">{template.title}</div>
-                  {template.hashtags && (
-                    <div className="template-hashtags">
-                      {template.hashtags.map((tag, index) => (
-                        <span key={index} className="hashtag">#{tag}</span>
-                      ))}
-                    </div>
-                  )}
                 </div>
               )}
             </div>
@@ -72,12 +68,7 @@ function TemplateSelectionPage({ username, onBack }) {
         </div>
       </div>
 
-      {/* Back Button */}
-      <div className="back-section">
-        <button className="back-btn" onClick={onBack}>
-          ← 뒤로가기
-        </button>
-      </div>
+      {/* '뒤로가기' 버튼 섹션이 이미지에 없으므로 삭제합니다. */}
     </main>
   );
 }

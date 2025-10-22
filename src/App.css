@@ -490,3 +490,191 @@ body {
     font-size: 14px;
   }
 }
+
+/* =================================
+InvitationEditor (Wizard) Styles
+=================================
+*/
+
+/* 1. 네비게이션 (화살표 + 프로그레스 바) */
+.wizard-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 500px; /* 콘텐츠 최대 너비와 맞춤 */
+  margin: 20px auto;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.wizard-nav-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  padding: 10px;
+}
+.wizard-nav-btn:hover {
+  color: #333;
+}
+
+.wizard-progress-bar {
+  flex-grow: 1;
+  height: 6px;
+  background-color: #eee;
+  border-radius: 3px;
+  margin: 0 15px;
+  overflow: hidden; /*
+}
+
+.wizard-progress-fill {
+  height: 100%;
+  background-color: #8A2BE2; /* 보라색 (테마색) */
+  border-radius: 3px;
+  transition: width 0.3s ease-in-out;
+}
+
+/* 2. 슬라이드 영역 */
+.wizard-container {
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+.wizard-slider-viewport {
+  width: 100%;
+  overflow: hidden; /* 핵심: 넘치는 스텝들을 숨김 */
+}
+
+.wizard-slider-container {
+  display: flex;
+  /* 핵심: 스텝이 바뀌면 transform 속성이 변경되며 슬라이드됨 */
+  transition: transform 0.4s ease-in-out; 
+}
+
+/* 3. 개별 스텝 (화면) 공통 스타일 */
+.wizard-step {
+  /*
+  핵심: 각 스텝이 컨테이너의 100% 너비를 차지하도록 함
+  (부모가 500% 너비이므로, 각 스텝은 1/5 = 20%의 너비를 가짐)
+  */
+  width: 100%; 
+  flex-shrink: 0;
+  
+  /* 이하로는 스텝 내부 UI 스타일 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.wizard-step .wizard-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+/* 유저이름 하이라이트 */
+.wizard-step .wizard-title {
+  color: #6a0dad; /* 보라색 */
+}
+
+.wizard-step .wizard-subtitle {
+  font-size: 14px;
+  color: #777;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* 4. 스텝별 고유 스타일 (이미지, 인풋 등) */
+.wizard-image-placeholder {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  font-size: 40px;
+  border: 2px dashed #ddd;
+}
+.wizard-image-placeholder.large {
+  width: 320px;
+  height: 480px; /* 2:3 비율 예시 */
+  overflow: hidden;
+  border: none;
+}
+.wizard-image-placeholder.medium {
+  width: 300px;
+  height: 300px; /* 1:1 비율 예시 */
+}
+.wizard-image-placeholder.upload-box {
+  cursor: pointer;
+}
+.wizard-image-placeholder img {
+  display: block;
+}
+
+
+/* 인풋 영역 */
+.wizard-input-group {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.wizard-input-group label {
+  font-size: 13px;
+  color: #555;
+  margin-top: 10px;
+}
+.wizard-input-group input[type="text"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.wizard-input-group input[type="text"]:focus {
+  outline: none;
+  border-color: #8A2BE2;
+  box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.1);
+}
+.wizard-input-group input[type="text"][readonly] {
+  background-color: #f9f9f9;
+}
+
+
+/* 버튼 */
+.wizard-btn-primary {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #8A2BE2; /* 보라색 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 30px;
+}
+.wizard-btn-secondary {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #777; /* 회색 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
