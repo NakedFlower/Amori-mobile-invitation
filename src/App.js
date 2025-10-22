@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import MainPage from './components/MainPage';
@@ -6,21 +6,52 @@ import Dashboard from './components/Dashboard';
 import TemplateSelectionPage from './components/TemplateSelectionPage';
 import InvitationEditor from './components/InvitationEditor';
 import SignupPage from './components/SignupPage';
+import { getCurrentUser, isLoggedIn as checkLogin, logout as apiLogout, getStoredUser } from './services/api';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // 'editor', 'signup' 뷰 상태를 추가합니다.
   const [currentView, setCurrentView] = useState('main'); // 'main', 'signup', 'dashboard', 'template', 'editor'
-  const [username] = useState('홍길동');
+  const [user, setUser] = useState(null); // 실제 사용자 정보
   const [selectedInvitationType, setSelectedInvitationType] = useState('결혼식 청첩장'); // 초대장 타입 저장
 
-  const handleLogin = () => {
+  // 앱 로드 시 로그인 상태 확인
+  useEffect(() => {
+    const initAuth = async () => {
+      if (checkLogin()) {
+        try {
+          // 저장된 사용자 정보로 먼저 표시
+          const storedUser = getStoredUser();
+          if (storedUser) {
+            setUser(storedUser);
+            setIsLoggedIn(true);
+            setCurrentView('dashboard');
+          }
+          
+          // 서버에서 최신 정보 가져오기
+          const currentUser = await getCurrentUser();
+          setUser(currentUser);
+        } catch (error) {
+          console.error('인증 확인 실패:', error);
+          setIsLoggedIn(false);
+          setUser(null);
+          setCurrentView('main');
+        }
+      }
+    };
+    initAuth();
+  }, []);
+
+  const handleLogin = (userData) => {
     setIsLoggedIn(true);
+    setUser(userData);
     setCurrentView('dashboard');
   };
 
   const handleLogout = () => {
+    apiLogout();
     setIsLoggedIn(false);
+    setUser(null);
     setCurrentView('main');
   };
 
@@ -65,17 +96,17 @@ function App() {
 
     switch (currentView) {
       case 'dashboard':
-        return <Dashboard username={username} onLogout={handleLogout} onNewCreationClick={handleNewCreationClick} />;
+        return <Dashboard username={user?.name || '게스트'} onLogout={handleLogout} onNewCreationClick={handleNewCreationClick} />;
       case 'template':
         // onTemplateSelected prop을 전달합니다.
         return <TemplateSelectionPage 
-                  username={username} 
+                  username={user?.name || '게스트'} 
                   onTemplateSelected={handleTemplateSelected} 
                 />;
       // 'editor' 뷰 케이스를 추가합니다.
       case 'editor':
         return <InvitationEditor 
-                  username={username} 
+                  username={user?.name || '게스트'} 
                   invitationType={selectedInvitationType} // 선택된 초대장 타입 전달
                   onBack={handleBackToTemplate} // 첫 단계에서 뒤로가기 시 템플릿 선택으로
                 />;

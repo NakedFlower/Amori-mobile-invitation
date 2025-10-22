@@ -1,11 +1,30 @@
 import React, { useState } from 'react';
+import { login } from '../services/api';
 
 function MainPage({ onLogin, onSignupClick }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    onLogin();
-    setShowLoginForm(false);
+  const handleLogin = async () => {
+    if (!email || !password) {
+      alert('이메일과 비밀번호를 입력해주세요.');
+      return;
+    }
+
+    try {
+      const response = await login(email, password);
+      alert(`환영합니다, ${response.user.name}님!`);
+      setShowLoginForm(false);
+      
+      // App.js에 로그인 성공 알림
+      if (onLogin) {
+        onLogin(response.user);
+      }
+    } catch (error) {
+      alert(error.message);
+      console.error('로그인 실패:', error);
+    }
   };
 
   return (
@@ -39,11 +58,17 @@ function MainPage({ onLogin, onSignupClick }) {
               type="email" 
               placeholder="이메일을 입력해주세요" 
               className="login-input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
             />
             <input 
               type="password" 
               placeholder="비밀번호를 입력해주세요" 
               className="login-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
             />
             <button className="purple-login-btn" onClick={handleLogin}>로그인</button>
             <div className="signup-footer">

@@ -1,0 +1,122 @@
+/**
+ * API service for backend communication
+ * Handles authentication and user data
+ */
+
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
+/**
+ * 회원가입 API 호출
+ */
+export const signup = async (formData) => {
+  const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
+    method: 'POST',
+    body: formData, // FormData 객체 전달
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.detail || '회원가입 실패');
+  }
+
+  return response.json();
+};
+
+/**
+ * 로그인 API 호출
+ */
+export const login = async (email, password) => {
+  const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.detail || '로그인 실패');
+  }
+
+  const data = await response.json();
+  
+  // JWT 토큰 저장
+  localStorage.setItem('access_token', data.access_token);
+  localStorage.setItem('user', JSON.stringify(data.user));
+  
+  return data;
+};
+
+/**
+ * 현재 사용자 정보 조회
+ */
+export const getCurrentUser = async () => {
+  const token = localStorage.getItem('access_token');
+  
+  if (!token) {
+    throw new Error('로그인이 필요합니다.');
+  }
+
+  const response = await fetch(`${API_BASE_URL}/api/user/me`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    // 토큰이 만료되었거나 유효하지 않은 경우
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user');
+    throw new Error('인증이 만료되었습니다.');
+  }
+
+  const user = await response.json();
+  localStorage.setItem('user', JSON.stringify(user));
+  
+  return user;
+};
+
+/**
+ * 로그아웃
+ */
+export const logout = () => {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('user');
+};
+
+/**
+ * 프로필 이미지 업로드
+ */
+export const uploadProfileImage = async (file) => {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const response = await fetch(`${API_BASE_URL}/api/auth/upload-image`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.detail || '이미지 업로드 실패');
+  }
+
+  return response.json();
+};
+
+/**
+ * 로컬 스토리지에서 사용자 정보 가져오기
+ */
+export const getStoredUser = () => {
+  const userStr = localStorage.getItem('user');
+  return userStr ? JSON.parse(userStr) : null;
+};
+
+/**
+ * 로그인 상태 확인
+ */
+export const isLoggedIn = () => {
+  return !!localStorage.getItem('access_token');
+};

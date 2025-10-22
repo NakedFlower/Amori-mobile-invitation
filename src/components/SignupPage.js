@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { signup } from '../services/api';
 
 function SignupPage({ onBack, onSignup }) {
   const [formData, setFormData] = useState({
@@ -31,11 +32,47 @@ function SignupPage({ onBack, onSignup }) {
     }
   };
 
-  const handleSignup = () => {
-    // 여기에 회원가입 로직 추가
-    console.log('회원가입 데이터:', formData, profileImage);
-    if (onSignup) {
-      onSignup(formData);
+  const handleSignup = async () => {
+    // 유효성 검사
+    if (!formData.name || !formData.email || !formData.password) {
+      alert('필수 정보를 모두 입력해주세요.');
+      return;
+    }
+
+    if (formData.password.length < 8) {
+      alert('비밀번호는 8자 이상이어야 합니다.');
+      return;
+    }
+
+    if (formData.password !== formData.passwordConfirm) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    try {
+      // FormData 생성
+      const apiFormData = new FormData();
+      apiFormData.append('name', formData.name);
+      apiFormData.append('email', formData.email);
+      apiFormData.append('password', formData.password);
+      if (formData.phone) {
+        apiFormData.append('phone', formData.phone);
+      }
+      if (profileImage) {
+        apiFormData.append('profile_image', profileImage);
+      }
+
+      // API 호출
+      const response = await signup(apiFormData);
+      alert(`회원가입 성공! ${response.name}님 환영합니다.`);
+      
+      // 로그인 페이지로 이동
+      if (onBack) {
+        onBack();
+      }
+    } catch (error) {
+      alert(error.message);
+      console.error('회원가입 실패:', error);
     }
   };
 
