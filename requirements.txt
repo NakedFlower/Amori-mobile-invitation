@@ -1,2 +1,11 @@
 fastapi
-uvicorn
+uvicorn[standard]
+pydantic[email]
+sqlalchemy
+aiomysql
+pymysql
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+google-cloud-storage
+python-dotenv

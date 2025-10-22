@@ -1,0 +1,72 @@
+swagger: '2.0'
+info:
+  title: Amori API Gateway
+  description: API Gateway for Amori wedding invitation platform
+  version: 1.0.0
+schemes:
+  - https
+produces:
+  - application/json
+x-google-backend:
+  address: http://34.111.59.90
+paths:
+  /api/auth/signup:
+    post:
+      summary: User signup
+      operationId: signup
+      x-google-backend:
+        address: http://34.111.59.90/api/auth/signup
+      responses:
+        '201':
+          description: Signup successful
+        '400':
+          description: Bad request
+  /api/auth/login:
+    post:
+      summary: User login
+      operationId: login
+      x-google-backend:
+        address: http://34.111.59.90/api/auth/login
+      responses:
+        '200':
+          description: Login successful
+        '401':
+          description: Unauthorized
+  /api/auth/upload-image:
+    post:
+      summary: Upload profile image
+      operationId: uploadImage
+      x-google-backend:
+        address: http://34.111.59.90/api/auth/upload-image
+      responses:
+        '200':
+          description: Upload successful
+  /api/user/me:
+    get:
+      summary: Get current user info
+      operationId: getCurrentUser
+      x-google-backend:
+        address: http://34.111.59.90/api/user/me
+      responses:
+        '200':
+          description: User info retrieved
+        '401':
+          description: Unauthorized
+  /:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      x-google-backend:
+        address: http://34.111.59.90/
+      responses:
+        '200':
+          description: Service healthy
+  /health:
+    get:
+      summary: Health check endpoint
+      operationId: healthCheckAlt
+      x-google-backend:
+        address: http://34.111.59.90/health
+      responses:
+        '200':
+          description: Service healthy

@@ -1,15 +1,48 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import os
+from dotenv import load_dotenv
 
-app = FastAPI()
+from app.routers import auth, user
+from app.database import engine, Base
 
-# 1. Health Check 엔드포인트
+load_dotenv()
+
+# FastAPI 앱 생성
+app = FastAPI(
+    title="Amori API",
+    description="Wedding invitation platform API",
+    version="1.0.0"
+)
+
+# CORS 설정 (프론트엔드와 통신)
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[FRONTEND_URL, "*"],  # 프로덕션에서는 특정 도메인만 허용
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# 라우터 등록
+app.include_router(auth.router)
+app.include_router(user.router)
+
+# Health Check 엔드포인트 (GKE Liveness/Readiness Probe용)
 @app.get("/")
-def read_root():
-    """헬스 체크를 위한 루트 엔드포인트"""
-    return {"status": "ok"}
+@app.get("/health")
+def health_check():
+    """헬스 체크를 위한 엔드포인트"""
+    return {
+        "status": "healthy",
+        "service": "amori-api",
+        "version": "1.0.0"
+    }
 
-# 2. /hello 엔드포인트
-@app.get("/hello")
-def read_hello():
-    """요청하신 Hello World 출력"""
-    return {"message": "Hello world"}
+# 앱 시작 시 DB 테이블 생성 (개발용, 프로덕션에서는 마이그레이션 도구 사용 권장)
+@app.on_event("startup")
+async def startup_event():
+    # Base.metadata.create_all(bind=engine)
+    # 주석 처리: DDL이 이미 존재하므로 테이블 자동 생성 비활성화
+    pass
