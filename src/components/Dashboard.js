@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Dashboard({ username, onLogout }) {
+function Dashboard({ username, onLogout, onNewCreationClick }) {
   const [selectedCategory, setSelectedCategory] = useState('청첩장');
   const [showContextMenu, setShowContextMenu] = useState(null); // 어떤 카드의 메뉴가 열려있는지
 
@@ -78,10 +78,10 @@ function Dashboard({ username, onLogout }) {
         ))}
         
         {/* 새로 만들기 카드 */}
-        <div className="card new-card">
+        <div className="card new-card" onClick={onNewCreationClick}>
           <div className="new-card-content">
             <div className="plus-icon">+</div>
-            <div className="new-card-text">새로운 제작하기</div>
+            <div className="new-card-text">새로 제작하기</div>
           </div>
         </div>
       </div>

@@ -21,8 +21,8 @@ function MainPage({ onLogin }) {
       </div>
       
       <div className="button-section">
-        <button className="yellow-button">노란색 버튼</button>
-        <button className="green-button">초록색 버튼</button>
+        <button className="yellow-button">카카오톡 로그인</button>
+        <button className="green-button">네이버 로그인</button>
       </div>
 
       <div className="login-section">
