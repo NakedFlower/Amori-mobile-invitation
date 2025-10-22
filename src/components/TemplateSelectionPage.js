@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // 'onBack' prop이 더 이상 필요하지 않으므로 props 목록에서 제거합니다.
-function TemplateSelectionPage({ username }) {
+function TemplateSelectionPage({ username, onTemplateSelected }) {
   const [selectedCategory, setSelectedCategory] = useState('결혼식 청첩장');
 
   const categories = ['결혼식 청첩장', '돌잔치 초대장', '감사장'];
@@ -21,6 +21,9 @@ function TemplateSelectionPage({ username }) {
   const handleTemplateSelect = (template) => {
     console.log(`선택된 템플릿: ${template.title}`);
     // 여기에 템플릿 선택 후 다음 단계로 이동하는 로직을 추가할 수 있습니다
+    if (onTemplateSelected) {
+      onTemplateSelected(template);
+    }
   };
 
   return (

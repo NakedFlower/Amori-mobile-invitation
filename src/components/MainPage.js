@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function MainPage({ onLogin }) {
+function MainPage({ onLogin, onSignupClick }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
 
   const handleLogin = () => {
@@ -46,6 +46,12 @@ function MainPage({ onLogin }) {
               className="login-input"
             />
             <button className="purple-login-btn" onClick={handleLogin}>로그인</button>
+            <div className="signup-footer">
+              <span className="signup-link-text">계정이 없으신가요? </span>
+              <button className="signup-link" onClick={onSignupClick}>
+                회원가입하기
+              </button>
+            </div>
           </div>
         )}
       </div>

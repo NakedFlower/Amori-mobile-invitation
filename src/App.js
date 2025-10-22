@@ -4,13 +4,13 @@ import Header from './components/Header';
 import MainPage from './components/MainPage';
 import Dashboard from './components/Dashboard';
 import TemplateSelectionPage from './components/TemplateSelectionPage';
-// 새로 만든 InvitationEditor 컴포넌트를 import 합니다.
-import InvitationEditor from './components/InvitationEditor'; 
+import InvitationEditor from './components/InvitationEditor';
+import SignupPage from './components/SignupPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // 'editor' 뷰 상태를 추가합니다.
-  const [currentView, setCurrentView] = useState('main'); // 'main', 'dashboard', 'template', 'editor'
+  // 'editor', 'signup' 뷰 상태를 추가합니다.
+  const [currentView, setCurrentView] = useState('main'); // 'main', 'signup', 'dashboard', 'template', 'editor'
   const [username] = useState('홍길동');
 
   const handleLogin = () => {
@@ -38,9 +38,26 @@ function App() {
     setCurrentView('template');
   };
 
+  const handleSignupClick = () => {
+    setCurrentView('signup');
+  };
+
+  const handleSignup = (formData) => {
+    console.log("회원가입 데이터:", formData);
+    // 회원가입 로직 처리 후 로그인 페이지로
+    setCurrentView('main');
+  };
+
+  const handleBackToMain = () => {
+    setCurrentView('main');
+  };
+
   const renderContent = () => {
     if (!isLoggedIn) {
-      return <MainPage onLogin={handleLogin} />;
+      if (currentView === 'signup') {
+        return <SignupPage onBack={handleBackToMain} onSignup={handleSignup} />;
+      }
+      return <MainPage onLogin={handleLogin} onSignupClick={handleSignupClick} />;
     }
 
     switch (currentView) {
