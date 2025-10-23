@@ -15,6 +15,7 @@ spec:
       containers:
       - name: amori-backend-container
         image: asia-northeast1-docker.pkg.dev/amori-475204/amori-docker-images/amori-backend:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:
