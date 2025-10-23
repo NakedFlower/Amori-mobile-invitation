@@ -3,7 +3,11 @@ kind: Deployment
 metadata:
   name: amori-backend
 spec:
+<<<<<<< HEAD
   replicas: 3
+=======
+  replicas: 2
+>>>>>>> 8e796572af60daf59f679b27a3b48403811a4ca6
   selector:
     matchLabels:
       app: amori-backend
@@ -17,6 +21,42 @@ spec:
         image: asia-northeast1-docker.pkg.dev/amori-475204/amori-docker-images/amori-backend:latest
         ports:
         - containerPort: 8080
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: amori-secrets
+              key: db-host
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: amori-secrets
+              key: db-user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: amori-secrets
+              key: db-password
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: amori-secrets
+              key: db-name
+        - name: JWT_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: amori-secrets
+              key: jwt-secret-key
+        - name: JWT_ALGORITHM
+          value: "HS256"
+        - name: JWT_ACCESS_TOKEN_EXPIRE_MINUTES
+          value: "1440"
+        - name: GCS_BUCKET_NAME
+          value: "amori-photos"
+        - name: FRONTEND_URL
+          value: "http://amori.co.kr"
         resources:
           requests:
             cpu: "100m"     # 100 millicpu (0.1 CPU)
