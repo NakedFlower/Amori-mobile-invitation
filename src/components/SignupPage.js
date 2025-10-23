@@ -9,9 +9,8 @@ function SignupPage({ onBack, onSignup }) {
     password: '',
     passwordConfirm: ''
   });
-  //const [profileImage, setProfileImage] = useState(null);
-  const [profileImage] = useState(null);
-  // const [previewUrl, setPreviewUrl] = useState(null);
+  // const [profileImage, setProfileImage] = useState(null);  // 임시 비활성화
+  // const [previewUrl, setPreviewUrl] = useState(null);  // 임시 비활성화
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +58,8 @@ function SignupPage({ onBack, onSignup }) {
       if (formData.phone) {
         apiFormData.append('phone', formData.phone);
       }
-      // if (profileImage) {  // 임시 비활성화
+      // 프로필 이미지 업로드 임시 비활성화
+      // if (profileImage) {
       //   apiFormData.append('profile_image', profileImage);
       // }
 
