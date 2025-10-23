@@ -9,7 +9,7 @@ from passlib.context import CryptContext
 import os
 
 
-# Password hashing context
+# Password hashing context (pbkdf2_sha256만 사용, bcrypt 사용 안 함)
 pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 
 # JWT settings

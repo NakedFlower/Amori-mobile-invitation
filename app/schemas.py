@@ -11,7 +11,7 @@ class SignupRequest(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
     phone: Optional[str] = Field(None, max_length=20)
     password: str = Field(..., min_length=8, max_length=100)
-    profile_image_url: Optional[str] = None
+    # profile_image_url: Optional[str] = None
 
 class SignupResponse(BaseModel):
     id: int
@@ -35,17 +35,17 @@ class UserResponse(BaseModel):
     email: str
     name: str
     phone: Optional[str]
-    profile_image_url: Optional[str]
+    # profile_image_url: Optional[str]
     status: str
     created_at: datetime
     
     class Config:
         from_attributes = True
 
-# ===== 이미지 업로드 =====
-class ImageUploadResponse(BaseModel):
-    url: str
-    message: str = "이미지 업로드 성공"
+# ===== 이미지 업로드 (임시 비활성화) =====
+# class ImageUploadResponse(BaseModel):
+#     url: str
+#     message: str = "이미지 업로드 성공"
 
 # ===== 에러 응답 =====
 class ErrorResponse(BaseModel):
