@@ -4,8 +4,10 @@ Security utilities: password hashing and JWT handling.
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import jwt
+import hashlib
 from passlib.context import CryptContext
 import os
+
 
 # Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -17,13 +19,15 @@ JWT_ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_ACCESS_TOKEN_EXPIRE_MINUTES
 
 
 def hash_password(password: str) -> str:
-    pre_hashed = hashlib.sha256(password.encode('utf-8')).hexdigest()
-    return pwd_context.hash(pre_hashed)
+    # 1. UTF-8 인코딩 후 SHA-256 해싱
+    sha256_bytes = hashlib.sha256(password.encode('utf-8')).digest()  # digest() → 32 bytes
+    # 2. bcrypt 해싱 (bytes 그대로 사용하면 72바이트 제한 내)
+    return pwd_context.hash(sha256_bytes)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    pre_hashed = hashlib.sha256(plain_password.encode('utf-8')).hexdigest()
-    return pwd_context.verify(pre_hashed, hashed_password)
+    sha256_bytes = hashlib.sha256(plain_assword.encode('utf-8')).digest()
+    return pwd_context.verify(sha256_bytes, hashed_password)
 
 
 def create_access_token(subject: str, expires_delta: Optional[timedelta] = None) -> str:
