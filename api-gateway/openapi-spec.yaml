@@ -13,26 +13,6 @@ consumes:
   - multipart/form-data
 x-google-backend:
   address: http://34.111.59.90.nip.io
-  cors:
-    allowOrigins:
-      - "https://amori.co.kr"
-      - "http://amori.co.kr"
-      - "http://localhost:3000"
-      - "http://www.amori.co.kr"
-      - "https://www.amori.co.kr"
-    allowMethods:
-      - GET
-      - POST
-      - PUT
-      - DELETE
-      - OPTIONS
-      - PATCH
-    allowHeaders:
-      - "*"
-    exposeHeaders:
-      - "*"
-    allowCredentials: true
-    maxAge: 3600
 paths:
   /api/auth/signup:
     post:
@@ -49,36 +29,10 @@ paths:
           description: Signup successful
           schema:
             type: object
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: string
         '400':
           description: Bad request
         '500':
           description: Internal server error
-    options:
-      summary: CORS preflight for signup
-      operationId: corsSignup
-      produces:
-        - application/json
-      x-google-backend:
-        address: http://34.111.59.90.nip.io/api/auth/signup
-      responses:
-        '200':
-          description: CORS preflight response
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Methods:
-              type: string
-            Access-Control-Allow-Headers:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: string
-            Access-Control-Max-Age:
-              type: string
   /api/auth/login:
     post:
       summary: User login
@@ -106,37 +60,8 @@ paths:
       responses:
         '200':
           description: Login successful
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: string
         '401':
           description: Unauthorized
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-    options:
-      summary: CORS preflight for login
-      operationId: corsLogin
-      produces:
-        - application/json
-      x-google-backend:
-        address: http://34.111.59.90.nip.io/api/auth/login
-      responses:
-        '200':
-          description: CORS preflight response
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Methods:
-              type: string
-            Access-Control-Allow-Headers:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: string
-            Access-Control-Max-Age:
-              type: string
   /api/auth/upload-image:
     post:
       summary: Upload profile image
@@ -150,32 +75,6 @@ paths:
       responses:
         '200':
           description: Upload successful
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: string
-    options:
-      summary: CORS preflight for image upload
-      operationId: corsUploadImage
-      produces:
-        - application/json
-      x-google-backend:
-        address: http://34.111.59.90.nip.io/api/auth/upload-image
-      responses:
-        '200':
-          description: CORS preflight response
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Methods:
-              type: string
-            Access-Control-Allow-Headers:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: string
-            Access-Control-Max-Age:
-              type: string
   /api/user/me:
     get:
       summary: Get current user info
@@ -192,34 +91,8 @@ paths:
       responses:
         '200':
           description: User info retrieved
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: string
         '401':
           description: Unauthorized
-    options:
-      summary: CORS preflight for user info
-      operationId: corsGetUser
-      produces:
-        - application/json
-      x-google-backend:
-        address: http://34.111.59.90.nip.io/api/user/me
-      responses:
-        '200':
-          description: CORS preflight response
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Methods:
-              type: string
-            Access-Control-Allow-Headers:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: string
-            Access-Control-Max-Age:
-              type: string
   /:
     get:
       summary: Health check
