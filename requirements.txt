@@ -5,8 +5,7 @@ sqlalchemy
 aiomysql
 pymysql
 python-jose[cryptography]
-passlib[bcrypt]
-bcrypt==3.2.0
+passlib
 python-multipart
 google-cloud-storage
 python-dotenv
