@@ -12,16 +12,16 @@ function Header({ isLoggedIn, onLogout }) {
         <button className="nav-link">스마트스토어</button>
       </nav>
       <div className="header-right">
-        <div className="cart-section">
-          <div className="cart-icon">
-            <span className="cart-badge">0</span>
-          </div>
-          <span className="cart-text">Cart</span>
-        </div>
-        {isLoggedIn ? (
-          <button className="logout-btn" onClick={onLogout}>로그아웃</button>
-        ) : (
-          <button className="login-btn">로그인</button>
+        {isLoggedIn && (
+          <>
+            <div className="cart-section">
+              <div className="cart-icon">
+                <span className="cart-badge">0</span>
+              </div>
+              <span className="cart-text">Cart</span>
+            </div>
+            <button className="logout-btn" onClick={onLogout}>로그아웃</button>
+          </>
         )}
       </div>
     </header>
