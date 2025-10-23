@@ -17,11 +17,13 @@ JWT_ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_ACCESS_TOKEN_EXPIRE_MINUTES
 
 
 def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+    pre_hashed = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    return pwd_context.hash(pre_hashed)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+    pre_hashed = hashlib.sha256(plain_password.encode('utf-8')).hexdigest()
+    return pwd_context.verify(pre_hashed, hashed_password)
 
 
 def create_access_token(subject: str, expires_delta: Optional[timedelta] = None) -> str:
