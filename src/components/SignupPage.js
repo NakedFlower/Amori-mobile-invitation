@@ -85,7 +85,7 @@ function SignupPage({ onBack, onSignup }) {
       
       <div className="signup-form">
         {/* 프로필 이미지 */}
-        <div className="profile-image-section">
+        {/* <div className="profile-image-section">
           <div className="profile-image-preview">
             {previewUrl ? (
               <img src={previewUrl} alt="프로필 미리보기" />
@@ -103,7 +103,7 @@ function SignupPage({ onBack, onSignup }) {
             onChange={handleImageChange}
             style={{ display: 'none' }}
           />
-        </div>
+        </div> */}
 
         {/* 입력 필드들 */}
         <input 
