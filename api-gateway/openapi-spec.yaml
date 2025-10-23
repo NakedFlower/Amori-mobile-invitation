@@ -15,19 +15,22 @@ x-google-backend:
   address: http://34.111.59.90.nip.io
   cors:
     allowOrigins:
-      - https://amori.co.kr
-      - http://amori.co.kr
-      - http://localhost:3000
+      - "https://amori.co.kr"
+      - "http://amori.co.kr"
+      - "http://localhost:3000"
+      - "http://www.amori.co.kr"
+      - "https://www.amori.co.kr"
     allowMethods:
       - GET
       - POST
       - PUT
       - DELETE
       - OPTIONS
+      - PATCH
     allowHeaders:
-      - Authorization
-      - Content-Type
-      - Accept
+      - "*"
+    exposeHeaders:
+      - "*"
     allowCredentials: true
     maxAge: 3600
 paths:
@@ -110,6 +113,9 @@ paths:
               type: string
         '401':
           description: Unauthorized
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
     options:
       summary: CORS preflight for login
       operationId: corsLogin
