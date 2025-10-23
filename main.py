@@ -16,7 +16,7 @@ app = FastAPI(
 )
 
 # CORS 설정 (프론트엔드와 통신)
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+FRONTEND_URL = os.getenv("FRONTEND_URLS")
 
 # 허용할 origin 목록
 allowed_origins = [
