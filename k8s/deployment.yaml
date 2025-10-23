@@ -52,7 +52,7 @@ spec:
         - name: GCS_BUCKET_NAME
           value: "amori-photos"
         - name: FRONTEND_URL
-          value: "*"
+          value: "http://amori.co.kr"
         resources:
           requests:
             cpu: "100m"     # 100 millicpu (0.1 CPU)

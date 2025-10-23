@@ -17,12 +17,27 @@ app = FastAPI(
 
 # CORS 설정 (프론트엔드와 통신)
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+
+# 허용할 origin 목록
+allowed_origins = [
+    "http://localhost:3000",
+    "http://amori.co.kr",
+    "https://amori.co.kr",
+    "http://www.amori.co.kr",
+    "https://www.amori.co.kr",
+]
+
+# 환경변수로 추가 origin이 설정되어 있으면 추가
+if FRONTEND_URL and FRONTEND_URL not in allowed_origins:
+    allowed_origins.append(FRONTEND_URL)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL, "*"],  # 프로덕션에서는 특정 도메인만 허용
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # 라우터 등록
