@@ -9,7 +9,8 @@ function SignupPage({ onBack, onSignup }) {
     password: '',
     passwordConfirm: ''
   });
-  const [profileImage, setProfileImage] = useState(null);
+  //const [profileImage, setProfileImage] = useState(null);
+  const [profileImage] = useState(null);
   // const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleInputChange = (e) => {
