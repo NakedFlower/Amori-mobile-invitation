@@ -59,9 +59,9 @@ function SignupPage({ onBack, onSignup }) {
       if (formData.phone) {
         apiFormData.append('phone', formData.phone);
       }
-      if (profileImage) {
-        apiFormData.append('profile_image', profileImage);
-      }
+      // if (profileImage) {  // 임시 비활성화
+      //   apiFormData.append('profile_image', profileImage);
+      // }
 
       // API 호출
       const response = await signup(apiFormData);
