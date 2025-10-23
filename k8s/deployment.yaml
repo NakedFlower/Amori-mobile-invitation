@@ -3,11 +3,7 @@ kind: Deployment
 metadata:
   name: amori-backend
 spec:
-<<<<<<< HEAD
-  replicas: 3
-=======
   replicas: 2
->>>>>>> 8e796572af60daf59f679b27a3b48403811a4ca6
   selector:
     matchLabels:
       app: amori-backend
