@@ -3,9 +3,10 @@ uvicorn[standard]
 pydantic[email]
 sqlalchemy
 aiomysql
-pymysql
+pmysql
 python-jose[cryptography]
 passlib[bcrypt]
+bcrypt==4.0.1
 python-multipart
 google-cloud-storage
 python-dotenv
