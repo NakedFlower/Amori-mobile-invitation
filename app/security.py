@@ -19,15 +19,19 @@ JWT_ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_ACCESS_TOKEN_EXPIRE_MINUTES
 
 
 def hash_password(password: str) -> str:
-    # 1. UTF-8 인코딩 후 SHA-256 해싱
-    sha256_bytes = hashlib.sha256(password.encode('utf-8')).digest()  # digest() → 32 bytes
-    # 2. bcrypt 해싱 (bytes 그대로 사용하면 72바이트 제한 내)
-    return pwd_context.hash(sha256_bytes)
+    # return pwd_context.hash(password)
+    # 1. SHA-256으로 먼저 해시
+    sha256_bytes = hashlib.sha256(password.encode("utf-8")).digest()
+    # 2. bcrypt는 문자열만 받으므로 hex 문자열로 변환
+    hex_string = sha256_bytes.hex()
+    # 3. bcrypt 해싱
+    return pwd_context.hash(hex_string)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    sha256_bytes = hashlib.sha256(plain_assword.encode('utf-8')).digest()
-    return pwd_context.verify(sha256_bytes, hashed_password)
+    sha256_bytes = hashlib.sha256(plain_password.encode("utf-8")).digest()
+    hex_string = sha256_bytes.hex()
+    return pwd_context.verify(hex_string, hashed_password)
 
 
 def create_access_token(subject: str, expires_delta: Optional[timedelta] = None) -> str:
