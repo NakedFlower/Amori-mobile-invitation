@@ -87,24 +87,24 @@ export const logout = () => {
 };
 
 /**
- * 프로필 이미지 업로드
+ * 프로필 이미지 업로드 (임시 비활성화)
  */
-export const uploadProfileImage = async (file) => {
-  const formData = new FormData();
-  formData.append('image', file);
-
-  const response = await fetch(`${API_BASE_URL}/api/auth/upload-image`, {
-    method: 'POST',
-    body: formData,
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.detail || '이미지 업로드 실패');
-  }
-
-  return response.json();
-};
+// export const uploadProfileImage = async (file) => {
+//   const formData = new FormData();
+//   formData.append('image', file);
+//
+//   const response = await fetch(`${API_BASE_URL}/api/auth/upload-image`, {
+//     method: 'POST',
+//     body: formData,
+//   });
+//
+//   if (!response.ok) {
+//     const error = await response.json();
+//     throw new Error(error.detail || '이미지 업로드 실패');
+//   }
+//
+//   return response.json();
+// };
 
 /**
  * 로컬 스토리지에서 사용자 정보 가져오기
