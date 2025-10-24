@@ -7,17 +7,46 @@ import React, { useState } from 'react';
 // 결혼식 청첩장 단계들
 // =======================
 
-// 단계 1: 결혼식 청첩장 선택 (예식종류)
+// 단계 1: 결혼식 청첩장 선택 (예식 날짜 및 시간)
 const Step1 = ({ username, onNext }) => {
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(1);
+  const [day, setDay] = useState(1);
+  const [hour, setHour] = useState(14);
+  const [minute, setMinute] = useState(0);
+
+  const years = Array.from({ length: 5 }, (_, i) => new Date().getFullYear() + i);
+  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  const hours = Array.from({ length: 24 }, (_, i) => i);
+  const minutes = [0, 10, 20, 30, 40, 50];
+
   return (
     <div className="wizard-step">
       <h2 className="wizard-title">{username}님, <br />결혼식 청첩장을 선택하셨어요.</h2>
-      <p className="wizard-subtitle">예식종류를 선택해주세요. <br />나중에 변경할 수 있어요.</p>
+      <p className="wizard-subtitle">예식 날짜와 시간을 선택해주세요. <br />나중에 변경할 수 있어요.</p>
       <div className="wizard-input-group">
-        <label>예식종류</label>
-        <input type="text" placeholder="(yyyy-MM-dd)" />
-        <label>시간</label>
-        <input type="text" placeholder="(dd HH:mm)" />
+        <label>예식 날짜</label>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <select value={year} onChange={(e) => setYear(Number(e.target.value))} style={{ flex: 1, padding: '10px' }}>
+            {years.map(y => <option key={y} value={y}>{y}년</option>)}
+          </select>
+          <select value={month} onChange={(e) => setMonth(Number(e.target.value))} style={{ flex: 1, padding: '10px' }}>
+            {months.map(m => <option key={m} value={m}>{m}월</option>)}
+          </select>
+          <select value={day} onChange={(e) => setDay(Number(e.target.value))} style={{ flex: 1, padding: '10px' }}>
+            {days.map(d => <option key={d} value={d}>{d}일</option>)}
+          </select>
+        </div>
+        <label>예식 시간</label>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <select value={hour} onChange={(e) => setHour(Number(e.target.value))} style={{ flex: 1, padding: '10px' }}>
+            {hours.map(h => <option key={h} value={h}>{String(h).padStart(2, '0')}시</option>)}
+          </select>
+          <select value={minute} onChange={(e) => setMinute(Number(e.target.value))} style={{ flex: 1, padding: '10px' }}>
+            {minutes.map(m => <option key={m} value={m}>{String(m).padStart(2, '0')}분</option>)}
+          </select>
+        </div>
       </div>
       <button className="wizard-btn-primary" onClick={onNext}>
         다음
@@ -124,17 +153,46 @@ const Step5 = ({ username, onNext }) => (
 // 돌잔치 초대장 단계들
 // =======================
 
-// 돌잔치 단계 1: 돌잔치 선택 확인
+// 돌쟔치 단계 1: 돌쟔치 선택 확인
 const DolStep1 = ({ username, onNext }) => {
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(1);
+  const [day, setDay] = useState(1);
+  const [hour, setHour] = useState(14);
+  const [minute, setMinute] = useState(0);
+
+  const years = Array.from({ length: 5 }, (_, i) => new Date().getFullYear() + i);
+  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  const hours = Array.from({ length: 24 }, (_, i) => i);
+  const minutes = [0, 10, 20, 30, 40, 50];
+
   return (
     <div className="wizard-step">
-      <h2 className="wizard-title">{username}님, <br />돌잔치 초대장을 선택하셨어요.</h2>
-      <p className="wizard-subtitle">돌잔치 정보를 입력해주세요. <br />나중에 변경할 수 있어요.</p>
+      <h2 className="wizard-title">{username}님, <br />돌쟔치 초대장을 선택하셨어요.</h2>
+      <p className="wizard-subtitle">돌쟔치 날짜와 시간을 선택해주세요. <br />나중에 변경할 수 있어요.</p>
       <div className="wizard-input-group">
-        <label>행사 일정</label>
-        <input type="text" placeholder="(yyyy-MM-dd)" />
-        <label>시간</label>
-        <input type="text" placeholder="(dd HH:mm)" />
+        <label>행사 날짜</label>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <select value={year} onChange={(e) => setYear(Number(e.target.value))} style={{ flex: 1, padding: '10px' }}>
+            {years.map(y => <option key={y} value={y}>{y}년</option>)}
+          </select>
+          <select value={month} onChange={(e) => setMonth(Number(e.target.value))} style={{ flex: 1, padding: '10px' }}>
+            {months.map(m => <option key={m} value={m}>{m}월</option>)}
+          </select>
+          <select value={day} onChange={(e) => setDay(Number(e.target.value))} style={{ flex: 1, padding: '10px' }}>
+            {days.map(d => <option key={d} value={d}>{d}일</option>)}
+          </select>
+        </div>
+        <label>행사 시간</label>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <select value={hour} onChange={(e) => setHour(Number(e.target.value))} style={{ flex: 1, padding: '10px' }}>
+            {hours.map(h => <option key={h} value={h}>{String(h).padStart(2, '0')}시</option>)}
+          </select>
+          <select value={minute} onChange={(e) => setMinute(Number(e.target.value))} style={{ flex: 1, padding: '10px' }}>
+            {minutes.map(m => <option key={m} value={m}>{String(m).padStart(2, '0')}분</option>)}
+          </select>
+        </div>
       </div>
       <button className="wizard-btn-primary" onClick={onNext}>
         다음
