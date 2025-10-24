@@ -925,6 +925,18 @@ InvitationCreator Styles
   text-transform: uppercase;
   letter-spacing: 0.5px;
   background-color: #fafafa;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sidebar-section-header:hover {
+  background-color: #f0f0f0;
+  color: #8e44ad;
+}
+
+.sidebar-section-header.active {
+  background-color: #f0e6ff;
+  color: #8e44ad;
 }
 
 .sidebar-item {
@@ -1354,7 +1366,7 @@ InvitationCreator Styles
   display: flex;
   flex-direction: column;
   padding: 20px;
-  min-width: 500px;
+  min-width: 0;
 }
 
 .preview-header {
@@ -1383,8 +1395,9 @@ InvitationCreator Styles
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  max-width: 1000px;
+  max-width: 100%;
   margin: 0 auto;
+  width: 100%;
 }
 
 .preview-content {
