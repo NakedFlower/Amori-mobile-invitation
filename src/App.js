@@ -5,13 +5,14 @@ import MainPage from './components/MainPage';
 import Dashboard from './components/Dashboard';
 import TemplateSelectionPage from './components/TemplateSelectionPage';
 import InvitationEditor from './components/InvitationEditor';
+import InvitationCreator from './components/InvitationCreator';
 import SignupPage from './components/SignupPage';
 import { getCurrentUser, isLoggedIn as checkLogin, logout as apiLogout, getStoredUser } from './services/api';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // 'editor', 'signup' 뷰 상태를 추가합니다.
-  const [currentView, setCurrentView] = useState('main'); // 'main', 'signup', 'dashboard', 'template', 'editor'
+  // 'editor', 'signup', 'creator' 뷰 상태를 추가합니다.
+  const [currentView, setCurrentView] = useState('main'); // 'main', 'signup', 'dashboard', 'template', 'editor', 'creator'
   const [user, setUser] = useState(null); // 실제 사용자 정보
   const [selectedInvitationType, setSelectedInvitationType] = useState('결혼식 청첩장'); // 초대장 타입 저장
 
@@ -77,6 +78,18 @@ function App() {
     window.history.pushState({}, '', '/template');
   };
 
+  // 청첩장 생성하러 가기
+  const handleGoToCreator = () => {
+    setCurrentView('creator');
+    window.history.pushState({}, '', '/creator');
+  };
+
+  // Creator에서 뒤로가기
+  const handleBackFromCreator = () => {
+    setCurrentView('dashboard');
+    window.history.pushState({}, '', '/dashboard');
+  };
+
   const handleSignupClick = () => {
     setCurrentView('signup');
     window.history.pushState({}, '', '/signup');
@@ -116,6 +129,12 @@ function App() {
                   username={user?.name || '게스트'} 
                   invitationType={selectedInvitationType} // 선택된 초대장 타입 전달
                   onBack={handleBackToTemplate} // 첫 단계에서 뒤로가기 시 템플릿 선택으로
+                  onNext={handleGoToCreator} // 마지막 단계에서 creator로
+                />;
+      case 'creator':
+        return <InvitationCreator 
+                  username={user?.name || '게스트'}
+                  onBack={handleBackFromCreator}
                 />;
       default:
         return <MainPage onLogin={handleLogin} />;

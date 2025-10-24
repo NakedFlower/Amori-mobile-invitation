@@ -264,7 +264,7 @@ const DolStep5 = ({ username, onNext }) => (
 
 
 // --- 메인 컴포넌트 ---
-function InvitationEditor({ username, invitationType, onBack }) {
+function InvitationEditor({ username, invitationType, onBack, onNext }) {
   const [currentStep, setCurrentStep] = useState(0); // 0부터 4까지 (총 5단계)
   const totalSteps = 5;
   
@@ -276,10 +276,13 @@ function InvitationEditor({ username, invitationType, onBack }) {
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      // 마지막 단계에서 '다음' 버튼 클릭 시 (e.g., 대시보드로 이동)
+      // 마지막 단계에서 '다음' 버튼 클릭 시 (creator로 이동)
       console.log('초대장 생성 완료!');
-      // 예시: onBack()을 호출하여 대시보드(혹은 템플릿 선택)로 돌아갑니다.
-      onBack(); 
+      if (onNext) {
+        onNext(); // creator로 이동
+      } else {
+        onBack(); 
+      }
     }
   };
 
