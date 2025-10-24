@@ -122,9 +122,18 @@ function App() {
     }
   };
 
+  const handleNavigate = (view) => {
+    setCurrentView(view);
+    window.history.pushState({}, '', `/${view === 'main' ? '' : view}`);
+  };
+
   return (
     <div className="App">
-      <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      <Header 
+        isLoggedIn={isLoggedIn} 
+        onLogout={handleLogout} 
+        onNavigate={handleNavigate}
+      />
       {renderContent()}
     </div>
   );

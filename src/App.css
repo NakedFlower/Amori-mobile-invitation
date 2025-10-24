@@ -721,12 +721,16 @@ InvitationEditor (Wizard) Styles
 /* 2. 슬라이드 영역 */
 .wizard-container {
   width: 100%;
+  padding: 20px;
   padding-bottom: 50px;
+  background-color: #f5f5f5;
+  min-height: calc(100vh - 80px);
 }
 
 .wizard-slider-viewport {
   width: 100%;
   overflow: hidden; /* 핵심: 넘치는 스텝들을 숨김 */
+  min-height: 600px;
 }
 
 .wizard-slider-container {
