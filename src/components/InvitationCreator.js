@@ -27,8 +27,8 @@ function InvitationCreator({ username, onBack }) {
     shareMessage: '',
     useLocationFeature: false,
     
-    // 색상 관리
-    colors: [
+    // 섹션 관리
+    sections: [
       { id: 1, name: '본문 공통', color: '#D5A9B5', enabled: true },
       { id: 2, name: '인사말', color: '#D5A9B5', enabled: true },
       { id: 3, name: '사진첩', color: '#D5A9B5', enabled: true },
@@ -43,7 +43,7 @@ function InvitationCreator({ username, onBack }) {
       { id: 12, name: '전화번호', color: '#D5A9B5', enabled: false },
       { id: 13, name: '인사사항', color: '#D5A9B5', enabled: true },
       { id: 14, name: '영상', color: '#D5A9B5', enabled: true },
-      { id: 15, name: '예권현금', color: '#D5A9B5', enabled: true }
+      { id: 15, name: '애견화동', color: '#D5A9B5', enabled: true }
     ],
     
     // 본문 공통
@@ -121,7 +121,7 @@ function InvitationCreator({ username, onBack }) {
     busTitle: '전화 버스 연락처',
     busDesc: '호키사간: 예식 당일 07:00, 09:00, 10:00 \n\n한순우스: 컴실북, 서울역, 영등포역 \n인순을 연락처: 010-xxxx-xxxx \n버스폰 연락처: 010-xxxx-xxxx',
     
-    // 애건화동
+    // 애견화동
     petTitle: '예권 현생',
     petPhoto: '',
     petDesc: '사랑스러운 손이의 학동이 결역을 축복합니다. \n볈지도, 니지도 않게 \n\n서로의 후는에 스마트엀고 \n아름, 하나의 이름이 됩니다.',
@@ -144,7 +144,7 @@ function InvitationCreator({ username, onBack }) {
       { name: '화면 효과', items: [] }
     ],
     '본문': [
-      { name: '색상 관리', items: [] },
+      { name: '섹션 관리', items: [] },
       { name: '본문 공통', items: [] },
       { name: '인사말', items: [] },
       { name: '사진첩', items: [] },
@@ -290,12 +290,16 @@ function InvitationCreator({ username, onBack }) {
               <div className="panel-content">
                 <h4>예식 정보</h4>
                 <div className="form-group">
-                  <label>예식장 이름</label>
-                  <input type="text" placeholder="{placename}" />
+                  <label>예식 날짜</label>
+                  <input type="text" placeholder="{yyyy-MM-dd}" />
                 </div>
                 <div className="form-group">
                   <label>시간</label>
                   <input type="text" placeholder="{dd HH:mm}" />
+                </div>
+                <div className="form-group">
+                  <label>예식장 이름</label>
+                  <input type="text" placeholder="{placename}" />
                 </div>
                 <div className="form-group">
                   <label>신랑님 성함</label>
@@ -304,10 +308,6 @@ function InvitationCreator({ username, onBack }) {
                 <div className="form-group">
                   <label>신부님 성함</label>
                   <input type="text" placeholder="{신부이름}" />
-                </div>
-                <div className="form-group">
-                  <label>예식 날짜</label>
-                  <input type="text" placeholder="{yyyy-MM-dd}" />
                 </div>
               </div>
             </div>
@@ -343,32 +343,32 @@ function InvitationCreator({ username, onBack }) {
     
     if (activeTab === '본문') {
       switch (activeSidebarItem) {
-        case '색상 관리':
+        case '섹션 관리':
           return (
             <div className="edit-panel">
               <div className="panel-header">
-                <h3>색상 관리</h3>
+                <h3>섹션 관리</h3>
                 <button className="close-btn">×</button>
               </div>
               <div className="panel-content">
-                <h4>색상 순서 변경</h4>
+                <h4>섹션 순서 변경</h4>
                 <p className="panel-description">
-                  서울 색상의 순서를 울릴수 이코로 유알량 드래그 크래 정잘 턴정피랄 파숫하세요.
+                  사용할 섹션의 순서와 활성화 여부를 선택해 프레임에 적용해보세요. 
                 </p>
-                <div className="color-management-list">
-                  {invitationData.colors.map(color => (
-                    <div key={color.id} className="color-item">
+                <div className="section-management-list">
+                  {invitationData.sections.map(section => (
+                    <div key={section.id} className="section-item">
                       <div className="drag-handle">☰</div>
-                      <div className="color-name">{color.name}</div>
+                      <div className="section-name">{section.name}</div>
                       <label className="toggle-switch">
                         <input 
                           type="checkbox" 
-                          checked={color.enabled}
+                          checked={section.enabled}
                           onChange={() => {
-                            const updatedColors = invitationData.colors.map(c => 
-                              c.id === color.id ? {...c, enabled: !c.enabled} : c
+                            const updatedSections = invitationData.sections.map(s => 
+                              s.id === section.id ? {...s, enabled: !s.enabled} : s
                             );
-                            updateInvitationData('colors', updatedColors);
+                            updateInvitationData('sections', updatedSections);
                           }}
                         />
                         <span className="slider"></span>
@@ -383,8 +383,8 @@ function InvitationCreator({ username, onBack }) {
         case '본문 공통':
           return (
             <div className="edit-panel">
-              <div className="panel-header">
-                <h3>본문 공통 편집</h3>
+              <div className="panel-header">  
+                <h3>본문 공통</h3>
                 <button className="close-btn">×</button>
               </div>
               <div className="panel-content">
@@ -415,11 +415,11 @@ function InvitationCreator({ username, onBack }) {
                 <h4>본문 폰트</h4>
                 <div className="form-group">
                   <label>예를 50 고객</label>
-                  <input type="text" placeholder="우리, 궁중합니다" readOnly />
+                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 <div className="form-group">
                   <label>나늘 맹조</label>
-                  <input type="text" placeholder="우리, 궁중합니다" readOnly />
+                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 <div className="form-group">
                   <label>여를 호수</label>
@@ -429,29 +429,29 @@ function InvitationCreator({ username, onBack }) {
                 </div>
                 <div className="form-group">
                   <label>고용 순출</label>
-                  <input type="text" placeholder="우리, 궁중합니다" readOnly />
+                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 <div className="form-group">
                   <label>고용 버넓</label>
-                  <input type="text" placeholder="우리, 궁중합니다" readOnly />
+                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 
                 <h4>본문 폰트</h4>
                 <div className="form-group">
                   <label>예를 50 고객</label>
-                  <input type="text" placeholder="우리, 궁중합니다" readOnly />
+                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 <div className="form-group">
                   <label>나늘 맹조</label>
-                  <input type="text" placeholder="우리, 궁중합니다" readOnly />
+                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 <div className="form-group">
                   <label>고용 순출</label>
-                  <input type="text" placeholder="우리, 궁중합니다" readOnly />
+                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 <div className="form-group">
                   <label>고용 버넓</label>
-                  <input type="text" placeholder="우리, 궁중합니다" readOnly />
+                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 
                 <div className="form-group">
@@ -474,7 +474,7 @@ function InvitationCreator({ username, onBack }) {
                 <button className="close-btn">×</button>
               </div>
               <div className="panel-content">
-                <h4>호구</h4>
+                <h4>문구</h4>
                 <div className="form-group">
                   <input 
                     type="text" 
@@ -489,24 +489,24 @@ function InvitationCreator({ username, onBack }) {
                   <button className="btn-add-photo">사진 추가</button>
                 </div>
                 
-                <h4>인사말 부구</h4>
+                <h4>인사말 문구</h4>
                 <div className="greeting-names-section">
                   <div className="name-group">
-                    <label>신랑 이미지 성함</label>
+                    <label>신랑 아버님 성함</label>
                     <div className="name-inputs">
                       <input type="text" value={invitationData.groomTitle} readOnly />
                       <button className="btn-icon">📝</button>
                     </div>
                   </div>
                   <div className="name-group">
-                    <label>신랑 이미지 성함</label>
+                    <label>신랑 어머님 성함</label>
                     <div className="name-inputs">
                       <input type="text" value={invitationData.groomName2} />
                       <button className="btn-icon">📝</button>
                     </div>
                   </div>
                   <div className="name-group">
-                    <label>신랑 이미지 성함</label>
+                    <label>신부 아버님 성함</label>
                     <div className="name-inputs">
                       <input type="text" value={invitationData.groomName3} />
                       <button className="btn-icon">📝</button>
@@ -514,29 +514,15 @@ function InvitationCreator({ username, onBack }) {
                   </div>
                   
                   <div className="name-group">
-                    <label>신부 이미지 성함</label>
+                    <label>신부 어머님 성함</label>
                     <div className="name-inputs">
                       <input type="text" value={invitationData.brideTitle} readOnly />
                       <button className="btn-icon">📝</button>
                     </div>
                   </div>
-                  <div className="name-group">
-                    <label>신부 이미지 성함</label>
-                    <div className="name-inputs">
-                      <input type="text" value={invitationData.brideName2} />
-                      <button className="btn-icon">📝</button>
-                    </div>
-                  </div>
-                  <div className="name-group">
-                    <label>신부 이미지 성함</label>
-                    <div className="name-inputs">
-                      <input type="text" value={invitationData.brideName3} />
-                      <button className="btn-icon">📝</button>
-                    </div>
-                  </div>
                   
                   <div className="name-group">
-                    <label>신랑 조칭</label>
+                    <label>신랑 호칭</label>
                     <input type="text" value="아들" readOnly />
                   </div>
                   <div className="name-group">
@@ -544,7 +530,7 @@ function InvitationCreator({ username, onBack }) {
                     <input type="text" value="홍길동" />
                   </div>
                   <div className="name-group">
-                    <label>신랑 조칭</label>
+                    <label>신랑 호칭</label>
                     <input type="text" value="딸" readOnly />
                   </div>
                   <div className="name-group">
@@ -569,14 +555,14 @@ function InvitationCreator({ username, onBack }) {
                   <input type="text" value="사진첩" readOnly />
                 </div>
                 
-                <h4>사진 반경 방법</h4>
+                <h4>사진 보기 방식</h4>
                 <div className="photo-ratio-buttons">
                   <button className="btn-ratio">1:1</button>
                   <button className="btn-ratio">3:4</button>
                 </div>
                 <div className="photo-ratio-buttons">
-                  <button className="btn-ratio">픽역 반경 적용</button>
-                  <button className="btn-ratio">픽역 반경</button>
+                  <button className="btn-ratio">확대 방지 적용</button>
+                  <button className="btn-ratio">확대 방지</button>
                 </div>
                 
                 <h4>사진 추가</h4>
@@ -621,13 +607,13 @@ function InvitationCreator({ username, onBack }) {
                   />
                 </div>
                 
-                <h4>안내 본구</h4>
+                <h4>안내 문구</h4>
                 <div className="form-group">
                   <input 
                     type="text" 
                     value={invitationData.ceremonyFloor}
                     onChange={(e) => updateInvitationData('ceremonyFloor', e.target.value)}
-                    placeholder="예식 안내 본구"
+                    placeholder="예식 안내 문구"
                   />
                 </div>
               </div>
@@ -692,7 +678,7 @@ function InvitationCreator({ username, onBack }) {
                   </div>
                   <textarea 
                     rows="4" 
-                    placeholder="1. 호텔 도비를 가고 우건쪽 후 잠책 2선산드로로 진입하면 삼펑역 오른쪽에 위치"
+                    placeholder="삼성역 오른쪽에 위치"
                   ></textarea>
                 </div>
               </div>
@@ -826,14 +812,14 @@ function InvitationCreator({ username, onBack }) {
                   />
                 </div>
                 
-                <h4>자동 관라 사용</h4>
+                <h4>자동 팝업 사용</h4>
                 <div className="checkbox-option">
                   <input type="checkbox" id="cover-attend" defaultChecked />
-                  <label htmlFor="cover-attend">커버 관라</label>
+                  <label htmlFor="cover-attend">커버 팝업</label>
                 </div>
                 <div className="checkbox-option">
                   <input type="checkbox" id="text-attend" defaultChecked />
-                  <label htmlFor="text-attend">본문 관라</label>
+                  <label htmlFor="text-attend">본문 팝업</label>
                 </div>
                 <div className="checkbox-option">
                   <input type="checkbox" id="attend-count" defaultChecked />
@@ -860,7 +846,7 @@ function InvitationCreator({ username, onBack }) {
                   />
                 </div>
                 
-                <h4>사진 또는 변편</h4>
+                <h4>사진 보기 방식</h4>
                 <div className="form-group">
                   <button className="btn-add-photo">사진 추가</button>
                 </div>
@@ -880,13 +866,11 @@ function InvitationCreator({ username, onBack }) {
                     onChange={(e) => updateInvitationData('photoboothDesc', e.target.value)}
                   />
                 </div>
-                
-                <h4>예식일 본문 참세문에 위치해있습니다.</h4>
               </div>
             </div>
           );
         
-        case '피로에':
+        case '피로연':
           return (
             <div className="edit-panel">
               <div className="panel-header">
@@ -927,11 +911,11 @@ function InvitationCreator({ username, onBack }) {
             </div>
           );
         
-        case '인사사항':
+        case '안내사항':
           return (
             <div className="edit-panel">
               <div className="panel-header">
-                <h3>인내 사항</h3>
+                <h3>안내 사항</h3>
                 <button className="close-btn">×</button>
               </div>
               <div className="panel-content">
@@ -985,11 +969,11 @@ function InvitationCreator({ username, onBack }) {
             </div>
           );
         
-        case '애건화동':
+        case '애견화동':
           return (
             <div className="edit-panel">
               <div className="panel-header">
-                <h3>애건 화동</h3>
+                <h3>애견 화동</h3>
                 <button className="close-btn">×</button>
               </div>
               <div className="panel-content">
