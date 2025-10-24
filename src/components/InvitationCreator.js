@@ -31,18 +31,35 @@ function InvitationCreator({ username, onBack }) {
   
   const sidebarItems = {
     '커버': [
-      { name: '커버 타입', items: ['커버 타입 변경', '공지/제목 색상'] },
-      { name: '본문', items: ['이미지', '기능'] }
+      { name: '커버 타입', items: [] },
+      { name: '글자/배경 색상', items: [] },
+      { name: '커버 사진', items: [] },
+      { name: '예식 정보', items: [] },
+      { name: '배경 음악', items: [] },
+      { name: '화면 효과', items: [] }
     ],
     '본문': [
-      { name: '공수', items: ['인사말', '혼주'] },
-      { name: '이미지', items: ['이미지'] },
-      { name: '기능', items: [] }
+      { name: '색상 관리', items: [] },
+      { name: '본문 공유', items: [] },
+      { name: '인사말', items: [] },
+      { name: '사진첩', items: [] },
+      { name: '예식 안내', items: [] },
+      { name: '오시는 길', items: [] },
+      { name: '마음 전하는 곳', items: [] },
+      { name: '방명록', items: [] },
+      { name: 'D-day', items: [] },
+      { name: '참석의사', items: [] },
+      { name: '포토부스', items: [] },
+      { name: '피로에', items: [] },
+      { name: '인사사항', items: [] },
+      { name: '전화번호', items: [] },
+      { name: '예권현금', items: [] },
+      { name: '영상', items: [] }
     ],
     '공유': [
-      { name: '공수', items: [] },
+      { name: '문구', items: [] },
       { name: '이미지', items: [] },
-      { name: '혼주', items: [] }
+      { name: '편집', items: [] }
     ]
   };
 
@@ -56,85 +73,160 @@ function InvitationCreator({ username, onBack }) {
   const renderEditPanel = () => {
     if (activeTab === '커버') {
       switch (activeSidebarItem) {
-        case '커버 타입 변경':
+        case '커버 타입':
           return (
             <div className="edit-panel">
               <div className="panel-header">
-                <h3>확대 로고</h3>
+                <h3>커버 타입 편집</h3>
                 <button className="close-btn">×</button>
               </div>
-              <div className="checkbox-option">
-                <input type="checkbox" id="use-logo" defaultChecked />
-                <label htmlFor="use-logo">스크롤 속도 배경과 적용</label>
-              </div>
-            </div>
-          );
-        
-        case '공지/제목 색상':
-          return (
-            <div className="edit-panel">
-              <h3>공지/제목 색상 선택</h3>
-              <div className="color-input-group">
-                <label>메인 텍스트</label>
-                <input type="text" value={invitationData.mainText} onChange={(e) => updateInvitationData('mainText', e.target.value)} />
-                <label>색상</label>
-                <div className="color-selector">
-                  <button>연자</button>
-                  <button>보통</button>
-                  <button>진함</button>
+              <div className="panel-content">
+                <h4>커버 타입</h4>
+                <div className="cover-type-grid">
+                  {[1, 2, 3, 4, 5, 6].map(i => (
+                    <div key={i} className="cover-type-item">
+                      <div className="cover-type-placeholder"></div>
+                    </div>
+                  ))}
                 </div>
-                <div className="color-palette">
-                  <div className="color-grid">
-                    {['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'].map(color => (
-                      <div key={color} className="color-box" style={{ backgroundColor: color }}></div>
-                    ))}
+                <div className="animation-section">
+                  <h4>애니메이션 설정</h4>
+                  <div className="checkbox-option">
+                    <input type="checkbox" id="use-animation" />
+                    <label htmlFor="use-animation">애니메이션 설정</label>
                   </div>
                 </div>
               </div>
             </div>
           );
         
-        case '이미지':
+        case '글자/배경 색상':
           return (
             <div className="edit-panel">
               <div className="panel-header">
-                <h3>컬러 복사시 사용할 이미지</h3>
+                <h3>커버 글자/배경 색상</h3>
                 <button className="close-btn">×</button>
               </div>
-              <div className="image-options">
-                <div className="image-option-row">
-                  <img src="https://i.imgur.com/gS4kXcp.png" alt="웨딩1" className="option-image" />
-                  <div className="option-buttons">
-                    <button className="btn-option">작게하기</button>
-                    <button className="btn-option">삭제 되돌리기</button>
+              <div className="panel-content">
+                <h4>커버 글자/배경 색상</h4>
+                <div className="form-group">
+                  <label>커버 텍스트</label>
+                  <input 
+                    type="text" 
+                    value={invitationData.mainText} 
+                    onChange={(e) => updateInvitationData('mainText', e.target.value)}
+                    placeholder="Will you marry me?"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>폰트</label>
+                  <input type="text" placeholder="{font}" />
+                </div>
+                <div className="form-group">
+                  <label>폰트 사이즈</label>
+                  <div className="font-size-buttons">
+                    <button className="btn-font-size">작게</button>
+                    <button className="btn-font-size">보통</button>
+                    <button className="btn-font-size">크게</button>
                   </div>
                 </div>
-                <div className="image-option-row">
-                  <img src="https://via.placeholder.com/150x200/333/fff" alt="웨딩2" className="option-image" />
-                  <div className="option-buttons">
-                    <button className="btn-option">작게하기</button>
-                    <button className="btn-option">삭제 되돌리기</button>
+                <div className="form-group">
+                  <label>글자</label>
+                  <div className="color-palette">
+                    <div className="color-swatch" style={{backgroundColor: '#000000'}}></div>
+                    <div className="color-grid">
+                      {['#E8E8E8', '#FFCCCC', '#FF9999', '#FF6666', '#FF3333', '#FF0000',
+                        '#E6FFE6', '#99FF99', '#66FF66', '#33FF33', '#00FF00', '#009900',
+                        '#0066CC', '#003366'].map(color => (
+                        <div key={color} className="color-box" style={{backgroundColor: color}}></div>
+                      ))}
+                    </div>
+                    <div className="color-gradient"></div>
+                    <input type="range" className="color-slider" />
                   </div>
                 </div>
               </div>
             </div>
           );
         
-        case '기능':
+        case '커버 사진':
           return (
             <div className="edit-panel">
               <div className="panel-header">
-                <h3>커버오늘 공유시 필채널지 기능 사용</h3>
+                <h3>커버 사진</h3>
                 <button className="close-btn">×</button>
               </div>
-              <p className="panel-description">
-                커버오늘 복채널지에 대해 기능을 사용하는 공유
-                커버오늘이 해석값 것보다 채광지 대륙다.<br/>
-                수수량도 환특에 수~34지구 절로 소모됩니다.
-              </p>
-              <div className="checkbox-option">
-                <input type="checkbox" id="use-share-feature" />
-                <label htmlFor="use-share-feature">필채널지 기능 사용</label>
+              <div className="panel-content">
+                <h4>커버 사진</h4>
+                <div className="image-upload-section">
+                  <div className="upload-placeholder">
+                    <div className="upload-icon">📄</div>
+                    <p>Click or drag image file</p>
+                  </div>
+                  <div className="image-preview">
+                    <img src="https://i.imgur.com/gS4kXcp.png" alt="커버 사진" />
+                  </div>
+                  <div className="image-actions">
+                    <button className="btn-action">삭제하기</button>
+                    <button className="btn-action">변경하기</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        
+        case '예식 정보':
+          return (
+            <div className="edit-panel">
+              <div className="panel-header">
+                <h3>예식 정보</h3>
+                <button className="close-btn">×</button>
+              </div>
+              <div className="panel-content">
+                <h4>예식 정보</h4>
+                <div className="form-group">
+                  <label>예식장 이름</label>
+                  <input type="text" placeholder="{placename}" />
+                </div>
+                <div className="form-group">
+                  <label>시간</label>
+                  <input type="text" placeholder="{dd HH:mm}" />
+                </div>
+                <div className="form-group">
+                  <label>신랑님 성함</label>
+                  <input type="text" placeholder="{신랑이름}" />
+                </div>
+                <div className="form-group">
+                  <label>신부님 성함</label>
+                  <input type="text" placeholder="{신부이름}" />
+                </div>
+                <div className="form-group">
+                  <label>예식 날짜</label>
+                  <input type="text" placeholder="{yyyy-MM-dd}" />
+                </div>
+              </div>
+            </div>
+          );
+        
+        case '배경 음악':
+          return (
+            <div className="edit-panel">
+              <div className="panel-header">
+                <h3>배경 음악</h3>
+                <button className="close-btn">×</button>
+              </div>
+              <div className="panel-content">
+                <h4>배경 음악</h4>
+                <div className="checkbox-option">
+                  <input type="checkbox" id="use-bgm" defaultChecked />
+                  <label htmlFor="use-bgm">배경 음악 사용하기</label>
+                </div>
+                <div className="bgm-selection">
+                  <button className="btn-bgm">BGM</button>
+                  <button className="btn-bgm">BGM</button>
+                  <button className="btn-bgm">BGM</button>
+                </div>
+                <p className="bgm-notice">녹음시엔 미리듣기가 가능합니다.</p>
               </div>
             </div>
           );
