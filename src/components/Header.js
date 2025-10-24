@@ -1,21 +1,24 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Header({ isLoggedIn, onLogout, onNavigate }) {
+function Header({ isLoggedIn, onLogout }) {
+  const navigate = useNavigate();
+
   const handleBrandClick = () => {
-    if (isLoggedIn && onNavigate) {
-      onNavigate('dashboard');
+    if (isLoggedIn) {
+      navigate('/dashboard');
     }
   };
 
   const handleCreateClick = () => {
-    if (isLoggedIn && onNavigate) {
-      onNavigate('template');
+    if (isLoggedIn) {
+      navigate('/template');
     }
   };
 
   const handleHistoryClick = () => {
-    if (isLoggedIn && onNavigate) {
-      onNavigate('dashboard');
+    if (isLoggedIn) {
+      navigate('/dashboard');
     }
   };
 
