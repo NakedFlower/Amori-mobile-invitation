@@ -735,13 +735,14 @@ InvitationEditor (Wizard) Styles
 
 .wizard-slider-container {
   display: flex;
-  /* 핵심: 스텝이 바뀌면 transform 속성이 변경되며 슬라이드됨 */
+  width: 500%; /* 5개 스텝이므로 500% */
+  /* 핵심: 스텝이 바뀔면 transform 속성이 변경되며 슬라이드됨 */
   transition: transform 0.4s ease-in-out; 
 }
 
 /* 3. 개별 스텝 (화면) 공통 스타일 */
 .wizard-step {
-  width: 100%; 
+  width: 20%; /* 전체 컨테이너(500%)의 1/5 */
   flex-shrink: 0;
   display: flex;
   flex-direction: column;

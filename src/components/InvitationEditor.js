@@ -316,8 +316,7 @@ function InvitationEditor({ username, invitationType, onBack }) {
         <div 
           className="wizard-slider-container"
           style={{ 
-            width: `${totalSteps * 100}%`,
-            transform: `translateX(-${currentStep * (100 / totalSteps)}%)`
+            transform: `translateX(-${currentStep * 100}%)`
           }}
         >
           {/* 각 단계를 렌더링 */}
