@@ -46,6 +46,7 @@ function App() {
     setIsLoggedIn(true);
     setUser(userData);
     setCurrentView('dashboard');
+    window.history.pushState({}, '', '/dashboard');
   };
 
   const handleLogout = () => {
@@ -53,10 +54,12 @@ function App() {
     setIsLoggedIn(false);
     setUser(null);
     setCurrentView('main');
+    window.history.pushState({}, '', '/');
   };
 
   const handleNewCreationClick = () => {
     setCurrentView('template');
+    window.history.pushState({}, '', '/template');
   };
 
   // TemplateSelectionPage에서 템플릿이 선택되면 'editor' 뷰로 변경합니다.
@@ -65,15 +68,18 @@ function App() {
     console.log("선택된 초대장 타입:", invitationType);
     setSelectedInvitationType(invitationType);
     setCurrentView('editor');
+    window.history.pushState({}, '', '/editor');
   };
 
   // InvitationEditor에서 뒤로가기 시 'template' 뷰로 변경합니다.
   const handleBackToTemplate = () => {
     setCurrentView('template');
+    window.history.pushState({}, '', '/template');
   };
 
   const handleSignupClick = () => {
     setCurrentView('signup');
+    window.history.pushState({}, '', '/signup');
   };
 
   const handleSignup = (formData) => {
@@ -84,6 +90,7 @@ function App() {
 
   const handleBackToMain = () => {
     setCurrentView('main');
+    window.history.pushState({}, '', '/');
   };
 
   const renderContent = () => {
