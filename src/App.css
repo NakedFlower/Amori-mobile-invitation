@@ -876,7 +876,7 @@ InvitationCreator Styles
 
 /* 왼쪽 사이드바 */
 .creator-sidebar {
-  width: 150px;
+  width: 200px;
   background-color: #fff;
   border-right: 1px solid #e0e0e0;
   display: flex;
@@ -1366,7 +1366,7 @@ InvitationCreator Styles
   display: flex;
   flex-direction: column;
   padding: 20px;
-  min-width: 0;
+  max-width: 500;
 }
 
 .preview-header {

@@ -1007,7 +1007,7 @@ function InvitationCreator({ username, onBack }) {
                   <button className="btn-add-photo">사진 추가</button>
                 </div>
                 <div className="photo-preview">
-                  <img src="https://via.placeholder.com/150" alt="애건화동" />
+                  <img src="https://via.placeholder.com/150" alt="애견화동" />
                   <div className="photo-actions">
                     <button className="btn-action">삭제하기</button>
                     <button className="btn-action">변경하기</button>
