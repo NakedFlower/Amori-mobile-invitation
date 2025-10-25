@@ -1366,7 +1366,8 @@ InvitationCreator Styles
   display: flex;
   flex-direction: column;
   padding: 20px;
-  max-width: 500;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .preview-header {
@@ -1390,14 +1391,13 @@ InvitationCreator Styles
 }
 
 .preview-phone {
-  flex: 1;
   background: white;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  max-width: 100%;
+  max-width: 375px;
+  width: 375px;
   margin: 0 auto;
-  width: 100%;
 }
 
 .preview-content {
