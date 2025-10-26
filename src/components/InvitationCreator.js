@@ -365,6 +365,23 @@ function InvitationCreator({ username, onBack }) {
             </div>
           );
         
+        case '화면 효과':
+          return (
+            <div className="edit-panel">
+              <div className="panel-header">
+                <h3>화면 효과</h3>
+                <button className="close-btn">×</button>
+              </div>
+              <div className="panel-content">
+                <h4>화면 효과</h4>
+                <div className="checkbox-option">
+                  <input type="checkbox" id="scroll-speed" defaultChecked />
+                  <label htmlFor="scroll-speed">스크롤 속도 빠르게 적용</label>
+                </div>
+              </div>
+            </div>
+          );
+        
         default:
           return <div className="edit-panel"><p>편집 패널</p></div>;
       }
@@ -921,8 +938,8 @@ function InvitationCreator({ username, onBack }) {
                   <button className="btn-add-photo">사진 추가</button>
                 </div>
                 <div className="photo-preview">
-                  <img src="https://via.placeholder.com/150" alt="피로연" />
-                  <div className="photo-actions">
+                  <img src="https://via.placeholder.com/150" alt="포토부스" />
+                  <div className="image-actions-row">
                     <button className="btn-action">삭제하기</button>
                     <button className="btn-action">변경하기</button>
                   </div>
@@ -1021,7 +1038,7 @@ function InvitationCreator({ username, onBack }) {
                 </div>
                 <div className="photo-preview">
                   <img src="https://via.placeholder.com/150" alt="애견화동" />
-                  <div className="photo-actions">
+                  <div className="image-actions-row">
                     <button className="btn-action">삭제하기</button>
                     <button className="btn-action">변경하기</button>
                   </div>
@@ -1062,7 +1079,7 @@ function InvitationCreator({ username, onBack }) {
                 </div>
                 <div className="photo-preview">
                   <img src="https://via.placeholder.com/150" alt="영상" />
-                  <div className="photo-actions">
+                  <div className="image-actions-row">
                     <button className="btn-action">삭제하기</button>
                     <button className="btn-action">변경하기</button>
                   </div>
@@ -1172,7 +1189,7 @@ function InvitationCreator({ username, onBack }) {
                 <div className="form-group">
                   <textarea 
                     rows="6"
-                    placeholder="ㅂ ㅂ ㅂ"
+                    placeholder="우리 결홉합니다."
                     style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px' }}
                   />
                 </div>
@@ -1220,7 +1237,7 @@ function InvitationCreator({ username, onBack }) {
                 <div className="form-group" style={{ backgroundColor: '#f5f5f5', padding: '15px', borderRadius: '8px', marginBottom: '20px' }}>
                   <p className="panel-description" style={{ margin: 0 }}>
                     카카오톡 채팅방에서 아래 기능을 사용하실 경우<br/>
-                    카카오에서 컠시를 저장하기 때문에<br/>
+                    카카오에서 캐시를 저장하기 때문에<br/>
                     수정사항 반영에 2~3시간 정도 소요됩니다.
                   </p>
                 </div>
