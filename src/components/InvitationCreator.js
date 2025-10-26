@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 function InvitationCreator({ username, onBack }) {
   const [activeTab, setActiveTab] = useState('커버');
   const [activeSidebarItem, setActiveSidebarItem] = useState('커버 타입 변경');
+  const [draggedSection, setDraggedSection] = useState(null);
   
   // 청첩장 데이터 상태
   const [invitationData, setInvitationData] = useState({
@@ -134,45 +135,70 @@ function InvitationCreator({ username, onBack }) {
 
   const tabs = ['커버', '본문', '공유'];
   
-  const sidebarItems = {
-    '커버': [
-      { name: '커버 타입', items: [] },
-      { name: '글자/배경 색상', items: [] },
-      { name: '커버 사진', items: [] },
-      { name: '예식 정보', items: [] },
-      { name: '배경 음악', items: [] },
-      { name: '화면 효과', items: [] }
-    ],
-    '본문': [
-      { name: '섹션 관리', items: [] },
-      { name: '본문 공통', items: [] },
-      { name: '인사말', items: [] },
-      { name: '사진첩', items: [] },
-      { name: '예식 안내', items: [] },
-      { name: '오시는 길', items: [] },
-      { name: '마음 전하는 곳', items: [] },
-      { name: '방명록', items: [] },
-      { name: 'D-day', items: [] },
-      { name: '참석의사', items: [] },
-      { name: '포토부스', items: [] },
-      { name: '피로에', items: [] },
-      { name: '인사사항', items: [] },
-      { name: '전세버스', items: [] },
-      { name: '애건화동', items: [] },
-      { name: '영상', items: [] }
-    ],
-    '공유': [
-      { name: '문구', items: [] },
-      { name: '이미지', items: [] },
-      { name: '기능', items: [] }
-    ]
+  // 사이드바 항목을 동적으로 생성
+  const getSidebarItems = () => {
+    const baseSidebarItems = {
+      '커버': [
+        { name: '커버 타입', items: [] },
+        { name: '글자/배경 색상', items: [] },
+        { name: '커버 사진', items: [] },
+        { name: '예식 정보', items: [] },
+        { name: '배경 음악', items: [] },
+        { name: '화면 효과', items: [] }
+      ],
+      '본문': [
+        { name: '섹션 관리', items: [] },
+        // enabled가 true인 섹션만 표시, 순서대로
+        ...invitationData.sections
+          .filter(section => section.enabled)
+          .map(section => ({ name: section.name, items: [] }))
+      ],
+      '공유': [
+        { name: '문구', items: [] },
+        { name: '이미지', items: [] },
+        { name: '기능', items: [] }
+      ]
+    };
+    return baseSidebarItems;
   };
+
+  const sidebarItems = getSidebarItems();
 
   const updateInvitationData = (key, value) => {
     setInvitationData(prev => ({
       ...prev,
       [key]: value
     }));
+  };
+
+  const handleDragStart = (e, section) => {
+    setDraggedSection(section);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e, targetSection) => {
+    e.preventDefault();
+    if (!draggedSection || draggedSection.id === targetSection.id) return;
+
+    const sections = [...invitationData.sections];
+    const draggedIdx = sections.findIndex(s => s.id === draggedSection.id);
+    const targetIdx = sections.findIndex(s => s.id === targetSection.id);
+
+    // 순서 변경
+    sections.splice(draggedIdx, 1);
+    sections.splice(targetIdx, 0, draggedSection);
+
+    updateInvitationData('sections', sections);
+    setDraggedSection(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedSection(null);
   };
 
   const renderEditPanel = () => {
@@ -357,7 +383,18 @@ function InvitationCreator({ username, onBack }) {
                 </p>
                 <div className="section-management-list">
                   {invitationData.sections.map(section => (
-                    <div key={section.id} className="section-item">
+                    <div 
+                      key={section.id} 
+                      className="section-item"
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, section)}
+                      onDragOver={handleDragOver}
+                      onDrop={(e) => handleDrop(e, section)}
+                      onDragEnd={handleDragEnd}
+                      style={{
+                        opacity: draggedSection?.id === section.id ? 0.5 : 1
+                      }}
+                    >
                       <div className="drag-handle">☰</div>
                       <div className="section-name">{section.name}</div>
                       <label className="toggle-switch">
@@ -1229,6 +1266,7 @@ function InvitationCreator({ username, onBack }) {
       {/* 오른쪽 미리보기 */}
       <div className="creator-preview">
         <div className="preview-header">
+          <h3 className="preview-title">화면 미리보기</h3>
           <button className="btn-save">임시저장</button>
         </div>
         <div className="preview-phone">
