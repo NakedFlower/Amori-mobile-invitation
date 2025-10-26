@@ -1229,7 +1229,7 @@ function InvitationCreator({ username, onBack }) {
       {/* 오른쪽 미리보기 */}
       <div className="creator-preview">
         <div className="preview-header">
-          <button className="btn-close" onClick={onBack}>×</button>
+          <button className="btn-save">임시저장</button>
         </div>
         <div className="preview-phone">
           <div className="preview-content">

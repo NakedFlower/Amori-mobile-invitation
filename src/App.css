@@ -35,6 +35,9 @@ body {
 .header-nav {
   display: flex;
   gap: 30px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .nav-link {
@@ -858,6 +861,24 @@ InvitationEditor (Wizard) Styles
   margin-bottom: 10px;
 }
 
+.wizard-btn-address-search {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #B8A3D9;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.wizard-btn-address-search:hover {
+  opacity: 0.9;
+}
+
 .wizard-btn-primary:hover,
 .wizard-btn-secondary:hover {
   opacity: 0.9;
@@ -1388,6 +1409,22 @@ InvitationCreator Styles
 
 .btn-close:hover {
   color: #333;
+}
+
+.btn-save {
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-save:hover {
+  background-color: #7d3c98;
 }
 
 .preview-phone {

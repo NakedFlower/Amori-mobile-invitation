@@ -59,9 +59,9 @@ const Step1 = ({ username, onNext }) => {
 const Step2 = ({ username, onNext }) => (
   <div className="wizard-step">
     <h2 className="wizard-title">{username}님, <br />예식 장소를 입력해주세요.</h2>
-    <p className="wizard-subtitle">예식 장소를 등록해 주세요. <br />교통 정보를 반영할 수 있어요.</p>
+    <p className="wizard-subtitle">예식 장소를 등록해 주세요.</p>
     <div className="wizard-input-group">
-      <button className="wizard-btn-secondary">주소 검색</button>
+      <button className="wizard-btn-address-search">주소 검색</button>
       <label>주소</label>
       <input type="text" placeholder="경기도 성남시 분당구 판교로 228번길 16" />
       <label>예식장 이름</label>
@@ -134,7 +134,6 @@ const Step4 = ({ username, onNext }) => {
 const Step5 = ({ username, onNext }) => (
   <div className="wizard-step">
     <h2 className="wizard-title">{username}님, <br />결혼 축하드려요.</h2>
-    <p className="wizard-subtitle">행복한 모습 사진으로 사용할게요. <br />나중에 변경할 수 있어요.</p>
     <div className="wizard-image-placeholder large">
       {/* 데모용 이미지 */}
       <img 
@@ -205,9 +204,9 @@ const DolStep1 = ({ username, onNext }) => {
 const DolStep2 = ({ username, onNext }) => (
   <div className="wizard-step">
     <h2 className="wizard-title">{username}님, <br />행사 장소를 입력해주세요.</h2>
-    <p className="wizard-subtitle">행사 장소를 등록해 주세요. <br />교통 정보를 반영할 수 있어요.</p>
+    <p className="wizard-subtitle">행사 장소를 등록해 주세요.</p>
     <div className="wizard-input-group">
-      <button className="wizard-btn-secondary">주소 검색</button>
+      <button className="wizard-btn-address-search">주소 검색</button>
       <label>주소</label>
       <input type="text" placeholder="경기도 성남시 분당구 판교로 228번길 16" />
       <label>행사장 이름</label>
