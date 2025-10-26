@@ -40,9 +40,9 @@ function InvitationCreator({ username, onBack }) {
       { id: 8, name: 'D-day', color: '#D5A9B5', enabled: true },
       { id: 9, name: '참석의사', color: '#D5A9B5', enabled: true },
       { id: 10, name: '포토부스', color: '#D5A9B5', enabled: false },
-      { id: 11, name: '피로에', color: '#D5A9B5', enabled: false },
+      { id: 11, name: '피로연', color: '#D5A9B5', enabled: false },
       { id: 12, name: '전화번호', color: '#D5A9B5', enabled: false },
-      { id: 13, name: '인사사항', color: '#D5A9B5', enabled: true },
+      { id: 13, name: '안내사항', color: '#D5A9B5', enabled: true },
       { id: 14, name: '영상', color: '#D5A9B5', enabled: true },
       { id: 15, name: '애견화동', color: '#D5A9B5', enabled: true }
     ],
@@ -94,8 +94,8 @@ function InvitationCreator({ username, onBack }) {
     
     // D-day
     ddayTitle: '',
-    groomNames: '김동',
-    brideNames: '승향',
+    groomNames: '길동',
+    brideNames: '춘향',
     
     // 참석의사
     attendanceTitle: '참석 의사',
@@ -107,30 +107,30 @@ function InvitationCreator({ username, onBack }) {
     // 포토부스
     photoboothTitle: '포토부스 남겨주세요',
     photoboothPhoto: '',
-    photoboothDesc: '함께하는 모든 순간이 \n특별한 추억으로드, \n포토부스에서 즐거운 사진을 찍어 후세요. \n\n예식일 본문 참세문에 위치해있습니다.',
+    photoboothDesc: '함께하는 모든 순간이 \n특별한 추억이 되도록, \n포토부스에서 즐거운 시간을 함께 해주세요.\n\n예식장 본관 좌측편에 위치해있습니다.',
     
     // 피로연
-    receptionTitle: '2부인내',
+    receptionTitle: '2부 안내',
     receptionPhoto: '',
-    receptionDesc: '처음 두 사람이 결혼을 축복하주려 \n오신 모든 본들께 선환으로 감사드립니다. \n준비한 피로연에서 뷇아 한 어이가 나누며 \n즐거운 시간 보내시길 바랍니다.',
+    receptionDesc: '저희 두 사람의 결혼을 축복해주러 \n오신 모든 분들께 진심으로 감사드립니다. \n준비된 피로연에서 못다 한 이야기 나누며 \n즐거운 시간 보내시기 바랍니다.',
     
     // 인사사항
-    noticeTitle: '인내 사항',
-    noticeDesc: '주차정은 건물 지하 1, 2층으로 이루어져있으며, \n80대 정도의 주차공간이 구비됩니다. \n외부에 주차장이 있으니 참고해주십시오.',
+    noticeTitle: '안내 사항',
+    noticeDesc: '주차장은 건물 지하1, 2층으로 이루어져있으며,\n80대 정도의 주차가능한 규모입니다.\n외부에 주차장이 있으니 참고바랍니다.',
     
     // 전세버스
-    busTitle: '전화 버스 연락처',
-    busDesc: '호키사간: 예식 당일 07:00, 09:00, 10:00 \n\n한순우스: 컴실북, 서울역, 영등포역 \n인순을 연락처: 010-xxxx-xxxx \n버스폰 연락처: 010-xxxx-xxxx',
+    busTitle: '전세 버스 이용객',
+    busDesc: '출발시간: 예식 당일 07:00, 09:00, 10:00 \n\n 탑승장소: 잠실역, 서울역, 영등포역\n인솔자 연락처:       010-xxxx-xxxx\n비상    연락처:       010-xxxx-xxxx',
     
     // 애견화동
-    petTitle: '예권 현생',
+    petTitle: '애견 화동',
     petPhoto: '',
-    petDesc: '사랑스러운 손이의 학동이 결역을 축복합니다. \n볈지도, 니지도 않게 \n\n서로의 후는에 스마트엀고 \n아름, 하나의 이름이 됩니다.',
+    petDesc: '사랑스러운 숑이의 화동이 결혼을 축복합니다. \n\'꽃길만 걸어\' 숑아, 화동이 맺어준 사랑!',
     
     // 영상
     videoTitle: '초대합니다',
     videoPhoto: '',
-    videoDesc: '가족쿨을 건얰하여 \n볈지도, 니지도 않게 \n\n서로의 후에에 스마트엀고 \n아름, 하나의 이름이 됩니다.',
+    videoDesc: '가을처럼 잔잔하게 \n빠르지도, 느리지도 않게\n\n서로의 하루에 스며들었고\n이제, 하나의 이름이 됩니다.',
   });
 
   const tabs = ['커버', '본문', '공유'];
@@ -451,48 +451,30 @@ function InvitationCreator({ username, onBack }) {
                 
                 <h4>본문 폰트</h4>
                 <div className="form-group">
-                  <label>예를 50 고객</label>
+                  <label>애플 SD 고객</label>
                   <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 <div className="form-group">
-                  <label>나늘 맹조</label>
+                  <label>나눔 명조</label>
                   <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 <div className="form-group">
-                  <label>여를 호수</label>
+                  <label>나눔 pen</label>
                   <div className="font-input-row">
-                    <input type="text" placeholder="여를 높이" />
+                    <input type="text" placeholder="우리, 결혼합니다" />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>고용 순출</label>
+                  <label>고운 돋움</label>
                   <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 <div className="form-group">
-                  <label>고용 버넓</label>
-                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
-                </div>
-                
-                <h4>본문 폰트</h4>
-                <div className="form-group">
-                  <label>예를 50 고객</label>
-                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
-                </div>
-                <div className="form-group">
-                  <label>나늘 맹조</label>
-                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
-                </div>
-                <div className="form-group">
-                  <label>고용 순출</label>
-                  <input type="text" placeholder="우리, 결혼합니다" readOnly />
-                </div>
-                <div className="form-group">
-                  <label>고용 버넓</label>
+                  <label>고운 바탕</label>
                   <input type="text" placeholder="우리, 결혼합니다" readOnly />
                 </div>
                 
                 <div className="form-group">
-                  <label>크기 크기</label>
+                  <label>글자 크기</label>
                   <div className="size-buttons">
                     <button className="btn-size">작게</button>
                     <button className="btn-size">보통</button>
@@ -572,7 +554,7 @@ function InvitationCreator({ username, onBack }) {
                   </div>
                   <div className="name-group">
                     <label>신부 이름</label>
-                    <input type="text" value="성준향" />
+                    <input type="text" value="성춘향" />
                   </div>
                 </div>
               </div>
