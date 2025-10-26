@@ -655,8 +655,8 @@ function InvitationCreator({ username, onBack }) {
                 
                 <h4>안내 문구</h4>
                 <div className="form-group">
-                  <input 
-                    type="text" 
+                  <textarea 
+                    rows="4"
                     value={invitationData.ceremonyFloor}
                     onChange={(e) => updateInvitationData('ceremonyFloor', e.target.value)}
                     placeholder="예식 안내 문구"
@@ -1189,7 +1189,7 @@ function InvitationCreator({ username, onBack }) {
                 <div className="form-group">
                   <textarea 
                     rows="6"
-                    placeholder="우리 결홉합니다."
+                    placeholder="우리 결혼합니다."
                     style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px' }}
                   />
                 </div>
