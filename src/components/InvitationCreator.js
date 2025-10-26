@@ -1,28 +1,4 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  VStack,
-  HStack,
-  Text,
-  Input,
-  Textarea,
-  Button,
-  Switch,
-  FormControl,
-  FormLabel,
-  Heading,
-  Divider,
-  Image,
-  Checkbox,
-  Select,
-  IconButton,
-  useColorModeValue,
-  Stack,
-  Badge,
-  Card,
-  CardBody,
-} from '@chakra-ui/react';
-import { CloseIcon, DragHandleIcon } from '@chakra-ui/icons';
 
 function InvitationCreator({ username, onBack }) {
   const [activeTab, setActiveTab] = useState('커버');
