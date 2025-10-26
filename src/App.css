@@ -998,12 +998,12 @@ InvitationCreator Styles
 }
 
 .edit-panel {
-  background: white;
+  background: transparent;
   padding: 0;
-  border-radius: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e5e5;
-  overflow: hidden;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  overflow: visible;
 }
 
 .edit-panel h3 {
@@ -1019,43 +1019,42 @@ InvitationCreator Styles
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
-  border-bottom: 1px solid #e5e5e5;
-  background: #fff;
+  padding: 0;
+  border-bottom: none;
+  background: transparent;
+  margin-bottom: 16px;
 }
 
 .panel-header h3 {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f1f1f;
   margin: 0;
   border: none;
   padding: 0;
 }
 
 .panel-header .close-btn {
-  background: #f5f5f5;
-  border: 1px solid #e5e5e5;
-  font-size: 16px;
-  color: #666;
+  background: white;
+  border: none;
+  font-size: 24px;
+  color: #999;
   cursor: pointer;
   padding: 0;
   width: 32px;
   height: 32px;
-  border-radius: 8px;
+  border-radius: 50%;
   transition: all 0.15s ease;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .panel-header .close-btn:hover {
-  background: #333;
-  border-color: #333;
-  color: white;
-  transform: scale(1.05);
+  background: #f5f5f5;
+  color: #333;
 }
 
 .panel-header .close-btn:active {
@@ -1067,14 +1066,25 @@ InvitationCreator Styles
   color: #666;
   line-height: 1.6;
   margin-bottom: 20px;
-  background: #f9f9f9;
-  padding: 14px 16px;
-  border-radius: 8px;
-  border-left: 3px solid #333;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  border-left: none;
 }
 
 .panel-content {
-  padding: 24px;
+  padding: 0;
+}
+
+.panel-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 24px 0 12px 0;
+}
+
+.panel-content h4:first-child {
+  margin-top: 0;
 }
 
 .greeting-text-area,
@@ -1120,8 +1130,8 @@ InvitationCreator Styles
 
 .contact-row input {
   flex: 1;
-  padding: 10px 14px;
-  border: 1px solid #d4d4d4;
+  padding: 12px 16px;
+  border: 1px solid #e5e5e5;
   border-radius: 8px;
   font-size: 14px;
   background: white;
@@ -1129,13 +1139,13 @@ InvitationCreator Styles
 }
 
 .contact-row input:hover {
-  border-color: #a3a3a3;
+  border-color: #d4d4d4;
 }
 
 .contact-row input:focus {
   outline: none;
   border-color: #333;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
 }
 
 .image-options {
@@ -1245,33 +1255,34 @@ InvitationCreator Styles
 .checkbox-option {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 12px;
-  padding: 12px 16px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  border: 1px solid #e5e5e5;
-  transition: all 0.15s ease;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  transition: none;
   cursor: pointer;
 }
 
 .checkbox-option:hover {
-  background: #f0f0f0;
-  border-color: #d4d4d4;
+  background: transparent;
+  border-color: transparent;
 }
 
 .checkbox-option input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
-  accent-color: #333;
+  accent-color: #000;
+  border-radius: 4px;
 }
 
 .checkbox-option label {
   font-size: 14px;
   color: #333;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 400;
   user-select: none;
 }
 
@@ -1367,21 +1378,75 @@ InvitationCreator Styles
   justify-content: center;
 }
 
-.btn-secondary {
-  padding: 10px 20px;
-  background: white;
-  border: 1px solid #8e44ad;
-  color: #8e44ad;
-  border-radius: 6px;
+.btn-secondary,
+.btn-action,
+.btn-add-photo,
+.btn-search,
+.btn-account,
+.btn-bgm,
+.btn-transport {
+  padding: 12px 20px;
+  background: #333;
+  border: none;
+  color: white;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.2s;
+  transition: all 0.15s ease;
+  width: 100%;
 }
 
-.btn-secondary:hover {
-  background: #8e44ad;
+.btn-secondary:hover,
+.btn-action:hover,
+.btn-add-photo:hover,
+.btn-search:hover,
+.btn-account:hover,
+.btn-bgm:hover,
+.btn-transport:hover {
+  background: #000;
+  transform: translateY(-1px);
+}
+
+.btn-font-size,
+.btn-size,
+.btn-ratio {
+  padding: 10px 16px;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s ease;
+  color: #333;
+}
+
+.btn-font-size:hover,
+.btn-size:hover,
+.btn-ratio:hover {
+  background: #f5f5f5;
+  border-color: #d4d4d4;
+}
+
+.btn-font-size.active,
+.btn-size.active,
+.btn-ratio.active {
+  background: #333;
   color: white;
+  border-color: #333;
+}
+
+.font-size-buttons,
+.size-buttons,
+.photo-ratio-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.account-buttons {
+  display: flex;
+  gap: 10px;
 }
 
 .input-group {
@@ -1397,12 +1462,44 @@ InvitationCreator Styles
   margin-top: 8px;
 }
 
-.input-group input[type="text"] {
-  padding: 8px 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 13px;
+.input-group input[type="text"],
+.form-group input[type="text"],
+.form-group textarea {
+  padding: 12px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 14px;
   width: 100%;
+  background: white;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.input-group input[type="text"]:hover,
+.form-group input[type="text"]:hover,
+.form-group textarea:hover {
+  border-color: #d4d4d4;
+}
+
+.input-group input[type="text"]:focus,
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
 }
 
 .traffic-buttons {
@@ -1561,12 +1658,12 @@ InvitationCreator Styles
   border-radius: 8px;
   transition: all 0.15s ease;
   margin-bottom: 8px;
+  cursor: move;
 }
 
 .section-item:hover {
   border-color: #d4d4d4;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transform: translateY(-1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .drag-handle {
@@ -1597,8 +1694,9 @@ InvitationCreator Styles
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 44px;
-  height: 24px;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
 }
 
 .toggle-switch input {
@@ -1614,22 +1712,22 @@ InvitationCreator Styles
   left: 0;
   right: 0;
   bottom: 0;
-  background: #d4d4d4;
+  background: #e5e5e5;
   transition: .2s ease;
-  border-radius: 24px;
+  border-radius: 26px;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 18px;
-  width: 18px;
+  height: 20px;
+  width: 20px;
   left: 3px;
   bottom: 3px;
   background: white;
   transition: .2s ease;
   border-radius: 50%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .toggle-switch input:checked + .slider {
@@ -1637,5 +1735,5 @@ InvitationCreator Styles
 }
 
 .toggle-switch input:checked + .slider:before {
-  transform: translateX(20px);
+  transform: translateX(22px);
 }
