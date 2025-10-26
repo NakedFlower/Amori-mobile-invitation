@@ -90,7 +90,7 @@ function InvitationCreator({ username, onBack }) {
     brideAccount: '',
     
     // 방명록
-    guestbookTitle: '축하글을 남겨주세요.',
+    guestbookTitle: '축하 글을 남겨주세요.',
     
     // D-day
     ddayTitle: '',
