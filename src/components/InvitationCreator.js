@@ -297,7 +297,7 @@ function InvitationCreator({ username, onBack }) {
                   <div className="image-preview">
                     <img src="https://i.imgur.com/gS4kXcp.png" alt="커버 사진" />
                   </div>
-                  <div className="image-actions">
+                  <div className="image-actions-row">
                     <button className="btn-action">삭제하기</button>
                     <button className="btn-action">변경하기</button>
                   </div>
@@ -353,9 +353,12 @@ function InvitationCreator({ username, onBack }) {
                   <label htmlFor="use-bgm">배경 음악 사용하기</label>
                 </div>
                 <div className="bgm-selection">
-                  <button className="btn-bgm">BGM</button>
-                  <button className="btn-bgm">BGM</button>
-                  <button className="btn-bgm">BGM</button>
+                  <button className="btn-bgm">BGM 1</button>
+                  <button className="btn-bgm">BGM 2</button>
+                  <button className="btn-bgm">BGM 3</button>
+                  <button className="btn-bgm">BGM 4</button>
+                  <button className="btn-bgm">BGM 5</button>
+                  <button className="btn-bgm">BGM 6</button>
                 </div>
                 <p className="bgm-notice">녹음시엔 미리듣기가 가능합니다.</p>
               </div>
@@ -510,49 +513,56 @@ function InvitationCreator({ username, onBack }) {
                 
                 <h4>인사말 문구</h4>
                 <div className="greeting-names-section">
-                  <div className="name-group">
+                  <div className="name-row">
                     <label>신랑 아버님 성함</label>
-                    <div className="name-inputs">
-                      <input type="text" value={invitationData.groomTitle} readOnly />
-                      <button className="btn-icon">📝</button>
+                    <input type="text" value={invitationData.groomTitle} readOnly />
+                    <div className="checkbox-with-icon">
+                      <input type="checkbox" id="groom-father" defaultChecked />
+                      <label htmlFor="groom-father"></label>
+                      <img src="/condolence.jpg" alt="조화" className="condolence-icon" />
                     </div>
                   </div>
-                  <div className="name-group">
+                  <div className="name-row">
                     <label>신랑 어머님 성함</label>
-                    <div className="name-inputs">
-                      <input type="text" value={invitationData.groomName2} />
-                      <button className="btn-icon">📝</button>
+                    <input type="text" value={invitationData.groomName2} />
+                    <div className="checkbox-with-icon">
+                      <input type="checkbox" id="groom-mother" />
+                      <label htmlFor="groom-mother"></label>
+                      <img src="/condolence.jpg" alt="조화" className="condolence-icon" />
                     </div>
                   </div>
-                  <div className="name-group">
+                  <div className="name-row">
                     <label>신부 아버님 성함</label>
-                    <div className="name-inputs">
-                      <input type="text" value={invitationData.groomName3} />
-                      <button className="btn-icon">📝</button>
+                    <input type="text" value={invitationData.groomName3} />
+                    <div className="checkbox-with-icon">
+                      <input type="checkbox" id="bride-father" defaultChecked />
+                      <label htmlFor="bride-father"></label>
+                      <img src="/condolence.jpg" alt="조화" className="condolence-icon" />
                     </div>
                   </div>
-                  
-                  <div className="name-group">
+                  <div className="name-row">
                     <label>신부 어머님 성함</label>
-                    <div className="name-inputs">
-                      <input type="text" value={invitationData.brideTitle} readOnly />
-                      <button className="btn-icon">📝</button>
+                    <input type="text" value={invitationData.brideTitle} readOnly />
+                    <div className="checkbox-with-icon">
+                      <input type="checkbox" id="bride-mother" />
+                      <label htmlFor="bride-mother"></label>
+                      <img src="/condolence.jpg" alt="조화" className="condolence-icon" />
                     </div>
                   </div>
                   
-                  <div className="name-group">
+                  <div className="name-row">
                     <label>신랑 호칭</label>
                     <input type="text" value="아들" readOnly />
                   </div>
-                  <div className="name-group">
+                  <div className="name-row">
                     <label>신랑 이름</label>
                     <input type="text" value="홍길동" />
                   </div>
-                  <div className="name-group">
-                    <label>신랑 호칭</label>
+                  <div className="name-row">
+                    <label>신부 호칭</label>
                     <input type="text" value="딸" readOnly />
                   </div>
-                  <div className="name-group">
+                  <div className="name-row">
                     <label>신부 이름</label>
                     <input type="text" value="성춘향" />
                   </div>

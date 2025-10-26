@@ -1372,10 +1372,20 @@ InvitationCreator Styles
   object-fit: cover;
 }
 
-.image-buttons {
+.image-buttons,
+.image-actions-row {
   display: flex;
   gap: 10px;
   justify-content: center;
+  margin-top: 10px;
+}
+
+.image-actions-row {
+  width: 100%;
+}
+
+.image-actions-row .btn-action {
+  flex: 1;
 }
 
 .btn-secondary,
@@ -1385,13 +1395,13 @@ InvitationCreator Styles
 .btn-account,
 .btn-bgm,
 .btn-transport {
-  padding: 16px 20px;
+  padding: 12px 16px;
   background: #f5f5f5;
   border: none;
   color: #1f1f1f;
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   transition: all 0.15s ease;
   width: 100%;
@@ -1410,12 +1420,12 @@ InvitationCreator Styles
 .btn-font-size,
 .btn-size,
 .btn-ratio {
-  padding: 10px 16px;
+  padding: 8px 14px;
   background: white;
   border: 1px solid #e5e5e5;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   transition: all 0.15s ease;
   color: #333;
 }
@@ -1443,9 +1453,26 @@ InvitationCreator Styles
   margin-top: 8px;
 }
 
-.account-buttons {
-  display: flex;
+.account-buttons,
+.bgm-selection {
+  display: grid;
   gap: 10px;
+}
+
+.account-buttons {
+  grid-template-columns: 1fr 1fr;
+}
+
+.bgm-selection {
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 12px;
+}
+
+.bgm-notice {
+  font-size: 12px;
+  color: #999;
+  margin-top: 12px;
+  text-align: center;
 }
 
 .input-group {
@@ -1735,4 +1762,70 @@ InvitationCreator Styles
 
 .toggle-switch input:checked + .slider:before {
   transform: translateX(22px);
+}
+
+/* 인사말 문구 섹션 */
+.greeting-names-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.name-row label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #999;
+  min-width: 130px;
+  flex-shrink: 0;
+}
+
+.name-row input[type="text"] {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  transition: all 0.15s ease;
+}
+
+.name-row input[type="text"]:hover {
+  border-color: #d4d4d4;
+}
+
+.name-row input[type="text"]:focus {
+  outline: none;
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.checkbox-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.checkbox-with-icon input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #000;
+}
+
+.checkbox-with-icon label {
+  display: none;
+}
+
+.condolence-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
