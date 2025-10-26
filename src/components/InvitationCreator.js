@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function InvitationCreator({ username, onBack }) {
   const [activeTab, setActiveTab] = useState('커버');
-  const [activeSidebarItem, setActiveSidebarItem] = useState('커버 타입 변경');
+  const [activeSidebarItem, setActiveSidebarItem] = useState('커버 타입');
   const [draggedSection, setDraggedSection] = useState(null);
   
   // 청첩장 데이터 상태
@@ -1145,21 +1145,73 @@ function InvitationCreator({ username, onBack }) {
     
     if (activeTab === '공유') {
       switch (activeSidebarItem) {
-        case '기능':
+        case '문구':
           return (
             <div className="edit-panel">
               <div className="panel-header">
-                <h3>기능</h3>
+                <h3>문구 편집</h3>
                 <button className="close-btn">×</button>
               </div>
               <div className="panel-content">
                 <h4>문구</h4>
                 <div className="form-group">
-                  <label>카카오톡 공유시 위치보기 기능 사용</label>
-                  <p className="feature-description">
-                    카카오톡 채팅방에서 예에 기능을 사용하실 경우 <br/>
-                    카카오예서 캐시를 자장하기 대문에 <br/>
-                    승잘시속 반영면 2~3시간 정도 소요됩니다.
+                  <label>결혼합니다.</label>
+                </div>
+                
+                <h4>내용</h4>
+                <div className="form-group">
+                  <textarea 
+                    rows="6"
+                    placeholder="ㅂ ㅂ ㅂ"
+                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '4px' }}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        
+        case '이미지':
+          return (
+            <div className="edit-panel">
+              <div className="panel-header">
+                <h3>링크 복사시 사용할 이미지</h3>
+                <button className="close-btn">×</button>
+              </div>
+              <div className="panel-content">
+                <div className="image-upload-section">
+                  <div className="image-preview" style={{ marginBottom: '15px' }}>
+                    <img src="https://i.imgur.com/gS4kXcp.png" alt="링크 복사시 이미지 1" style={{ width: '100%', maxWidth: '300px', borderRadius: '8px' }} />
+                    <div className="image-actions" style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
+                      <button className="btn-secondary">삭제하기</button>
+                      <button className="btn-secondary">사진 변경하기</button>
+                    </div>
+                  </div>
+                  
+                  <div className="image-preview" style={{ marginBottom: '15px' }}>
+                    <img src="https://via.placeholder.com/300x400/000/fff" alt="링크 복사시 이미지 2" style={{ width: '100%', maxWidth: '300px', borderRadius: '8px' }} />
+                    <div className="image-actions" style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
+                      <button className="btn-secondary">삭제하기</button>
+                      <button className="btn-secondary">사진 변경하기</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        
+        case '기능':
+          return (
+            <div className="edit-panel">
+              <div className="panel-header">
+                <h3>카카오톡 공유시 위치보기 기능 사용</h3>
+                <button className="close-btn">×</button>
+              </div>
+              <div className="panel-content">
+                <div className="form-group" style={{ backgroundColor: '#f5f5f5', padding: '15px', borderRadius: '8px', marginBottom: '20px' }}>
+                  <p className="panel-description" style={{ margin: 0 }}>
+                    카카오톡 채팅방에서 아래 기능을 사용하실 경우<br/>
+                    카카오에서 컠시를 저장하기 때문에<br/>
+                    수정사항 반영에 2~3시간 정도 소요됩니다.
                   </p>
                 </div>
                 
@@ -1180,15 +1232,13 @@ function InvitationCreator({ username, onBack }) {
           return (
             <div className="edit-panel">
               <div className="panel-header">
-                <h3>공유 설정</h3>
+                <h3>문구 편집</h3>
                 <button className="close-btn">×</button>
               </div>
-              <p className="panel-description">
-                청첩장을 공유하실 수 있습니다.
-              </p>
-              <div className="share-options">
-                <button className="btn-share">카카오톡 공유</button>
-                <button className="btn-share">링크 복사</button>
+              <div className="panel-content">
+                <p className="panel-description">
+                  공유 설정을 선택해주세요.
+                </p>
               </div>
             </div>
           );
@@ -1209,7 +1259,7 @@ function InvitationCreator({ username, onBack }) {
               className={`sidebar-tab ${activeTab === tab ? 'active' : ''}`}
               onClick={() => {
                 setActiveTab(tab);
-                setActiveSidebarItem(sidebarItems[tab][0]);
+                setActiveSidebarItem(sidebarItems[tab][0].name);
               }}
             >
               {tab}
