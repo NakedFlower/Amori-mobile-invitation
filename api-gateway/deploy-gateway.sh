@@ -3,8 +3,8 @@
 # API Gateway 배포 스크립트
 # 실행 전에 INGRESS_IP를 확인하고 openapi-spec.yaml에 입력해야 합니다.
 
-PROJECT_ID="amori-475204"
-REGION="asia-northeast1"
+PROJECT_ID="amori-476504"
+REGION="us-central1"
 API_ID="amori-api"
 GATEWAY_ID="amori-gateway"
 

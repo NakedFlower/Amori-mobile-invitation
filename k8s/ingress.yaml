@@ -2,14 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: amori-ingress
-  annotations:
-    kubernetes.io/ingress.class: "gce"
 spec:
+  ingressClassName: traefik 
   rules:
   - http:
       paths:
-      - path: /*
-        pathType: ImplementationSpecific
+      - path: /
+        pathType: Prefix 
         backend:
           service:
             name: amori-backend-service

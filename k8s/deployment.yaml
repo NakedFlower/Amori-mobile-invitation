@@ -12,6 +12,8 @@ spec:
       labels:
         app: amori-backend
     spec:
+      imagePullSecrets:
+      - name: gcr-key 
       containers:
       - name: amori-backend-container
         image: us-central1-docker.pkg.dev/amori-476504/amori-docker-images/amori-backend:latest
@@ -53,11 +55,11 @@ spec:
         - name: GCS_BUCKET_NAME
           value: "amori-photos"
         - name: FRONTEND_URL
-          value: "http://amori.co.kr"
+          value: "https://amori.co.kr"
         resources:
           requests:
-            cpu: "100m"     # 100 millicpu (0.1 CPU)
-            memory: "128Mi" # 128 Mebibytes
+            cpu: "100m"
+            memory: "128Mi"
         readinessProbe:
           httpGet:
             path: /  
