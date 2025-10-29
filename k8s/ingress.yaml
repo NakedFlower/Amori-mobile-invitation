@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: amori-ingress
 spec:
-  ingressClassName: traefik 
+  ingressClassName: nginx
   rules:
   - http:
       paths:
