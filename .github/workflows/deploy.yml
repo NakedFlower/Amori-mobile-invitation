@@ -35,7 +35,7 @@ jobs:
           gsutil -m setmeta -h "Cache-Control:public, max-age=3600" gs://amori-frontend-codes/index.html
       - name: Invalidate CDN cache
         run: |
-          gcloud compute url-maps invalidate-cdn-cache amori-lb-frontend \
+          gcloud compute url-maps invalidate-cdn-cache amori-lb \
             --path "/*" \
             --async
       - name: Deployment completed
