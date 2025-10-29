@@ -1,4 +1,4 @@
-name: Deploy to GCP Storage
+name: Deploy to GCP Storage 
 on:
   push:
     branches:
