@@ -27,26 +27,9 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          IMAGE_NAME=asia-northeast1-docker.pkg.dev/amori-475204/amori-docker-images/amori-backend:latest
+          IMAGE_NAME=us-central1-docker.pkg.dev/amori-476504/amori-docker-images/amori-backend:latest
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
-      
-      - name: Install gke-gcloud-auth-plugin
-        run: gcloud components install gke-gcloud-auth-plugin
-
-      - name: Get GKE credentials
-        run: |
-          gcloud container clusters get-credentials amori-cluster --zone=asia-northeast1
-
-      - name: Deploy to GKE
-        run: |
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
-          kubectl apply -f k8s/ingress.yaml
-          kubectl rollout restart deployment/amori-backend
-          kubectl rollout status deployment/amori-backend
-
-          kubectl rollout status deployment/amori-backend --timeout=5m
 
       - name: Verify deployment
-        run: echo "✅ Deployment completed successfully!"
+        run: echo "✅!"
