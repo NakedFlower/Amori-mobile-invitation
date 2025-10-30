@@ -1,8 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function Dashboard({ username, onLogout, onNewCreationClick }) {
+// JWT 토큰에서 username 가져오기
+function getUsernameFromToken() {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(localStorage.getItem('user'));
+    return payload.name || '사용자';
+  } catch (e) {
+    console.error('JWT 디코딩 실패', e);
+    return '사용자';
+  }
+}
+
+function Dashboard({ onLogout, onNewCreationClick }) {
+  const [username, setUsername] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('청첩장');
   const [showContextMenu, setShowContextMenu] = useState(null); // 어떤 카드의 메뉴가 열려있는지
+
+  useEffect(() => {
+    const name = getUsernameFromToken();
+    setUsername(name);
+  }, []);
 
   const categories = ['청첩장', '돌잔치', '감사장'];
   

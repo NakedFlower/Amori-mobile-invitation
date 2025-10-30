@@ -16,7 +16,7 @@ function MainPage({ onLogin, onSignupClick }) {
       const response = await login(email, password);
       alert(`환영합니다, ${response.user.name}님!`);
       setShowLoginForm(false);
-      
+
       // App.js에 로그인 성공 알림
       if (onLogin) {
         onLogin(response.user);
@@ -38,33 +38,43 @@ function MainPage({ onLogin, onSignupClick }) {
           스마트스토어 평점 <span className="highlight">4.8</span>점, 리뷰 <span className="highlight">1,234</span>건
         </p>
       </div>
-      
+
       <div className="button-section">
-        <button className="yellow-button">카카오톡 로그인</button>
-        <button className="green-button">네이버 로그인</button>
+        <button className="yellow-button"
+          onClick={() => {
+            //네이버 로그인 엔드포인트로 이동
+            window.location.href = '/api/oauth/nid/login';
+          }}
+        >카카오톡 로그인</button>
+        <button className="green-button"
+          onClick={() => {
+            //카카오톡 로그인 엔드포인트로 이동
+            window.location.href = '/api/oauth/kakao/login';
+          }}
+        >네이버 로그인</button>
       </div>
 
       <div className="login-section">
-        <button 
+        <button
           className="email-login-btn"
           onClick={() => setShowLoginForm(!showLoginForm)}
         >
           이메일로 로그인하기
         </button>
-        
+
         {showLoginForm && (
           <div className="login-form">
-            <input 
-              type="email" 
-              placeholder="이메일을 입력해주세요" 
+            <input
+              type="email"
+              placeholder="이메일을 입력해주세요"
               className="login-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
             />
-            <input 
-              type="password" 
-              placeholder="비밀번호를 입력해주세요" 
+            <input
+              type="password"
+              placeholder="비밀번호를 입력해주세요"
               className="login-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
