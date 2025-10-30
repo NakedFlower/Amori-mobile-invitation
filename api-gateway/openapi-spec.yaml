@@ -198,3 +198,31 @@ paths:
       responses:
         '200':
           description: Service healthy
+  
+  /api/oauth/nid/login:
+    get:
+      x-google-backend:
+        address: http://34.50.146.225.nip.io/api/oauth/nid/login
+      summary: Naver OAuth login redirect
+      operationId: naverLogin
+      responses:
+        '302':
+          description: Redirect to Naver login
+    options:
+      x-google-backend:
+        address: http://34.50.146.225.nip.io/api/oauth/nid/login
+      summary: CORS preflight for Naver login
+      operationId: naverLoginCors
+      responses:
+        '200':
+          description: CORS preflight response
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+            Access-Control-Allow-Methods:
+              type: string
+            Access-Control-Allow-Headers:
+              type: string
+            Access-Control-Allow-Credentials:
+              type: string
+
