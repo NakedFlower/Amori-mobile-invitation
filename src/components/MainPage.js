@@ -43,13 +43,13 @@ function MainPage({ onLogin, onSignupClick }) {
         <button className="yellow-button"
           onClick={() => {
             //네이버 로그인 엔드포인트로 이동
-            window.location.href = '/api/oauth/nid/login';
+            window.location.href = '/api/oauth/kakao/login';
           }}
         >카카오톡 로그인</button>
         <button className="green-button"
           onClick={() => {
             //카카오톡 로그인 엔드포인트로 이동
-            window.location.href = '/api/oauth/kakao/login';
+            window.location.href = '/api/oauth/nid/login';
           }}
         >네이버 로그인</button>
       </div>
