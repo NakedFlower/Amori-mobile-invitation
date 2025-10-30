@@ -13,6 +13,13 @@ consumes:
   - multipart/form-data
 x-google-backend:
   address: http://34.50.146.225.nip.io
+x-google-management:
+  metrics:
+    - name: "request-count"
+      displayName: "Request Count"
+      description: "Number of requests"
+      valueType: INT64
+      metricKind: DELTA
 paths:
   /api/auth/signup:
     post:
@@ -29,10 +36,30 @@ paths:
           description: Signup successful
           schema:
             type: object
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
         '400':
           description: Bad request
         '500':
           description: Internal server error
+    options:
+      summary: CORS preflight for signup
+      operationId: signupCors
+      x-google-backend:
+        address: http://34.50.146.225.nip.io/api/auth/signup
+      responses:
+        '200':
+          description: CORS preflight response
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+            Access-Control-Allow-Methods:
+              type: string
+            Access-Control-Allow-Headers:
+              type: string
+            Access-Control-Allow-Credentials:
+              type: string
   /api/auth/login:
     post:
       summary: User login
@@ -60,8 +87,28 @@ paths:
       responses:
         '200':
           description: Login successful
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
         '401':
           description: Unauthorized
+    options:
+      summary: CORS preflight for login
+      operationId: loginCors
+      x-google-backend:
+        address: http://34.50.146.225.nip.io/api/auth/login
+      responses:
+        '200':
+          description: CORS preflight response
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+            Access-Control-Allow-Methods:
+              type: string
+            Access-Control-Allow-Headers:
+              type: string
+            Access-Control-Allow-Credentials:
+              type: string
   /api/auth/upload-image:
     post:
       summary: Upload profile image
@@ -75,6 +122,26 @@ paths:
       responses:
         '200':
           description: Upload successful
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+    options:
+      summary: CORS preflight for image upload
+      operationId: uploadImageCors
+      x-google-backend:
+        address: http://34.50.146.225.nip.io/api/auth/upload-image
+      responses:
+        '200':
+          description: CORS preflight response
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+            Access-Control-Allow-Methods:
+              type: string
+            Access-Control-Allow-Headers:
+              type: string
+            Access-Control-Allow-Credentials:
+              type: string
   /api/user/me:
     get:
       summary: Get current user info
@@ -91,8 +158,28 @@ paths:
       responses:
         '200':
           description: User info retrieved
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
         '401':
           description: Unauthorized
+    options:
+      summary: CORS preflight for user info
+      operationId: getCurrentUserCors
+      x-google-backend:
+        address: http://34.50.146.225.nip.io/api/user/me
+      responses:
+        '200':
+          description: CORS preflight response
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+            Access-Control-Allow-Methods:
+              type: string
+            Access-Control-Allow-Headers:
+              type: string
+            Access-Control-Allow-Credentials:
+              type: string
   /:
     get:
       summary: Health check
