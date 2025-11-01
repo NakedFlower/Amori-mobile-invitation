@@ -44,58 +44,69 @@ async def naver_callback(code: str, state: str, db: Session = Depends(get_db)):
     - 액세스 토큰 발급
     - 사용자 정보 조회
     - 회원 자동 생성 or 기존 계정 로그인
-    - JWT 발급
+    - JWT 발급 후 프론트엔드로 리다이렉트
     """
-    # 토큰 요청
-    token_params = {
-        "grant_type": "authorization_code",
-        "client_id": CLIENT_ID,
-        "client_secret": CLIENT_SECRET,
-        "code": code,
-        "state": state,
-    }
-    token_response = requests.get(NAVER_TOKEN_URL, params=token_params)
-    token_data = token_response.json()
-    access_token = token_data.get("access_token")
+    try:
+        # 토큰 요청
+        token_params = {
+            "grant_type": "authorization_code",
+            "client_id": CLIENT_ID,
+            "client_secret": CLIENT_SECRET,
+            "code": code,
+            "state": state,
+        }
+        token_response = requests.get(NAVER_TOKEN_URL, params=token_params)
+        token_data = token_response.json()
+        access_token = token_data.get("access_token")
 
-    if not access_token:
-        raise HTTPException(status_code=400, detail="네이버 토큰 발급 실패")
+        if not access_token:
+            print(f"네이버 토큰 발급 실패: {token_data}")
+            raise HTTPException(status_code=400, detail="네이버 토큰 발급 실패")
 
-    # 사용자 정보 요청
-    headers = {"Authorization": f"Bearer {access_token}"}
-    user_response = requests.get(NAVER_USER_URL, headers=headers)
-    user_info = user_response.json().get("response")
+        # 사용자 정보 요청
+        headers = {"Authorization": f"Bearer {access_token}"}
+        user_response = requests.get(NAVER_USER_URL, headers=headers)
+        user_data = user_response.json()
+        user_info = user_data.get("response")
 
-    if not user_info:
-        raise HTTPException(status_code=400, detail="네이버 사용자 정보 조회 실패")
+        if not user_info:
+            print(f"네이버 사용자 정보 조회 실패: {user_data}")
+            raise HTTPException(status_code=400, detail="네이버 사용자 정보 조회 실패")
 
-    email = user_info.get("email")
-    name = user_info.get("name")
-    profile_image = user_info.get("profile_image")
+        email = user_info.get("email")
+        name = user_info.get("name")
+        profile_image = user_info.get("profile_image")
 
-    # 기존 유저 확인
-    user = db.query(User).filter(User.email == email).first()
+        if not email:
+            raise HTTPException(status_code=400, detail="이메일 정보를 가져올 수 없습니다")
 
-    # 신규 회원이면 자동 가입
-    if not user:
-        user = User(
-            email=email,
-            name=name,
-            status="ACTIVE",
-            # profile_image_url=profile_image,  # 선택
-        )
-        db.add(user)
-        db.commit()
-        db.refresh(user)
+        # 기존 유저 확인
+        user = db.query(User).filter(User.email == email).first()
 
-        # 소셜 로그인은 비밀번호 없음 → UserCredential 생성 안 해도 됨
-        print(f"신규 네이버 유저 생성: {email}")
+        # 신규 회원이면 자동 가입
+        if not user:
+            user = User(
+                email=email,
+                name=name or "네이버 사용자",
+                status="ACTIVE",
+                # profile_image_url=profile_image,  # 필요시 활성화
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+            print(f"신규 네이버 유저 생성: {email}")
 
-    # JWT 토큰 발급
-    access_token = create_access_token(subject=str(user.id))
+        # JWT 토큰 발급
+        jwt_token = create_access_token(subject=str(user.id))
 
-    return LoginResponse(
-        access_token=access_token,
-        token_type="bearer",
-        user=UserResponse.from_orm(user)
-    )
+        # 프론트엔드로 리다이렉트하면서 토큰 전달
+        frontend_url = f"https://amori.co.kr/dashboard?token={jwt_token}"
+        return RedirectResponse(url=frontend_url)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"네이버 로그인 오류: {str(e)}")
+        # 에러 발생 시 프론트엔드로 리다이렉트
+        error_url = "https://amori.co.kr/login?error=oauth_failed"
+        return RedirectResponse(url=error_url)

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 
-from app.routers import auth, user
+from app.routers import auth, user, oauth
 from app.database import engine, Base
 
 load_dotenv()
@@ -43,6 +43,7 @@ app.add_middleware(
 # 라우터 등록
 app.include_router(auth.router)
 app.include_router(user.router)
+app.include_router(oauth.router)
 
 # Health Check 엔드포인트 (GKE Liveness/Readiness Probe용)
 @app.get("/")
