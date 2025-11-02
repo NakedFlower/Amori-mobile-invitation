@@ -149,21 +149,28 @@ export const getKakaoLoginUrl = async () => {
  * 네이버 로그인 URL 요청
  */
 export const getNaverLoginUrl = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/oauth/nid/login`, {
-    method: 'GET',
-    credentials: 'include',
-  });
+  return`${API_BASE_URL}/api/oauth/nid/login`;
+  // const response = await fetch(`${API_BASE_URL}/api/oauth/nid/login`, {
+  //   method: 'GET',
+  //   credentials: 'include',
+  // });
 
-  if (!response.ok) {
-    throw new Error('네이버 로그인 URL을 가져오는데 실패했습니다.');
-  }
+  // console.log('네이버 로그인 URL 응답 상태:', response.status);
 
-  // 백엔드가 RedirectResponse를 반환하는 경우 직접 리다이렉트
-  if (response.redirected) {
-    return response.url;
-  }
+  // if (!response.ok) {
+  //   console.error('네이버 로그인 URL 요청 실패:', response.statusText);
+  //   throw new Error('네이버 로그인 URL을 가져오는데 실패했습니다.');
+  // }else{
 
-  // 백엔드가 JSON을 반환하는 경우
-  const data = await response.json();
-  return data.authUrl || data.url;
+  // }
+
+  // // 백엔드가 RedirectResponse를 반환하는 경우 직접 리다이렉트
+  // if (response.redirected) {
+  //   console.log('Redirected URL:', response.url);
+  //   return response.url;
+  // }
+
+  // // 백엔드가 JSON을 반환하는 경우
+  // const data = await response.json();
+  // return data.authUrl || data.url;
 };
