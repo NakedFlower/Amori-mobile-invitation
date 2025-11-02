@@ -120,3 +120,50 @@ export const getStoredUser = () => {
 export const isLoggedIn = () => {
   return !!localStorage.getItem('access_token');
 };
+
+
+/**
+ * 카카오 로그인 URL 요청
+ */
+export const getKakaoLoginUrl = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/oauth/kakao/login`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error('카카오 로그인 URL을 가져오는데 실패했습니다.');
+  }
+
+  // 백엔드가 RedirectResponse를 반환하는 경우 직접 리다이렉트
+  if (response.redirected) {
+    return response.url;
+  }
+
+  // 백엔드가 JSON을 반환하는 경우
+  const data = await response.json();
+  return data.authUrl || data.url;
+};
+
+/**
+ * 네이버 로그인 URL 요청
+ */
+export const getNaverLoginUrl = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/oauth/nid/login`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error('네이버 로그인 URL을 가져오는데 실패했습니다.');
+  }
+
+  // 백엔드가 RedirectResponse를 반환하는 경우 직접 리다이렉트
+  if (response.redirected) {
+    return response.url;
+  }
+
+  // 백엔드가 JSON을 반환하는 경우
+  const data = await response.json();
+  return data.authUrl || data.url;
+};

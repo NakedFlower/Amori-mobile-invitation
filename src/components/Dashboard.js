@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getCurrentUser } from '../services/api';
 
 // JWT 토큰에서 사용자 정보 가져오기
 function getUserInfo() {
-  // 1. 일반 로그인: localStorage에 'token'과 'user' 저장
   const normalToken = localStorage.getItem('token');
   const userStr = localStorage.getItem('user');
-  
-  // 2. 소셜 로그인: localStorage에 'access_token' 저장
   const socialToken = localStorage.getItem('access_token');
 
   if (normalToken && userStr) {
-    // 일반 로그인
     try {
       const user = JSON.parse(userStr);
       return {
@@ -25,7 +22,6 @@ function getUserInfo() {
   }
 
   if (socialToken) {
-    // 소셜 로그인 - JWT 디코딩해서 사용자 정보 가져오기
     try {
       const payload = JSON.parse(atob(socialToken.split('.')[1]));
       return {
@@ -55,10 +51,7 @@ function Dashboard({ onLogout, onNewCreationClick }) {
     const error = params.get('error');
 
     if (token) {
-      // 소셜 로그인 토큰 저장
-      localStorage.setItem('access_token', token);
-      
-      // 사용자 정보 API 호출하여 저장
+      // 소셜 로그인 토큰으로 사용자 정보 조회
       fetchUserInfo(token);
       
       // URL에서 토큰 제거 (보안)
@@ -85,21 +78,8 @@ function Dashboard({ onLogout, onNewCreationClick }) {
   // 소셜 로그인 후 사용자 정보 가져오기
   const fetchUserInfo = async (token) => {
     try {
-      const response = await fetch('https://amori.co.kr/api/user/me', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        const userData = await response.json();
-        // 사용자 정보 저장
-        localStorage.setItem('user', JSON.stringify(userData));
-        setUsername(userData.name || '사용자');
-      } else {
-        console.error('사용자 정보 조회 실패');
-        setUsername('사용자');
-      }
+      const userData = await getCurrentUser(token);
+      setUsername(userData.name || '사용자');
     } catch (error) {
       console.error('사용자 정보 조회 오류:', error);
       setUsername('사용자');
@@ -108,7 +88,6 @@ function Dashboard({ onLogout, onNewCreationClick }) {
 
   const categories = ['청첩장', '돌잔치', '감사장'];
   
-  // 데모용 카드 데이터
   const cards = [
     { id: 1, title: '김철수 & 이영희 청첩장', createAt: '2024.01.15' },
     { id: 2, title: '박민수 & 정수진 청첩장', createAt: '2024.01.10' },
@@ -141,7 +120,6 @@ function Dashboard({ onLogout, onNewCreationClick }) {
         <h2 className="welcome-text">{username}님, 반갑습니다.</h2>
       </div>
 
-      {/* Category Tabs */}
       <div className="category-tabs">
         {categories.map((category) => (
           <button
@@ -154,7 +132,6 @@ function Dashboard({ onLogout, onNewCreationClick }) {
         ))}
       </div>
 
-      {/* Cards Grid */}
       <div className="cards-grid" onClick={closeContextMenu}>
         {cards.map((card) => (
           <div key={card.id} className="card">
@@ -182,7 +159,6 @@ function Dashboard({ onLogout, onNewCreationClick }) {
           </div>
         ))}
         
-        {/* 새로 만들기 카드 */}
         <div className="card new-card" onClick={onNewCreationClick}>
           <div className="new-card-content">
             <div className="plus-icon">+</div>

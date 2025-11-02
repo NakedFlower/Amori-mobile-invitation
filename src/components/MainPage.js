@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { login } from '../services/api';
+import { login, getKakaoLoginUrl, getNaverLoginUrl } from '../services/api';
 
 function MainPage({ onLogin, onSignupClick }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -17,7 +17,6 @@ function MainPage({ onLogin, onSignupClick }) {
       alert(`환영합니다, ${response.user.name}님!`);
       setShowLoginForm(false);
 
-      // App.js에 로그인 성공 알림
       if (onLogin) {
         onLogin(response.user);
       }
@@ -26,21 +25,11 @@ function MainPage({ onLogin, onSignupClick }) {
       console.error('로그인 실패:', error);
     }
   };
+
   const handleKakaoLogin = async () => {
     try {
-      // API 호출로 카카오 로그인 URL 가져오기
-      const response = await fetch('/api/oauth/kakao/login', {
-        method: 'GET',
-        credentials: 'include'
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        // 카카오 로그인 페이지로 리다이렉트
-        window.location.href = data.authUrl || data.url;
-      } else {
-        throw new Error('카카오 로그인 URL을 가져오는데 실패했습니다.');
-      }
+      const authUrl = await getKakaoLoginUrl();
+      window.location.href = authUrl;
     } catch (error) {
       alert('카카오 로그인에 실패했습니다.');
       console.error('카카오 로그인 오류:', error);
@@ -49,19 +38,8 @@ function MainPage({ onLogin, onSignupClick }) {
 
   const handleNaverLogin = async () => {
     try {
-      // API 호출로 네이버 로그인 URL 가져오기
-      const response = await fetch('/api/oauth/nid/login', {
-        method: 'GET',
-        credentials: 'include'
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        // 네이버 로그인 페이지로 리다이렉트
-        window.location.href = data.authUrl || data.url;
-      } else {
-        throw new Error('네이버 로그인 URL을 가져오는데 실패했습니다.');
-      }
+      const authUrl = await getNaverLoginUrl();
+      window.location.href = authUrl;
     } catch (error) {
       alert('네이버 로그인에 실패했습니다.');
       console.error('네이버 로그인 오류:', error);
@@ -81,8 +59,12 @@ function MainPage({ onLogin, onSignupClick }) {
       </div>
 
       <div className="button-section">
-        <button className="green-button" onClick={handleNaverLogin}>네이버 로그인</button>
-        <button className="yellow-button" onClick={handleKakaoLogin}>카카오톡 로그인</button>
+        <button className="yellow-button" onClick={handleKakaoLogin}>
+          카카오톡 로그인
+        </button>
+        <button className="green-button" onClick={handleNaverLogin}>
+          네이버 로그인
+        </button>
       </div>
 
       <div className="login-section">
