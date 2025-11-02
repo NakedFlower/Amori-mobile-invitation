@@ -153,16 +153,25 @@ body {
 }
 
 .yellow-button {
-  background-color: #f1c40f;
-  color: #333;
+  background-color: #FEE500;
+  color: rgba(0,0,0,0.85);
   border: none;
   padding: 15px 40px;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* 수평 가운데 정렬 */
+  gap: 8px; /* 아이콘과 텍스트 간 간격 */
   transition: background-color 0.2s;
   min-width: 300px;
+}
+
+.naver-btn img {
+    width: 16px;
+    height: 16px;
 }
 
 .yellow-button:hover {
@@ -170,16 +179,23 @@ body {
 }
 
 .green-button {
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  padding: 15px 40px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  min-width: 300px;
+    background-color: #03C75A; 
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* 수평 가운데 정렬 */
+    gap: 8px; /* 아이콘과 텍스트 간 간격 */
+    cursor: pointer;
+}
+
+.naver-btn img {
+    width: 20px; /* N 로고 크기 */
+    height: 20px;
 }
 
 .green-button:hover {

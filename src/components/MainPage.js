@@ -60,9 +60,11 @@ function MainPage({ onLogin, onSignupClick }) {
 
       <div className="button-section">
         <button className="yellow-button" onClick={handleKakaoLogin}>
-          카카오톡 로그인
+          <img src="/kakao-logo-m.png" alt="N 로고" />
+          카카오 로그인
         </button>
-        <button className="green-button" onClick={handleNaverLogin}>
+        <button className="green-button " onClick={handleNaverLogin}>
+           <img src="/naver-logo-m.png" alt="N 로고" />
           네이버 로그인
         </button>
       </div>
