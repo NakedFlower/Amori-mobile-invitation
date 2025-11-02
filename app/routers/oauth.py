@@ -62,7 +62,7 @@ async def naver_callback(code: str, state: str, db: Session = Depends(get_db)):
         }
         print(f"[DEBUG] 네이버 토큰 요청 파라미터: {token_params}")
         
-        token_response = requests.post(NAVER_TOKEN_URL, data=token_params)
+        token_response = requests.post(NAVER_TOKEN_URL, data=token_params, verify=False)
         token_data = token_response.json()
         access_token = token_data.get("access_token")
 
