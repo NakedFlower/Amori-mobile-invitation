@@ -207,7 +207,7 @@ paths:
       produces:
         - application/json
       responses:
-        '302':
+        '307':
           description: Redirect to Naver login
           headers:
             Access-Control-Allow-Origin:
