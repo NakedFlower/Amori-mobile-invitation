@@ -1,28 +1,110 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// JWT 토큰에서 username 가져오기
-function getUsernameFromToken() {
-  const token = localStorage.getItem('token');
-  if (!token) return null;
+// JWT 토큰에서 사용자 정보 가져오기
+function getUserInfo() {
+  // 1. 일반 로그인: localStorage에 'token'과 'user' 저장
+  const normalToken = localStorage.getItem('token');
+  const userStr = localStorage.getItem('user');
+  
+  // 2. 소셜 로그인: localStorage에 'access_token' 저장
+  const socialToken = localStorage.getItem('access_token');
 
-  try {
-    const payload = JSON.parse(localStorage.getItem('user'));
-    return payload.name || '사용자';
-  } catch (e) {
-    console.error('JWT 디코딩 실패', e);
-    return '사용자';
+  if (normalToken && userStr) {
+    // 일반 로그인
+    try {
+      const user = JSON.parse(userStr);
+      return {
+        name: user.name || '사용자',
+        token: normalToken,
+        type: 'normal'
+      };
+    } catch (e) {
+      console.error('사용자 정보 파싱 실패', e);
+    }
   }
+
+  if (socialToken) {
+    // 소셜 로그인 - JWT 디코딩해서 사용자 정보 가져오기
+    try {
+      const payload = JSON.parse(atob(socialToken.split('.')[1]));
+      return {
+        name: payload.name || '사용자',
+        token: socialToken,
+        type: 'social'
+      };
+    } catch (e) {
+      console.error('JWT 디코딩 실패', e);
+    }
+  }
+
+  return null;
 }
 
 function Dashboard({ onLogout, onNewCreationClick }) {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('청첩장');
-  const [showContextMenu, setShowContextMenu] = useState(null); // 어떤 카드의 메뉴가 열려있는지
+  const [showContextMenu, setShowContextMenu] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const name = getUsernameFromToken();
-    setUsername(name);
-  }, []);
+    // OAuth 콜백 처리 (소셜 로그인)
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    const error = params.get('error');
+
+    if (token) {
+      // 소셜 로그인 토큰 저장
+      localStorage.setItem('access_token', token);
+      
+      // 사용자 정보 API 호출하여 저장
+      fetchUserInfo(token);
+      
+      // URL에서 토큰 제거 (보안)
+      window.history.replaceState({}, '', '/dashboard');
+      console.log('소셜 로그인 성공');
+    } else if (error) {
+      console.error('OAuth 에러:', error);
+      alert('로그인에 실패했습니다. 다시 시도해주세요.');
+      navigate('/login');
+    } else {
+      // 일반 로그인 또는 이미 로그인된 상태
+      const userInfo = getUserInfo();
+      if (userInfo) {
+        setUsername(userInfo.name);
+      } else {
+        // 로그인 정보 없음 - 로그인 페이지로 이동
+        navigate('/login');
+      }
+    }
+
+    setIsLoading(false);
+  }, [navigate]);
+
+  // 소셜 로그인 후 사용자 정보 가져오기
+  const fetchUserInfo = async (token) => {
+    try {
+      const response = await fetch('https://amori.co.kr/api/user/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        // 사용자 정보 저장
+        localStorage.setItem('user', JSON.stringify(userData));
+        setUsername(userData.name || '사용자');
+      } else {
+        console.error('사용자 정보 조회 실패');
+        setUsername('사용자');
+      }
+    } catch (error) {
+      console.error('사용자 정보 조회 오류:', error);
+      setUsername('사용자');
+    }
+  };
 
   const categories = ['청첩장', '돌잔치', '감사장'];
   
@@ -44,11 +126,14 @@ function Dashboard({ onLogout, onNewCreationClick }) {
     setShowContextMenu(null);
   };
 
-  // 메뉴 항목 클릭 핸들러
   const handleMenuAction = (action) => {
     console.log(`선택된 액션: ${action}`);
     closeContextMenu();
   };
+
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
 
   return (
     <main className="dashboard-content">
