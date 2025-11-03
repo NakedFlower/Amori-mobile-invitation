@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Button } from 'antd';
+import './TemplateSelectionPage.css';
 
-// 'onBack' prop이 더 이상 필요하지 않으므로 props 목록에서 제거합니다.
 function TemplateSelectionPage({ username, onTemplateSelected }) {
   const [selectedCategory, setSelectedCategory] = useState('결혼식 청첩장');
 
@@ -35,13 +36,14 @@ function TemplateSelectionPage({ username, onTemplateSelected }) {
       {/* Category Tabs */}
       <div className="category-tabs">
         {categories.map((category) => (
-          <button
+          <Button
             key={category}
+            type={selectedCategory === category ? 'primary' : 'text'}
             className={`category-tab ${selectedCategory === category ? 'active' : ''}`}
             onClick={() => setSelectedCategory(category)}
           >
             {category}
-          </button>
+          </Button>
         ))}
       </div>
 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentUser } from '../services/api';
+import { Button, Tabs, Card, Grid, Spin, Dropdown, Space } from 'antd';
+import './Dashboard.css';
 
 // JWT 토큰에서 사용자 정보 가져오기
 function getUserInfo() {
@@ -110,8 +112,17 @@ function Dashboard({ onLogout, onNewCreationClick }) {
     closeContextMenu();
   };
 
+  const menuItems = [
+    { key: '1', label: '보기' },
+    { key: '2', label: '수정하기' },
+    { key: '3', label: '참석의사 응답보기' },
+    { key: '4', label: '카카오톡 공유하기' },
+    { key: '5', label: '링크 복사하기' },
+    { key: '6', label: '삭제하기', danger: true }
+  ];
+
   if (isLoading) {
-    return <div>로딩 중...</div>;
+    return <Spin style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }} />;
   }
 
   return (
@@ -122,49 +133,47 @@ function Dashboard({ onLogout, onNewCreationClick }) {
 
       <div className="category-tabs">
         {categories.map((category) => (
-          <button
+          <Button
             key={category}
+            type={selectedCategory === category ? 'primary' : 'text'}
             className={`category-tab ${selectedCategory === category ? 'active' : ''}`}
             onClick={() => setSelectedCategory(category)}
           >
             {category}
-          </button>
+          </Button>
         ))}
       </div>
 
       <div className="cards-grid" onClick={closeContextMenu}>
         {cards.map((card) => (
-          <div key={card.id} className="card">
-            <div className="card-content">
-              <div className="card-title">{card.title}</div>
-              <div className="card-date">{card.createAt}</div>
-            </div>
-            <button 
-              className="card-menu-btn"
+          <Dropdown
+            key={card.id}
+            menu={{ items: menuItems }}
+            trigger={['contextMenu']}
+          >
+            <Card
+              className="card"
+              hoverable
               onClick={(e) => handleContextMenu(card.id, e)}
             >
-              ⋯
-            </button>
-            
-            {showContextMenu === card.id && (
-              <div className="context-menu">
-                <div className="menu-item" onClick={() => handleMenuAction('보기')}>보기</div>
-                <div className="menu-item" onClick={() => handleMenuAction('수정하기')}>수정하기</div>
-                <div className="menu-item" onClick={() => handleMenuAction('참석의사 응답보기')}>참석의사 응답보기</div>
-                <div className="menu-item" onClick={() => handleMenuAction('카카오톡 공유하기')}>카카오톡 공유하기</div>
-                <div className="menu-item" onClick={() => handleMenuAction('링크 복사하기')}>링크 복사하기</div>
-                <div className="menu-item" onClick={() => handleMenuAction('삭제하기')}>삭제하기</div>
+              <div className="card-content">
+                <div className="card-title">{card.title}</div>
+                <div className="card-date">{card.createAt}</div>
               </div>
-            )}
-          </div>
+            </Card>
+          </Dropdown>
         ))}
         
-        <div className="card new-card" onClick={onNewCreationClick}>
+        <Card
+          className="card new-card"
+          hoverable
+          onClick={onNewCreationClick}
+        >
           <div className="new-card-content">
             <div className="plus-icon">+</div>
             <div className="new-card-text">새로 제작하기</div>
           </div>
-        </div>
+        </Card>
       </div>
     </main>
   );

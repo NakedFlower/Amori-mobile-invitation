@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { signup } from '../services/api';
+import { Button, Input, Form } from 'antd';
+import './SignupPage.css';
 
 function SignupPage({ onBack, onSignup }) {
   const [formData, setFormData] = useState({
@@ -84,30 +86,8 @@ function SignupPage({ onBack, onSignup }) {
         <p className="subtitle">Amori와 함께 시작하세요</p>
       </div>
       
-      <div className="signup-form">
-        {/* 프로필 이미지 */}
-        {/* <div className="profile-image-section">
-          <div className="profile-image-preview">
-            {previewUrl ? (
-              <img src={previewUrl} alt="프로필 미리보기" />
-            ) : (
-              <div className="profile-placeholder">+</div>
-            )}
-          </div>
-          <label htmlFor="profile-upload" className="profile-upload-label">
-            프로필 이미지 업로드
-          </label>
-          <input
-            id="profile-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            style={{ display: 'none' }}
-          />
-        </div> */}
-
-        {/* 입력 필드들 */}
-        <input 
+      <Form className="signup-form">
+        <Input 
           type="text"
           name="name"
           placeholder="이름" 
@@ -115,7 +95,7 @@ function SignupPage({ onBack, onSignup }) {
           value={formData.name}
           onChange={handleInputChange}
         />
-        <input 
+        <Input 
           type="email"
           name="email"
           placeholder="이메일" 
@@ -123,7 +103,7 @@ function SignupPage({ onBack, onSignup }) {
           value={formData.email}
           onChange={handleInputChange}
         />
-        <input 
+        <Input 
           type="tel"
           name="phone"
           placeholder="핸드폰번호 (예: 010-1234-5678)" 
@@ -131,16 +111,14 @@ function SignupPage({ onBack, onSignup }) {
           value={formData.phone}
           onChange={handleInputChange}
         />
-        <input 
-          type="password"
+        <Input.Password
           name="password"
           placeholder="비밀번호" 
           className="login-input"
           value={formData.password}
           onChange={handleInputChange}
         />
-        <input 
-          type="password"
+        <Input.Password
           name="passwordConfirm"
           placeholder="비밀번호 확인" 
           className="login-input"
@@ -148,17 +126,17 @@ function SignupPage({ onBack, onSignup }) {
           onChange={handleInputChange}
         />
         
-        <button className="purple-login-btn signup-btn" onClick={handleSignup}>
+        <Button className="purple-login-btn signup-btn" onClick={handleSignup}>
           회원가입
-        </button>
+        </Button>
         
         <div className="signup-footer">
           <span className="signup-link-text">이미 계정이 있으신가요? </span>
-          <button className="signup-link" onClick={onBack}>
+          <Button type="text" className="signup-link" onClick={onBack}>
             로그인하기
-          </button>
+          </Button>
         </div>
-      </div>
+      </Form>
     </main>
   );
 }

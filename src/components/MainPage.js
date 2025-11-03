@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { login, getKakaoLoginUrl, getNaverLoginUrl } from '../services/api';
+import { Button, Input, Space, Form } from 'antd';
+import './MainPage.css';
 
 function MainPage({ onLogin, onSignupClick }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -59,27 +61,28 @@ function MainPage({ onLogin, onSignupClick }) {
       </div>
 
       <div className="button-section">
-        <button className="yellow-button" onClick={handleKakaoLogin}>
-          <img src="/kakao-logo-m.png" alt="N 로고" />
+        <Button className="yellow-button" onClick={handleKakaoLogin}>
+          <img src="/kakao-logo-m.png" alt="카카오 로고" />
           카카오 로그인
-        </button>
-        <button className="green-button " onClick={handleNaverLogin}>
-           <img src="/naver-logo-m.png" alt="N 로고" />
+        </Button>
+        <Button className="green-button" onClick={handleNaverLogin}>
+          <img src="/naver-logo-m.png" alt="네이버 로고" />
           네이버 로그인
-        </button>
+        </Button>
       </div>
 
       <div className="login-section">
-        <button
+        <Button
+          type="text"
           className="email-login-btn"
           onClick={() => setShowLoginForm(!showLoginForm)}
         >
           이메일로 로그인하기
-        </button>
+        </Button>
 
         {showLoginForm && (
-          <div className="login-form">
-            <input
+          <Form className="login-form">
+            <Input
               type="email"
               placeholder="이메일을 입력해주세요"
               className="login-input"
@@ -87,22 +90,21 @@ function MainPage({ onLogin, onSignupClick }) {
               onChange={(e) => setEmail(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
             />
-            <input
-              type="password"
+            <Input.Password
               placeholder="비밀번호를 입력해주세요"
               className="login-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
             />
-            <button className="purple-login-btn" onClick={handleLogin}>로그인</button>
+            <Button className="purple-login-btn" onClick={handleLogin}>로그인</Button>
             <div className="signup-footer">
               <span className="signup-link-text">계정이 없으신가요? </span>
-              <button className="signup-link" onClick={onSignupClick}>
+              <Button type="text" className="signup-link" onClick={onSignupClick}>
                 회원가입하기
-              </button>
+              </Button>
             </div>
-          </div>
+          </Form>
         )}
       </div>
     </main>

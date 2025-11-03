@@ -16,694 +16,23 @@ body {
   background-color: #f5f5f5;
 }
 
-/* Header Styles */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #e0e0e0;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
-.header-left .brand {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
-
-.header-nav {
-  display: flex;
-  gap: 30px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.nav-link {
-  background: none;
-  border: none;
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.2s;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 0;
-}
-
-.nav-link:hover {
-  color: #666;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.cart-section {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.cart-icon {
-  position: relative;
-  width: 24px;
-  height: 24px;
-  background-color: #333;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cart-badge {
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.cart-text {
-  color: #333;
-  font-weight: 500;
-}
-
-.login-btn {
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.login-btn:hover {
-  background-color: #555;
-}
-
-/* Main Content Styles */
-.main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 80px);
-  padding: 40px 20px;
-}
-
-.content-text {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.main-title {
-  font-size: 32px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.subtitle {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.rating-text {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 20px;
-}
-
-.highlight {
-  color: #e74c3c;
-  font-weight: bold;
-}
-
-/* Button Styles */
-.button-section {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 40px;
-}
-
-.yellow-button {
-  background-color: #FEE500;
-  color: rgba(0,0,0,0.85);
-  border: none;
-  padding: 15px 40px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;  /* 수평 가운데 정렬 */
-  gap: 8px; /* 아이콘과 텍스트 간 간격 */
-  transition: background-color 0.2s;
-  min-width: 300px;
-}
-
-.naver-btn img {
-    width: 16px;
-    height: 16px;
-}
-
-.yellow-button:hover {
-  background-color: #f39c12;
-}
-
-.green-button {
-    background-color: #03C75A; 
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 15px 40px;
-    border: none;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;  /* 수평 가운데 정렬 */
-    gap: 8px; /* 아이콘과 텍스트 간 간격 */
-    cursor: pointer;
-}
-
-.naver-btn img {
-    width: 20px; /* N 로고 크기 */
-    height: 20px;
-}
-
-.green-button:hover {
-  background-color: #229954;
-}
-
-/* Login Section */
-.login-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.email-login-btn {
-  background: none;
-  border: none;
-  color: #666;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: underline;
-  transition: color 0.2s;
-}
-
-.email-login-btn:hover {
-  color: #333;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
-  animation: slideDown 0.3s ease-out;
-}
-
-.login-input {
-  width: 300px;
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  background-color: white;
-}
-
-.login-input:focus {
-  outline: none;
-  border-color: #333;
-}
-
-.purple-login-btn {
-  background-color: #8e44ad;
-  color: white;
-  border: none;
-  padding: 12px 40px;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  width: 300px;
-}
-
-.purple-login-btn:hover {
-  background-color: #7d3c98;
-}
-
-/* Signup Footer Styles */
-.signup-footer {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.signup-link-text {
-  font-size: 14px;
-  color: #666;
-}
-
-.signup-link {
-  background: none;
-  border: none;
-  color: #8e44ad;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: underline;
-  padding: 0;
-  transition: color 0.2s;
-}
-
-.signup-link:hover {
-  color: #7d3c98;
-}
-
-/* Signup Page Styles */
-.signup-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.profile-image-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 10px;
-}
-
-.profile-image-preview {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #f0f0f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #ddd;
-}
-
-.profile-image-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.profile-placeholder {
-  font-size: 48px;
-  color: #ccc;
-  font-weight: 300;
-}
-
-.profile-upload-label {
-  color: #8e44ad;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: underline;
-  transition: color 0.2s;
-}
-
-.profile-upload-label:hover {
-  color: #7d3c98;
-}
-
-.signup-btn {
-  margin-top: 10px;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Dashboard Styles */
-.dashboard-content {
-  padding: 40px;
-  background-color: #f5f5f5;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.welcome-section {
-  margin-bottom: 30px;
-  text-align: center;
-  width: 100%;
-}
-
-.welcome-text {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
-}
-
-.category-tabs {
-  display: flex;
-  gap: 0;
-  margin-bottom: 30px;
-  border-bottom: 1px solid #e0e0e0;
-  justify-content: center;
-  max-width: 900px;
-  width: 100%;
-}
-
-.category-tab {
-  background: none;
-  border: none;
-  padding: 15px 30px;
-  font-size: 16px;
-  color: #666;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: all 0.2s;
-}
-
-.category-tab.active {
-  color: #8e44ad;
-  border-bottom-color: #8e44ad;
-  font-weight: 600;
-}
-
-.category-tab:hover {
-  color: #8e44ad;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.card {
-  background-color: #f8f4ff;
-  border-radius: 12px;
-  padding: 20px;
-  position: relative;
-  min-height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.card-content {
-  flex: 1;
-}
-
-.card-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
-
-.card-date {
-  font-size: 14px;
-  color: #999;
-}
-
-.card-menu-btn {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  color: #999;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 4px;
-  transition: color 0.2s, background-color 0.2s;
-}
-
-.card-menu-btn:hover {
-  color: #666;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.context-menu {
-  position: absolute;
-  bottom: 45px;
-  right: 15px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 8px 0;
-  min-width: 180px;
-  z-index: 1000;
-  animation: slideUp 0.2s ease-out;
-}
-
-.menu-item {
-  padding: 12px 16px;
-  font-size: 14px;
-  color: #333;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.menu-item:last-child {
-  border-bottom: none;
-}
-
-.menu-item:hover {
-  background-color: #f8f9fa;
-}
-
-.new-card {
-  background-color: #f8f4ff;
-  border: 2px dashed #8e44ad;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.new-card:hover {
-  border-color: #7d3c98;
-  background-color: #f0e6ff;
-}
-
-.new-card-content {
-  text-align: center;
-}
-
-.plus-icon {
-  font-size: 32px;
-  color: #8e44ad;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-
-.new-card-text {
-  font-size: 16px;
-  color: #8e44ad;
-  font-weight: 600;
-}
-
-.logout-btn {
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.logout-btn:hover {
-  background-color: #555;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Design */
-/* Template Selection Page Styles */
-.template-selection-content {
-  padding: 40px;
-  background-color: #f5f5f5;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.templates-section {
-  margin-top: 30px;
-  width: 100%;
-  max-width: 900px;
-}
-
-.section-title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.templates-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.template-card {
-  background-color: #d9d3ed;
-  border-radius: 12px;
-  padding: 20px;
-  min-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.template-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.template-card.custom-template {
-  background-color: #8e44ad;
-}
-
-.custom-template-content,
-.template-content {
-  text-align: center;
-  width: 100%;
-}
-
-.custom-template-content .plus-icon {
-  font-size: 48px;
-  color: white;
-  margin-bottom: 10px;
-}
-
-.custom-template-content .template-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-}
-
-.template-content .template-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-  line-height: 1.5;
-}
-
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .header-nav {
-    gap: 20px;
-  }
-  
-  .main-title {
-    font-size: 24px;
-  }
-  
-  .yellow-button,
-  .green-button {
-    min-width: 250px;
-  }
-  
-  .login-input,
-  .purple-login-btn {
-    width: 250px;
-  }
-  
-  .dashboard-content {
-    padding: 20px;
-  }
-  
-  .cards-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
-  }
-  
-  .category-tab {
-    padding: 12px 20px;
-    font-size: 14px;
-  }
-
-  .template-selection-content {
-    padding: 20px;
-  }
-
-  .templates-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
-}
-
-/* =================================
-InvitationEditor (Wizard) Styles
-=================================
-*/
+/* InvitationEditor and InvitationCreator styles are defined in this file
+   All other page styles are now in component-specific CSS files
+   Header.css, MainPage.css, Dashboard.css, TemplateSelectionPage.css, SignupPage.css
+ */
 
-/* 1. 네비게이션 (화살표 + 프로그레스 바) */
+/* Wizard Navigation */
 .wizard-navigation {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 500px; /* 콘텐츠 최대 너비와 맞춤 */
+  max-width: 500px;
   margin: 20px auto;
   padding: 0 10px;
   box-sizing: border-box;
@@ -717,6 +46,7 @@ InvitationEditor (Wizard) Styles
   cursor: pointer;
   padding: 10px;
 }
+
 .wizard-nav-btn:hover {
   color: #333;
 }
@@ -732,12 +62,12 @@ InvitationEditor (Wizard) Styles
 
 .wizard-progress-fill {
   height: 100%;
-  background-color: #b19cd9; /* 연한 보라색 */
+  background-color: #b19cd9;
   border-radius: 3px;
   transition: width 0.3s ease-in-out;
 }
 
-/* 2. 슬라이드 영역 */
+/* Wizard Container */
 .wizard-container {
   width: 100%;
   padding: 20px;
@@ -748,20 +78,18 @@ InvitationEditor (Wizard) Styles
 
 .wizard-slider-viewport {
   width: 100%;
-  overflow: hidden; /* 핵심: 넘치는 스텝들을 숨김 */
+  overflow: hidden;
   min-height: 600px;
 }
 
 .wizard-slider-container {
   display: flex;
-  width: 500%; /* 5개 스텝이므로 500% */
-  /* 핵심: 스텝이 바뀔면 transform 속성이 변경되며 슬라이드됨 */
-  transition: transform 0.4s ease-in-out; 
+  width: 500%;
+  transition: transform 0.4s ease-in-out;
 }
 
-/* 3. 개별 스텝 (화면) 공통 스타일 */
 .wizard-step {
-  width: 20%; /* 전체 컨테이너(500%)의 1/5 */
+  width: 20%;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -789,7 +117,6 @@ InvitationEditor (Wizard) Styles
   line-height: 1.6;
 }
 
-/* 4. 스텝별 고유 스타일 (이미지, 인풋 등) */
 .wizard-image-placeholder {
   background-color: #f0f0f0;
   border-radius: 8px;
@@ -800,25 +127,27 @@ InvitationEditor (Wizard) Styles
   font-size: 40px;
   border: 2px dashed #ddd;
 }
+
 .wizard-image-placeholder.large {
   width: 320px;
-  height: 480px; /* 2:3 비율 예시 */
+  height: 480px;
   overflow: hidden;
   border: none;
 }
+
 .wizard-image-placeholder.medium {
   width: 300px;
-  height: 300px; /* 1:1 비율 예시 */
+  height: 300px;
 }
+
 .wizard-image-placeholder.upload-box {
   cursor: pointer;
 }
+
 .wizard-image-placeholder img {
   display: block;
 }
 
-
-/* 인풋 영역 */
 .wizard-input-group {
   width: 100%;
   max-width: 400px;
@@ -826,11 +155,13 @@ InvitationEditor (Wizard) Styles
   flex-direction: column;
   gap: 10px;
 }
+
 .wizard-input-group label {
   font-size: 13px;
   color: #555;
   margin-top: 10px;
 }
+
 .wizard-input-group input[type="text"] {
   width: 100%;
   padding: 12px 15px;
@@ -839,30 +170,18 @@ InvitationEditor (Wizard) Styles
   font-size: 16px;
   box-sizing: border-box;
 }
+
 .wizard-input-group input[type="text"]:focus {
   outline: none;
   border-color: #8A2BE2;
   box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.1);
 }
+
 .wizard-input-group input[type="text"][readonly] {
   background-color: #f9f9f9;
 }
 
-
-/* 버튼 */
-.wizard-btn-primary {
-  width: 100%;
-  max-width: 400px;
-  padding: 15px;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  background-color: #8A2BE2; /* 보라색 */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 30px;
-}
+.wizard-btn-primary,
 .wizard-btn-secondary {
   width: 100%;
   max-width: 400px;
@@ -875,6 +194,15 @@ InvitationEditor (Wizard) Styles
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 10px;
+}
+
+.wizard-btn-primary {
+  margin-top: 30px;
+}
+
+.wizard-btn-primary:hover,
+.wizard-btn-secondary:hover {
+  opacity: 0.9;
 }
 
 .wizard-btn-address-search {
@@ -895,23 +223,13 @@ InvitationEditor (Wizard) Styles
   opacity: 0.9;
 }
 
-.wizard-btn-primary:hover,
-.wizard-btn-secondary:hover {
-  opacity: 0.9;
-}
-
-/* =================================
-InvitationCreator Styles
-=================================
-*/
-
+/* Invitation Creator */
 .invitation-creator {
   display: flex;
   height: calc(100vh - 80px);
   background-color: #f5f5f5;
 }
 
-/* 왼쪽 사이드바 */
 .creator-sidebar {
   width: 200px;
   background-color: #fff;
@@ -1003,7 +321,6 @@ InvitationCreator Styles
   color: #8e44ad;
 }
 
-/* 가운데 편집 영역 */
 .creator-edit-area {
   width: 450px;
   padding: 24px;
@@ -1104,14 +421,16 @@ InvitationCreator Styles
 }
 
 .greeting-text-area,
-.contact-input-group {
+.contact-input-group,
+.color-input-group {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
 .greeting-text-area label,
-.contact-input-group label {
+.contact-input-group label,
+.color-input-group label {
   font-size: 13px;
   font-weight: 500;
   color: #555;
@@ -1302,16 +621,7 @@ InvitationCreator Styles
   user-select: none;
 }
 
-.color-input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
 .color-input-group label {
-  font-size: 13px;
-  font-weight: 500;
-  color: #555;
   margin-top: 8px;
 }
 
@@ -1566,7 +876,6 @@ InvitationCreator Styles
   border-color: #8e44ad;
 }
 
-/* 오른쪽 미리보기 */
 .creator-preview {
   flex: 1;
   background-color: #f5f5f5;
@@ -1683,7 +992,6 @@ InvitationCreator Styles
   margin: 5px 0;
 }
 
-/* 섹션 관리 스타일 */
 .section-management-list {
   display: flex;
   flex-direction: column;
@@ -1755,7 +1063,7 @@ InvitationCreator Styles
   right: 0;
   bottom: 0;
   background: #e5e5e5;
-  transition: .2s ease;
+  transition: 0.2s ease;
   border-radius: 26px;
 }
 
@@ -1767,7 +1075,7 @@ InvitationCreator Styles
   left: 3px;
   bottom: 3px;
   background: white;
-  transition: .2s ease;
+  transition: 0.2s ease;
   border-radius: 50%;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
@@ -1780,7 +1088,6 @@ InvitationCreator Styles
   transform: translateX(22px);
 }
 
-/* 인사말 문구 섹션 */
 .greeting-names-section {
   display: flex;
   flex-direction: column;
@@ -1844,4 +1151,30 @@ InvitationCreator Styles
   width: 32px;
   height: 32px;
   object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .invitation-creator {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .creator-sidebar {
+    width: 100%;
+    height: auto;
+  }
+
+  .creator-edit-area {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .creator-preview {
+    width: 100%;
+  }
+
+  .preview-phone {
+    max-width: 100%;
+  }
 }
