@@ -1,7 +1,7 @@
 """
 Database models matching the MySQL DDL schema.
 """
-from sqlalchemy import Column, BigInteger, Integer, String, DateTime, Enum, Boolean, Text, ForeignKey
+from sqlalchemy import Column, BigInteger, Integer, String, DateTime, Enum, Boolean, Text, ForeignKey, JSON, Time, Date
 from sqlalchemy.sql import func
 from app.database import Base
 import enum
@@ -89,3 +89,46 @@ class AuthInfo(Base):
     scope = Column(String(255))
     expires_at = Column(DateTime)
     linked_at = Column(DateTime, server_default=func.current_timestamp())
+
+# ===== Invitations =====
+class InvitationStatus(str, enum.Enum):
+    draft = "draft"
+    published = "published"
+
+class Invitation(Base):
+    __tablename__ = "invitations"
+
+    invitation_id = Column(BigInteger, primary_key=True, autoincrement=True)
+    user_id = Column(BigInteger, ForeignKey("user.id"), nullable=False, index=True)
+    template_id = Column(BigInteger, nullable=False)
+    status = Column(Enum(InvitationStatus), nullable=False, default=InvitationStatus.draft)
+    groom_name = Column(String(100))
+    bride_name = Column(String(100))
+    wedding_date = Column(Date)
+    wedding_time = Column(Time)
+    venue_address = Column(String(255))
+    created_at = Column(DateTime, server_default=func.current_timestamp())
+    updated_at = Column(DateTime, server_default=func.current_timestamp(), onupdate=func.current_timestamp())
+
+class InvitationDetails(Base):
+    __tablename__ = "invitation_details"
+
+    invitation_id = Column(BigInteger, ForeignKey("invitations.invitation_id"), primary_key=True)
+    cover_type = Column(String(50))
+    cover_animation_enabled = Column(Boolean, default=False)
+    cover_photo_key = Column(String(1024))
+    design_settings = Column(JSON)
+    section_content = Column(JSON)
+    intro_photo_key = Column(String(1024))
+    family_details = Column(JSON)
+    gallery_view_type_id = Column(String(50))
+    gallery_zoom_disabled = Column(Boolean, default=False)
+    gift_account_fold_enabled = Column(Boolean, default=True)
+    popup_id = Column(Enum("커버팝업", "본문팝업", "사용하지 않음", name="popup_id_enum"))
+    location_view_enabled = Column(Boolean, default=True)
+    photobooth_photo_key = Column(String(1024))
+    reception_photo_key = Column(String(1024))
+    pet_photo_key = Column(String(1024))
+    video_id_or_key = Column(String(1024))
+    share_link_copy_image_key = Column(String(1024))
+    share_kakao_image_key = Column(String(1024))
