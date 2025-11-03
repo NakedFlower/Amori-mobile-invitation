@@ -58,18 +58,25 @@
 }
 
 .purple-login-btn {
+  align-items: center !important;
+    justify-content: center !important;
+    gap: 8px;
+    cursor: pointer;
+    height: auto !important;
+    line-height: normal !important;
+    
   background-color: #8e44ad !important;
   color: white !important;
   border: none !important;
-  padding: 12px 40px !important;
-  border-radius: 4px !important;
+  padding: 15px 40px !important;
+  border-radius: 12px !important;
   font-size: 16px !important;
   font-weight: 600 !important;
   cursor: pointer;
   transition: background-color 0.2s;
   width: 300px !important;
   height: auto !important;
-  line-height: normal !important;
+  line-height: normal !important;  
 }
 
 .purple-login-btn:hover {
