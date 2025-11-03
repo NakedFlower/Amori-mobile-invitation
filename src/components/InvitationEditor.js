@@ -190,8 +190,8 @@ const DolStep1 = ({ username, onNext }) => {
 
   return (
     <div className="wizard-step">
-      <h2 className="wizard-title">{username}님, <br />돌쟔치 초대장을 선택하셨어요.</h2>
-      <p className="wizard-subtitle">돌쟔치 날짜와 시간을 선택해주세요. <br />나중에 변경할 수 있어요.</p>
+      <h2 className="wizard-title">{username}님, <br />돌잔치 초대장을 선택하셨어요.</h2>
+      <p className="wizard-subtitle">돌잔치 날짜와 시간을 선택해주세요. <br />나중에 변경할 수 있어요.</p>
       <div className="wizard-input-group">
         <label>행사 날짜</label>
         <div style={{ display: 'flex', gap: '10px' }}>
@@ -438,9 +438,11 @@ function InvitationEditor({ username, invitationType, onBack, onNext }) {
         >
           {isDol ? (
             <>
-              {/* 기존 돌잔치 단계 유지 */}
-              {/* 돌잔치 플로우는 현재 저장 요구사항 범위 밖이므로 변경 없이 유지합니다. */}
-              {/* 필요 시 결혼식과 동일한 수집/저장 구조로 확장 */}
+              <DolStep1 username={username} onNext={handleNext} />
+              <DolStep2 username={username} onNext={handleNext} />
+              <DolStep3 username={username} onNext={handleNext} />
+              <DolStep4 username={username} onNext={handleNext} />
+              <DolStep5 username={username} onNext={handleNext} />
             </>
           ) : (
             <>
