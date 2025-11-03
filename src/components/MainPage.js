@@ -1,12 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { login, getKakaoLoginUrl, getNaverLoginUrl } from '../services/api';
-import { Button, Input, Form } from 'antd';
+import { Button, Input, Form, Spin } from 'antd';
 import './MainPage.css';
 
 function MainPage({ onLogin, onSignupClick }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [stats, setStats] = useState({ users: 0, rating: 4.8, reviews: 0 });
+  const [isLoadingStats, setIsLoadingStats] = useState(true);
+
+  // 통계 데이터 가져오기
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        // 여기에 백엔드 API 호출 추가 (현재는 더미 데이터)
+        // const response = await fetch('/api/stats');
+        // const data = await response.json();
+        // setStats(data);
+        
+        // 임시: 1초 후 숫자 증가하며 표시
+        setIsLoadingStats(true);
+        await new Promise(resolve => setTimeout(resolve, 500));
+        setStats({ users: 1234, rating: 4.8, reviews: 1234 });
+        setIsLoadingStats(false);
+      } catch (error) {
+        console.error('통계 로드 실패:', error);
+        setStats({ users: 1234, rating: 4.8, reviews: 1234 });
+        setIsLoadingStats(false);
+      }
+    };
+    fetchStats();
+  }, []);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -14,6 +40,7 @@ function MainPage({ onLogin, onSignupClick }) {
       return;
     }
 
+    setIsLoggingIn(true);
     try {
       const response = await login(email, password);
       alert(`환영합니다, ${response.user.name}님!`);
@@ -25,48 +52,58 @@ function MainPage({ onLogin, onSignupClick }) {
     } catch (error) {
       alert(error.message);
       console.error('로그인 실패:', error);
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
   const handleKakaoLogin = async () => {
+    setIsLoggingIn(true);
     try {
       const authUrl = await getKakaoLoginUrl();
       window.location.href = authUrl;
     } catch (error) {
       alert('카카오 로그인에 실패했습니다.');
       console.error('카카오 로그인 오류:', error);
+      setIsLoggingIn(false);
     }
   };
 
   const handleNaverLogin = async () => {
+    setIsLoggingIn(true);
     try {
       const authUrl = await getNaverLoginUrl();
       window.location.href = authUrl;
     } catch (error) {
       alert('네이버 로그인에 실패했습니다.');
       console.error('네이버 로그인 오류:', error);
+      setIsLoggingIn(false);
     }
   };
 
   return (
     <main className="main-content">
-      <div className="content-text">
-        <h2 className="main-title">지금 바로 만들어보세요</h2>
-        <p className="subtitle">
-          <span className="highlight">{1234}</span>명이 먼저 만들었어요
-        </p>
-        <p className="rating-text">
-          스마트스토어 평점 <span className="highlight">4.8</span>점, 리뷰 <span className="highlight">1,234</span>건
-        </p>
-      </div>
+      {isLoadingStats ? (
+        <Spin size="large" style={{ marginTop: '50px' }} />
+      ) : (
+        <div className="content-text">
+          <h2 className="main-title">지금 바로 만들어보세요</h2>
+          <p className="subtitle">
+            <span className="highlight">{stats.users.toLocaleString()}</span>명이 먼저 만들었어요
+          </p>
+          <p className="rating-text">
+            스마트스토어 평점 <span className="highlight">{stats.rating}</span>점, 리뷰 <span className="highlight">{stats.reviews.toLocaleString()}</span>건
+          </p>
+        </div>
+      )}
 
       <div className="button-section">
-        <Button className="yellow-button" onClick={handleKakaoLogin}>
-          <img src="/kakao-logo-m.png" alt="카카오 로고" />
+        <Button className="yellow-button" onClick={handleKakaoLogin} loading={isLoggingIn} disabled={isLoggingIn}>
+          {!isLoggingIn && <img src="/kakao-logo-m.png" alt="카카오 로고" />}
           카카오 로그인
         </Button>
-        <Button className="green-button" onClick={handleNaverLogin}>
-          <img src="/naver-logo-m.png" alt="네이버 로고" />
+        <Button className="green-button" onClick={handleNaverLogin} loading={isLoggingIn} disabled={isLoggingIn}>
+          {!isLoggingIn && <img src="/naver-logo-m.png" alt="네이버 로고" />}
           네이버 로그인
         </Button>
       </div>
@@ -97,7 +134,9 @@ function MainPage({ onLogin, onSignupClick }) {
               onChange={(e) => setPassword(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
             />
-            <Button className="purple-login-btn" onClick={handleLogin}>로그인</Button>
+            <Button className="purple-login-btn" onClick={handleLogin} loading={isLoggingIn} disabled={isLoggingIn}>
+              로그인
+            </Button>
             <div className="signup-footer">
               <span className="signup-link-text">계정이 없으신가요? </span>
               <Button type="text" className="signup-link" onClick={onSignupClick}>
