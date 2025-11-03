@@ -95,12 +95,21 @@ function MainPage({ onLogin, onSignupClick }) {
 
           <div className="button-section">
             <Button className="yellow-button" onClick={handleKakaoLogin} disabled={isLoggingIn}>
-              <img src="/kakao-logo-m.png" alt="카카오 로고" />
+              <img src="/kakao-logo-36x36.png" alt="카카오 로고" />
               카카오 로그인
             </Button>
             <Button className="green-button" onClick={handleNaverLogin} disabled={isLoggingIn}>
-              <img src="/naver-logo-m.png" alt="네이버 로고" />
+              <img src="/naver-logo-16x16.png" alt="네이버 로고" />
               네이버 로그인
+            </Button>
+
+            <Button className="white-button" disabled={isLoggingIn}>
+              <img src="/google-logo-18x18.png" alt="구글 로고" />
+              구글 로그인
+            </Button>
+            <Button className="white-button" disabled={isLoggingIn}>
+              <img src="/apple-logo-24x24.png" alt="애플 로고" />
+              애플 로그인
             </Button>
           </div>
 

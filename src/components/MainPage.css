@@ -65,13 +65,10 @@
 }
 
 .yellow-button img {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
-.yellow-button:hover {
-  background-color: #f39c12 !important;
-}
 
 .green-button {
   background-color: #03C75A !important;
@@ -91,13 +88,33 @@
 }
 
 .green-button img {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
-.green-button:hover {
-  background-color: #229954 !important;
+
+.white-button {
+  background-color: white !important;
+  color: #333 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 15px 40px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px;
+  cursor: pointer;
+  height: auto !important;
+  line-height: normal !important;
 }
+
+.white-button img {
+  width: 18px;
+  height: 18px;
+}
+
 
 /* Login Section */
 .login-section {
