@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { ConfigProvider } from 'antd';
 import Header from './components/Header';
 import MainPage from './components/MainPage';
 import Dashboard from './components/Dashboard';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { login, getKakaoLoginUrl, getNaverLoginUrl } from '../services/api';
-import { Button, Input, Space, Form } from 'antd';
+import { Button, Input, Form } from 'antd';
 import './MainPage.css';
 
 function MainPage({ onLogin, onSignupClick }) {

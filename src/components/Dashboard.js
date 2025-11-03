@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentUser } from '../services/api';
-import { Button, Tabs, Card, Grid, Spin, Dropdown, Space } from 'antd';
+import { Button, Card, Spin, Dropdown } from 'antd';
 import './Dashboard.css';
 
 // JWT 토큰에서 사용자 정보 가져오기
@@ -43,7 +43,6 @@ function Dashboard({ onLogout, onNewCreationClick }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('청첩장');
-  const [showContextMenu, setShowContextMenu] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -98,19 +97,6 @@ function Dashboard({ onLogout, onNewCreationClick }) {
     { id: 5, title: '강태현 & 박소영 청첩장', createAt: '2024.01.03' },
   ];
 
-  const handleContextMenu = (cardId, event) => {
-    event.stopPropagation();
-    setShowContextMenu(cardId);
-  };
-
-  const closeContextMenu = () => {
-    setShowContextMenu(null);
-  };
-
-  const handleMenuAction = (action) => {
-    console.log(`선택된 액션: ${action}`);
-    closeContextMenu();
-  };
 
   const menuItems = [
     { key: '1', label: '보기' },
@@ -144,7 +130,7 @@ function Dashboard({ onLogout, onNewCreationClick }) {
         ))}
       </div>
 
-      <div className="cards-grid" onClick={closeContextMenu}>
+      <div className="cards-grid">
         {cards.map((card) => (
           <Dropdown
             key={card.id}
@@ -154,7 +140,6 @@ function Dashboard({ onLogout, onNewCreationClick }) {
             <Card
               className="card"
               hoverable
-              onClick={(e) => handleContextMenu(card.id, e)}
             >
               <div className="card-content">
                 <div className="card-title">{card.title}</div>
