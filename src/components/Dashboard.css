@@ -1,7 +1,7 @@
 /* Dashboard Styles */
 .dashboard-content {
   padding: 40px;
-  background-color: #FFFFFF;
+  /* background-color: #FFFFFF; */
   min-height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
