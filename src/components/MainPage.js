@@ -58,26 +58,22 @@ function MainPage({ onLogin, onSignupClick }) {
   };
 
   const handleKakaoLogin = async () => {
-    setIsLoggingIn(true);
     try {
       const authUrl = await getKakaoLoginUrl();
       window.location.href = authUrl;
     } catch (error) {
       alert('카카오 로그인에 실패했습니다.');
       console.error('카카오 로그인 오류:', error);
-      setIsLoggingIn(false);
     }
   };
 
   const handleNaverLogin = async () => {
-    setIsLoggingIn(true);
     try {
       const authUrl = await getNaverLoginUrl();
       window.location.href = authUrl;
     } catch (error) {
       alert('네이버 로그인에 실패했습니다.');
       console.error('네이버 로그인 오류:', error);
-      setIsLoggingIn(false);
     }
   };
 
@@ -86,66 +82,71 @@ function MainPage({ onLogin, onSignupClick }) {
       {isLoadingStats ? (
         <Spin size="large" style={{ marginTop: '50px' }} />
       ) : (
-        <div className="content-text">
-          <h2 className="main-title">지금 바로 만들어보세요</h2>
-          <p className="subtitle">
-            <span className="highlight">{stats.users.toLocaleString()}</span>명이 먼저 만들었어요
-          </p>
-          <p className="rating-text">
-            스마트스토어 평점 <span className="highlight">{stats.rating}</span>점, 리뷰 <span className="highlight">{stats.reviews.toLocaleString()}</span>건
-          </p>
-        </div>
-      )}
+        <>
+          <div className="content-text">
+            <h2 className="main-title">지금 바로 만들어보세요</h2>
+            <p className="subtitle">
+              <span className="highlight">{stats.users.toLocaleString()}</span>명이 먼저 만들었어요
+            </p>
+            <p className="rating-text">
+              스마트스토어 평점 <span className="highlight">{stats.rating}</span>점, 리뷰 <span className="highlight">{stats.reviews.toLocaleString()}</span>건
+            </p>
+          </div>
 
-      <div className="button-section">
-        <Button className="yellow-button" onClick={handleKakaoLogin} loading={isLoggingIn} disabled={isLoggingIn}>
-          {!isLoggingIn && <img src="/kakao-logo-m.png" alt="카카오 로고" />}
-          카카오 로그인
-        </Button>
-        <Button className="green-button" onClick={handleNaverLogin} loading={isLoggingIn} disabled={isLoggingIn}>
-          {!isLoggingIn && <img src="/naver-logo-m.png" alt="네이버 로고" />}
-          네이버 로그인
-        </Button>
-      </div>
-
-      <div className="login-section">
-        <Button
-          type="text"
-          className="email-login-btn"
-          onClick={() => setShowLoginForm(!showLoginForm)}
-        >
-          이메일로 로그인하기
-        </Button>
-
-        {showLoginForm && (
-          <Form className="login-form">
-            <Input
-              type="email"
-              placeholder="이메일을 입력해주세요"
-              className="login-input"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-            />
-            <Input.Password
-              placeholder="비밀번호를 입력해주세요"
-              className="login-input"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-            />
-            <Button className="purple-login-btn" onClick={handleLogin} loading={isLoggingIn} disabled={isLoggingIn}>
-              로그인
+          <div className="button-section">
+            <Button className="yellow-button" onClick={handleKakaoLogin} disabled={isLoggingIn}>
+              <img src="/kakao-logo-m.png" alt="카카오 로고" />
+              카카오 로그인
             </Button>
-            <div className="signup-footer">
-              <span className="signup-link-text">계정이 없으신가요? </span>
-              <Button type="text" className="signup-link" onClick={onSignupClick}>
-                회원가입하기
-              </Button>
-            </div>
-          </Form>
-        )}
-      </div>
+            <Button className="green-button" onClick={handleNaverLogin} disabled={isLoggingIn}>
+              <img src="/naver-logo-m.png" alt="네이버 로고" />
+              네이버 로그인
+            </Button>
+          </div>
+
+          <div className="login-section">
+            <Button
+              type="text"
+              className="email-login-btn"
+              onClick={() => setShowLoginForm(!showLoginForm)}
+              disabled={isLoggingIn}
+            >
+              이메일로 로그인하기
+            </Button>
+
+            {showLoginForm && (
+              <Form className="login-form">
+                <Input
+                  type="email"
+                  placeholder="이메일을 입력해주세요"
+                  className="login-input"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+                  disabled={isLoggingIn}
+                />
+                <Input.Password
+                  placeholder="비밀번호를 입력해주세요"
+                  className="login-input"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+                  disabled={isLoggingIn}
+                />
+                <Button className="purple-login-btn" onClick={handleLogin} loading={isLoggingIn} disabled={isLoggingIn}>
+                  로그인
+                </Button>
+                <div className="signup-footer">
+                  <span className="signup-link-text">계정이 없으신가요? </span>
+                  <Button type="text" className="signup-link" onClick={onSignupClick} disabled={isLoggingIn}>
+                    회원가입하기
+                  </Button>
+                </div>
+              </Form>
+            )}
+          </div>
+        </>
+      )}
     </main>
   );
 }
