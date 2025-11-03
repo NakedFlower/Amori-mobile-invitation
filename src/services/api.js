@@ -150,27 +150,57 @@ export const getKakaoLoginUrl = async () => {
  */
 export const getNaverLoginUrl = async () => {
   return`${API_BASE_URL}/api/oauth/nid/login`;
-  // const response = await fetch(`${API_BASE_URL}/api/oauth/nid/login`, {
-  //   method: 'GET',
-  //   credentials: 'include',
-  // });
+};
 
-  // console.log('네이버 로그인 URL 응답 상태:', response.status);
+// ===== Invitations APIs =====
+export const uploadCoverImage = async (file) => {
+  const formData = new FormData();
+  formData.append('image', file);
 
-  // if (!response.ok) {
-  //   console.error('네이버 로그인 URL 요청 실패:', response.statusText);
-  //   throw new Error('네이버 로그인 URL을 가져오는데 실패했습니다.');
-  // }else{
+  const response = await fetch(`${API_BASE_URL}/api/invitations/upload-cover`, {
+    method: 'POST',
+    body: formData,
+  });
 
-  // }
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.detail || '커버 이미지 업로드 실패');
+  }
 
-  // // 백엔드가 RedirectResponse를 반환하는 경우 직접 리다이렉트
-  // if (response.redirected) {
-  //   console.log('Redirected URL:', response.url);
-  //   return response.url;
-  // }
+  return response.json();
+};
 
-  // // 백엔드가 JSON을 반환하는 경우
-  // const data = await response.json();
-  // return data.authUrl || data.url;
+export const createInvitationDraft = async (payload) => {
+  const token = localStorage.getItem('access_token');
+  if (!token) throw new Error('로그인이 필요합니다.');
+
+  const response = await fetch(`${API_BASE_URL}/api/invitations`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.detail || '초대장 저장 실패');
+  }
+
+  return response.json();
+};
+
+// ===== Places Search API =====
+export const searchPlaces = async (query, size = 10) => {
+  const url = new URL(`${API_BASE_URL}/api/places/search`);
+  url.searchParams.set('query', query);
+  url.searchParams.set('size', size);
+
+  const response = await fetch(url.toString(), { method: 'GET' });
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.detail || '장소 검색 실패');
+  }
+  return response.json();
 };
