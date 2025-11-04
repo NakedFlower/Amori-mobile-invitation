@@ -1,7 +1,7 @@
 """
 User routes: Get current user info
 """
-from fastapi import APIRouter, Depends, HTTPException, status, Header
+from fastapi import APIRouter, Depends, HTTPException, status, Header, Cookie
 from sqlalchemy.orm import Session
 from jose import jwt, JWTError
 
