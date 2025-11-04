@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { login, getKakaoLoginUrl, getNaverLoginUrl } from '../services/api';
+import { login, getGoogleLoginUrl, getNaverLoginUrl } from '../services/api';
 import { Button, Input, Form, Spin } from 'antd';
 import './MainPage.css';
 
@@ -57,13 +57,13 @@ function MainPage({ onLogin, onSignupClick }) {
     }
   };
 
-  const handleKakaoLogin = async () => {
+  const handleGoogleLogin = async () => {
     try {
-      const authUrl = await getKakaoLoginUrl();
+      const authUrl = await getGoogleLoginUrl();
       window.location.href = authUrl;
     } catch (error) {
-      alert('카카오 로그인에 실패했습니다.');
-      console.error('카카오 로그인 오류:', error);
+      alert('구글 로그인에 실패했습니다.');
+      console.error('구글 로그인 오류:', error);
     }
   };
 
@@ -76,6 +76,8 @@ function MainPage({ onLogin, onSignupClick }) {
       console.error('네이버 로그인 오류:', error);
     }
   };
+
+  
 
   return (
     <main className="main-content">
@@ -94,7 +96,7 @@ function MainPage({ onLogin, onSignupClick }) {
           </div>
 
           <div className="button-section">
-            <Button className="yellow-button" onClick={handleKakaoLogin} disabled={isLoggingIn}>
+            <Button className="yellow-button"  disabled={isLoggingIn}>
               <img src="/kakao-logo-36x36.png" alt="카카오 로고" />
               카카오 로그인
             </Button>
@@ -103,7 +105,7 @@ function MainPage({ onLogin, onSignupClick }) {
               네이버 로그인
             </Button>
 
-            <Button className="white-button" disabled={isLoggingIn}>
+            <Button className="white-button" onClick={handleGoogleLogin} disabled={isLoggingIn}>
               <img src="/google-logo-18x18.png" alt="구글 로고" />
               구글 로그인
             </Button>
