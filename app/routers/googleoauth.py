@@ -7,7 +7,7 @@ import uuid
 import requests
 from urllib.parse import urlencode
 from datetime import datetime, timedelta
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Cookie
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 

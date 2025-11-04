@@ -7,7 +7,7 @@ import uuid
 import requests
 from datetime import datetime, timedelta
 from urllib.parse import urlencode
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Cookie
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
@@ -147,7 +147,7 @@ async def naver_callback(code: str, state: str, db: Session = Depends(get_db)):
             key="access_token",
             value=jwt_token,
             httponly=True,       # JS 접근 불가
-            secure=False,        # 배포 시 True (https일 경우)
+            secure=True,        # 배포 시 True (https일 경우)
             samesite="lax",      # 프론트 도메인이 동일할 때 안전
             max_age=3600,        # 쿠키 만료 시간 1시간
         )
