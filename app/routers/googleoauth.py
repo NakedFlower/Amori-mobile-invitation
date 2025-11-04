@@ -152,9 +152,16 @@ async def google_callback(code: str, state: str, db: Session = Depends(get_db)):
         # --- JWT 토큰 발급 ---
         jwt_token = create_access_token(subject=str(user.id))
 
-        # --- 프론트엔드 리디렉션 ---
-        frontend_url = f"https://amori.co.kr/dashboard?token={jwt_token}"
-        return RedirectResponse(url=frontend_url)
+        response = RedirectResponse(url="https://amori.co.kr/dashboard")
+        response.set_cookie(
+            key="access_token",
+            value=jwt_token,
+            httponly=True,
+            secure=False,    
+            samesite="lax",  # 필요 시 "none"
+            max_age=3600
+        )
+        return response
 
     except HTTPException:
         raise

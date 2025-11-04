@@ -41,59 +41,51 @@ async def naver_login():
     return RedirectResponse(url)
 
 
-@router.get("/nid/callback")
+@router.get("/naver/callback")
 async def naver_callback(code: str, state: str, db: Session = Depends(get_db)):
     """
-    네이버 OAuth 콜백
-    - 액세스 토큰 요청
-    - 사용자 정보 조회
-    - 신규 유저 자동 생성
-    - AuthInfo 테이블에 저장
-    - JWT 토큰 발급 후 리디렉션
+    네이버 OAuth 콜백 (쿠키 기반)
     """
     try:
         # --- 액세스 토큰 요청 ---
-        token_params = {
+        token_data = {
             "grant_type": "authorization_code",
             "client_id": CLIENT_ID,
             "client_secret": CLIENT_SECRET,
             "code": code,
             "state": state,
-            "redirect_uri": REDIRECT_URI
         }
 
-        print(f"[DEBUG] 네이버 토큰 요청 파라미터: {token_params}")
-        token_response = requests.post(NAVER_TOKEN_URL, data=token_params)
-        token_response.raise_for_status()
-        token_data = token_response.json()
+        token_response = requests.post(NAVER_TOKEN_URL, data=token_data)
+        print(f"[DEBUG] 네이버 토큰 응답: {token_response.text}")
 
-        access_token = token_data.get("access_token")
-        refresh_token = token_data.get("refresh_token")
-        expires_in = token_data.get("expires_in")
+        token_response.raise_for_status()
+        tokens = token_response.json()
+        access_token = tokens.get("access_token")
+        refresh_token = tokens.get("refresh_token")
+        expires_in = tokens.get("expires_in")
 
         if not access_token:
-            print(f"[ERROR] 네이버 토큰 발급 실패: {token_data}")
             raise HTTPException(status_code=400, detail="네이버 액세스 토큰 발급 실패")
 
         expires_at = None
         if expires_in:
             expires_at = datetime.utcnow() + timedelta(seconds=int(expires_in))
 
-        # --- 사용자 정보 요청 ---
+        # --- 사용자 정보 조회 ---
         headers = {"Authorization": f"Bearer {access_token}"}
-        user_response = requests.get(NAVER_USER_URL, headers=headers)
-        user_response.raise_for_status()
-        user_data = user_response.json()
-        user_info = user_data.get("response")
+        user_info_response = requests.get(NAVER_USER_URL, headers=headers)
+        user_info_response.raise_for_status()
+        user_info = user_info_response.json()
 
-        if not user_info:
-            print(f"[ERROR] 네이버 사용자 정보 조회 실패: {user_data}")
+        if user_info.get("resultcode") != "00":
             raise HTTPException(status_code=400, detail="네이버 사용자 정보 조회 실패")
 
-        external_user_id = user_info.get("id")
-        email = user_info.get("email")
-        name = user_info.get("name")
-        profile_image = user_info.get("profile_image")
+        response_data = user_info.get("response", {})
+        external_user_id = response_data.get("id")
+        email = response_data.get("email")
+        name = response_data.get("name") or response_data.get("nickname")
+        profile_image = response_data.get("profile_image")
 
         if not email:
             raise HTTPException(status_code=400, detail="이메일 정보를 가져올 수 없습니다")
@@ -104,21 +96,20 @@ async def naver_callback(code: str, state: str, db: Session = Depends(get_db)):
         if not user:
             user = User(
                 email=email,
-                name=name or "네이버 사용자",
+                name=name or "Naver 사용자",
                 status="ACTIVE",
-                # profile_image_url=profile_image,  # 필요시 활성화
+                # profile_image_url=profile_image,
             )
             db.add(user)
             db.commit()
             db.refresh(user)
             print(f"[INFO] 신규 네이버 유저 생성: {email}")
 
-        # --- AuthProvider 조회 ---
+        # --- AuthInfo 저장 ---
         provider = db.query(AuthProvider).filter(AuthProvider.name == "NAVER").first()
         if not provider:
             raise HTTPException(status_code=404, detail="NAVER provider 설정이 없습니다")
 
-        # --- AuthInfo 저장/갱신 ---
         auth_info = (
             db.query(AuthInfo)
             .filter(
@@ -135,11 +126,12 @@ async def naver_callback(code: str, state: str, db: Session = Depends(get_db)):
                 external_user_id=external_user_id,
                 access_token=access_token,
                 refresh_token=refresh_token,
-                scope="profile email",
+                scope="openid email profile",
                 expires_at=expires_at,
             )
             db.add(auth_info)
         else:
+            # 이미 있으면 갱신
             auth_info.access_token = access_token
             auth_info.refresh_token = refresh_token or auth_info.refresh_token
             auth_info.expires_at = expires_at
@@ -147,12 +139,20 @@ async def naver_callback(code: str, state: str, db: Session = Depends(get_db)):
 
         db.commit()
 
-        # --- JWT 토큰 발급 ---
+        # --- JWT 발급 + 쿠키 저장 ---
         jwt_token = create_access_token(subject=str(user.id))
 
-        # --- 프론트엔드로 리디렉션 ---
-        frontend_url = f"https://amori.co.kr/dashboard?token={jwt_token}"
-        return RedirectResponse(url=frontend_url)
+        response = RedirectResponse(url="https://amori.co.kr/dashboard")
+        response.set_cookie(
+            key="access_token",
+            value=jwt_token,
+            httponly=True,       # JS 접근 불가
+            secure=False,        # 배포 시 True (https일 경우)
+            samesite="lax",      # 프론트 도메인이 동일할 때 안전
+            max_age=3600,        # 쿠키 만료 시간 1시간
+        )
+
+        return response
 
     except HTTPException:
         raise
