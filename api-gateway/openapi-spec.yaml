@@ -46,10 +46,9 @@ paths:
     options:
       summary: CORS preflight for signup
       operationId: signupCors
-      x-google-backend:
-        address: http://34.50.146.225.nip.io/api/auth/signup
+      # x-google-backend: removed
       responses:
-        '200':
+        '204': # 200 -> 204
           description: CORS preflight response
           headers:
             Access-Control-Allow-Origin:
@@ -95,10 +94,9 @@ paths:
     options:
       summary: CORS preflight for login
       operationId: loginCors
-      x-google-backend:
-        address: http://34.50.146.225.nip.io/api/auth/login
+      # x-google-backend: removed
       responses:
-        '200':
+        '204': # 200 -> 204
           description: CORS preflight response
           headers:
             Access-Control-Allow-Origin:
@@ -128,10 +126,9 @@ paths:
     options:
       summary: CORS preflight for image upload
       operationId: uploadImageCors
-      x-google-backend:
-        address: http://34.50.146.225.nip.io/api/auth/upload-image
+      # x-google-backend: removed
       responses:
-        '200':
+        '204': # 200 -> 204
           description: CORS preflight response
           headers:
             Access-Control-Allow-Origin:
@@ -166,10 +163,9 @@ paths:
     options:
       summary: CORS preflight for user info
       operationId: getCurrentUserCors
-      x-google-backend:
-        address: http://34.50.146.225.nip.io/api/user/me
+      # x-google-backend: removed
       responses:
-        '200':
+        '204': # 200 -> 204
           description: CORS preflight response
           headers:
             Access-Control-Allow-Origin:
@@ -213,12 +209,11 @@ paths:
             Access-Control-Allow-Origin:
               type: string
     options:
-      x-google-backend:
-        address: http://34.50.146.225.nip.io/api/oauth/nid/login
+      # x-google-backend: removed
       summary: CORS preflight for Naver login
       operationId: naverLoginCors
       responses:
-        '200':
+        '204': # 200 -> 204
           description: CORS preflight response
           headers:
             Access-Control-Allow-Origin:
@@ -229,7 +224,6 @@ paths:
               type: string
             Access-Control-Allow-Credentials:
               type: string
-  
   /api/oauth/nid/callback:
     get:
       x-google-backend:
@@ -261,12 +255,11 @@ paths:
             Access-Control-Allow-Origin:
               type: string
     options:
-      x-google-backend:
-        address: http://34.50.146.225.nip.io/api/oauth/nid/callback
+      # x-google-backend: removed
       summary: CORS preflight for Naver callback
       operationId: naverCallbackCors
       responses:
-        '200':
+        '204': # 200 -> 204
           description: CORS preflight response
           headers:
             Access-Control-Allow-Origin:
@@ -277,8 +270,6 @@ paths:
               type: string
             Access-Control-Allow-Credentials:
               type: string
-
-  
   /api/oauth/google/login:
     get:
       x-google-backend:
@@ -294,12 +285,11 @@ paths:
             Access-Control-Allow-Origin:
               type: string
     options:
-      x-google-backend:
-        address: http://34.50.146.225.nip.io/api/oauth/google/login
+      # x-google-backend: removed
       summary: CORS preflight for Google login
       operationId: GoogleLoginCors
       responses:
-        '200':
+        '204': # 200 -> 204
           description: CORS preflight response
           headers:
             Access-Control-Allow-Origin:
@@ -310,7 +300,6 @@ paths:
               type: string
             Access-Control-Allow-Credentials:
               type: string
-  
   /api/oauth/google/callback:
     get:
       x-google-backend:
@@ -342,20 +331,9 @@ paths:
             Access-Control-Allow-Origin:
               type: string
     options:
-      x-google-backend:
-        address: http://34.50.146.225.nip.io/api/oauth/google/callback
+      # x-google-backend: removed
       summary: CORS preflight for Google callback
       operationId: googleCallbackCors
       responses:
-        '200':
+        '204': # 200 -> 204
           description: CORS preflight response
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Methods:
-              type: string
-            Access-Control-Allow-Headers:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: string
-
