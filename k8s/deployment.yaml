@@ -12,6 +12,19 @@ spec:
       labels:
         app: amori-backend
     spec:
+      # DNS 설정 추가
+      dnsPolicy: ClusterFirst
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+          - 8.8.4.4
+        options:
+          - name: ndots
+            value: "2"
+          - name: timeout
+            value: "3"
+          - name: attempts
+            value: "3"
       imagePullSecrets:
       - name: gcr-key 
       containers:
