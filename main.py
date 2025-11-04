@@ -49,7 +49,6 @@ app.include_router(user.router)
 app.include_router(nidoauth.router)
 app.include_router(googleoauth.router)
 
-app.include_router(oauth.router)
 app.include_router(invitation.router)
 app.include_router(places.router)
 
