@@ -3,7 +3,7 @@ Pydantic schemas for request/response validation.
 """
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
-from datetime import datetime
+from datetime import datetime, date, time
 
 # ===== 회원가입 =====
 class SignupRequest(BaseModel):
@@ -42,10 +42,27 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True
 
-# ===== 이미지 업로드 (임시 비활성화) =====
-# class ImageUploadResponse(BaseModel):
-#     url: str
-#     message: str = "이미지 업로드 성공"
+# ===== 초대장 생성/저장 =====
+class InvitationCreateRequest(BaseModel):
+    template_id: int
+    wedding_date: Optional[date]
+    wedding_time: Optional[time]
+    venue_address: Optional[str]
+    venue_name: Optional[str]
+    groom_name: Optional[str]
+    bride_name: Optional[str]
+    cover_photo_key: Optional[str]
+
+class InvitationCreateResponse(BaseModel):
+    invitation_id: int
+    status: str
+    message: str = "초대장 저장 성공"
+
+# ===== 이미지 업로드 =====
+class ImageUploadResponse(BaseModel):
+    url: str
+    key: str
+    message: str = "이미지 업로드 성공"
 
 # ===== 에러 응답 =====
 class ErrorResponse(BaseModel):

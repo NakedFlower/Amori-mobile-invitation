@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 
 from app.routers import auth, user, nidoauth, googleoauth
 from app.database import engine, Base
+from app.routers import invitation
+from app.routers import places
 
 load_dotenv()
 
@@ -43,8 +45,14 @@ app.add_middleware(
 # 라우터 등록
 app.include_router(auth.router)
 app.include_router(user.router)
+
 app.include_router(nidoauth.router)
 app.include_router(googleoauth.router)
+
+app.include_router(oauth.router)
+app.include_router(invitation.router)
+app.include_router(places.router)
+
 
 # Health Check 엔드포인트 (GKE Liveness/Readiness Probe용)
 @app.get("/")
