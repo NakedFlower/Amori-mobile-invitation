@@ -16,58 +16,43 @@ router = APIRouter(prefix="/api/user", tags=["User"])
 def get_current_user(
     db: Session = Depends(get_db),
     authorization: str | None = Header(default=None),
-    access_token: str | None = Cookie(default=None)
+    access_token: str | None = Cookie(default=None),
 ) -> User:
     """
     JWT 토큰으로 현재 사용자 조회 (로컬스토리지 or 쿠키 인증 모두 지원)
     """
     token = None
-    # 1우선순위: Authorization 헤더 (일반 로그인)
+
+    # ✅ Authorization 헤더 우선
     if authorization:
-        try:
-            scheme, extracted = authorization.split()
-            if scheme.lower() == "bearer":
-                token = extracted
-        except ValueError:
-            pass
-    # Authorization이 없으면 쿠키 확인 (소셜 로그인)
+        parts = authorization.split()
+        if len(parts) == 2 and parts[0].lower() == "bearer":
+            token = parts[1]
+
+    # ✅ 없으면 쿠키 사용 (소셜 로그인)
     if not token and access_token:
         token = access_token
 
-    # 토큰이 없으면 인증 실패
     if not token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Missing authentication token",
         )
 
-    # JWT 검증
     try:
         payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
-        user_id: str = payload.get("sub")
-        if user_id is None:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid token payload"
-            )
+        user_id = payload.get("sub")
+        if not user_id:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token payload")
 
-        # DB 조회
         user = db.query(User).filter(User.id == int(user_id)).first()
         if not user or user.status != "ACTIVE":
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="User not found or inactive"
-            )
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found or inactive")
 
         return user
 
     except JWTError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate credentials"
-        )
-
-
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials")
     
     # try:
     #     # Bearer 토큰 파싱
