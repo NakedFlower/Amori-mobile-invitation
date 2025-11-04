@@ -52,7 +52,7 @@ def get_current_user(
         return user
 
     except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials 111")
     
     # try:
     #     # Bearer 토큰 파싱
@@ -85,7 +85,7 @@ def get_current_user(
     except (JWTError, ValueError, AttributeError):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate credentials"
+            detail="Could not validate credentials 222"
         )
 
 
